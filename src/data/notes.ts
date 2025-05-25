@@ -82,22 +82,6 @@ export const notes: Note[] = [
     tags: ['#debugging', '#problem-solving', '#softwaredevelopment'],
   },
   {
-    id: 12,
-    title: 'The Role of UX in Software Development',
-    content: 'UX isn’t just a design consideration; it’s a core part of software development. A good UX can make or break an application.',
-    createdAt: '2025-08-01',
-    updatedAt: '2025-08-02',
-    tags: ['#ux', '#softwaredevelopment', '#design'],
-  },
-  {
-    id: 13,
-    title: 'The Benefits of Pair Programming',
-    content: 'Pair programming isn’t just a coding technique; it’s a way to share knowledge, improve code quality, and build better software.',
-    createdAt: '2025-09-01',
-    updatedAt: '2025-09-02',
-    tags: ['#pairprogramming', '#teamwork', '#softwaredevelopment'],
-  },
-  {
     id: 14,
     title: 'The Importance of Testing',
     content: 'Testing isn’t just a checkbox; it’s a critical part of the development process. It ensures quality, reduces bugs, and improves user satisfaction.',
