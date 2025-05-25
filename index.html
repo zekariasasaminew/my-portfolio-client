@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Zekarias Asaminew - Software Engineer and Full-Stack Developer. Explore my portfolio showcasing innovative tech projects and professional experience." />
+    <meta name="keywords" content="Zekarias Asaminew, Software Engineer, Full-Stack Developer, Web Development, React, TypeScript, Portfolio" />
+    <meta name="author" content="Zekarias Asaminew" />
+    <meta property="og:title" content="Zekarias Asaminew | Software Engineer" />
+    <meta property="og:description" content="Portfolio showcasing my software engineering projects and professional experience." />
+    <meta property="og:type" content="website" />
+    <title>Zekarias Asaminew</title>
+
+    <!-- Add the animated background keyframe -->
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @keyframes rotateBg {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Improve loading experience */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #000; /* Dark mode by default */
+      }
+
+      #root {
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
