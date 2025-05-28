@@ -27,7 +27,7 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
         flexDirection: "column",
         color: theme.palette.text.primary,
         position: "relative",
-        zIndex: 1,
+        zIndex: 2,
       }}
     >
       <Navbar toggleColorMode={toggleColorMode} />
