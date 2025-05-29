@@ -140,7 +140,7 @@ const Home = ({ toggleColorMode }: Props) => {
       {/* Main Content */}
       <Box sx={{ flex: 1 }}>
         <Typography
-          variant="h3"
+          variant="h4"
           sx={{
             mb: 3,
             lineHeight: 1.8,
