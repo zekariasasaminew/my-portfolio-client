@@ -168,9 +168,10 @@ const Home = ({ toggleColorMode }: Props) => {
           force push to main. I am a Junior at{" "}
           <Link href="https://www.augustana.edu" target="_blank" sx={LinkStyle}>
             Augustana College
-          </Link>
-          . On the side, I like doing a little chemical mixing (no Walter White
-          stuff; just the legally sanctioned, lab-approved kind).
+          </Link>{" "}
+          majoring in Computer Science and Bioinformatics. On the side, I enjoy
+          experimenting with chemical reactions — all safely within the bounds
+          of a certified lab (no Breaking Bad here).
         </Typography>
 
         <Typography
@@ -192,7 +193,7 @@ const Home = ({ toggleColorMode }: Props) => {
           <Link href="/notes" sx={LinkStyle}>
             notes
           </Link>{" "}
-          where I rant a bit about technology and development.
+          where I rant a bit about tech and development.
         </Typography>
 
         <Typography
