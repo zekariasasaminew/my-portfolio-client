@@ -14,10 +14,10 @@ export const experiences: Experience[] = [
       light: "#2E7D32"
     },
     points: [
-      "Contributed fullstack to 4 major internal apps, working with UX designers, PMs, and factory stakeholders to deliver solutions driving $2.2M in cost savings.",
-      'Cut processing time by 70% in a key factory app by optimizing API calls and integrating Redis caching',
-      "Led the foundational setup of my team’s first centrally deployed enterprise app (FactoryFlow), creating the codebase and test suite architecture.",
-      "Using Docker to containerize and deploy applications to a Kubernetes cluster",
+      "Contributed fullstack to 4 major internal apps, collaborating with PMs, UX designers, and factory stakeholders on solutions that have driven $2.2M in cost savings across 10+ factories since deployment",
+      "Reduced processing time by 70% in a key factory app by optimizing API calls and integrating Redis caching",
+      "Led the foundational setup of my team’s first centrally deployed enterprise app, architecting the codebase and test suite from the ground up",
+      "Containerized and deployed applications to a Kubernetes cluster using Docker, improving deployment consistency and scalability"
     ]
   },
   {
@@ -33,9 +33,27 @@ export const experiences: Experience[] = [
       light: "#4A148C"
     },
     points: [
-      "Developing a full-stack application for the Office of Student Life to manage events, student organizations, and activities for a predicted 400+ users",
-      "Utilizing React Native, Redux,Node.js, AWS and, PostgreSQL to create a scalable and user-friendly platform decreasing manual labor by 70%",
-      "Automate the process of creating student organization flyers and posters using Node.js and Puppeteer",
+      "Building a full-stack platform for the Office of Student Life to manage events, organizations, and campus engagement for 400+ predicted users",
+      "Utilizing React Native, Redux, Node.js, AWS, and PostgreSQL to deliver a scalable and mobile-friendly experience, reducing manual workflows by 70%",
+      "Designed a PostgreSQL schema with relational integrity to manage student orgs, events, and RSVPs, enabling complex queries and reducing redundant data by 60%"
+    ]
+  },
+  {
+    company: "EDGE",
+    title: "Software Engineer",
+    location: "Rock Island, IL",
+    startDate: "Aug 2024",
+    endDate: "Dec 2024",
+    companyUrl: "https://www.augustana.edu/academics/core/edge",
+    iconType: "web",
+    themeColor: {
+      dark: "#FF9800",
+      light: "#E65100"
+    },
+    points: [
+      "Architected and developed responsive web applications using React, Next.js, and Tailwind CSS, increasing user engagement by 40%",
+      "Implemented CI/CD pipelines with GitHub Actions, enabling 80% faster deployment cycles and robust automated testing",
+      "Integrated Redux Toolkit and RTK Query for efficient state management, reducing frontend API calls by 60%"
     ]
   },
   {
@@ -51,27 +69,9 @@ export const experiences: Experience[] = [
       light: "#1565C0"
     },
     points: [
-      "Developed a precise model to approximate solutions to the pursuit curve non-linear differential equation",
-      "Improved solution accuracy by 25% and optimizing computation time by 30%",
-      "Led numerical analysis across three scenarios: constant, changing, and increasing velocities for both pursued and pursuer",
-      "Increased model efficiency by 4x using NODEs and PINNs"
-    ]
-  },
-  {
-    company: "EDGE",
-    title: "Software Engineer",
-    location: "Rock Island, IL",
-    startDate: "Aug 2023",
-    endDate: "Dec 2023",
-    iconType: "web",
-    themeColor: {
-      dark: "#FF9800",
-      light: "#E65100"
-    },
-    points: [
-      "Architected and developed responsive web applications using React, Next.js, and Tailwind CSS, improving user engagement by 40%",
-      "Implemented CI/CD pipelines with GitHub Actions, achieving 80% faster deployment cycles and automated testing",
-      "Integrated modern state management using Redux Toolkit and RTK Query, reducing API calls by 60%"
+      "Developed a numerical model to approximate pursuit curve solutions for non-linear differential equations with high precision",
+      "Improved solution accuracy by 25% and reduced computation time by 30% through optimization techniques",
+      "Conducted comparative analysis across velocity profiles (constant, variable, increasing) for pursued and pursuer agents"
     ]
   }
-]; 
+];

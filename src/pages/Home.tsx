@@ -140,11 +140,11 @@ const Home = ({ toggleColorMode }: Props) => {
       {/* Main Content */}
       <Box sx={{ flex: 1 }}>
         <Typography
-          variant="body1"
+          variant="h3"
           sx={{
             mb: 3,
             lineHeight: 1.8,
-            fontSize: "1rem",
+            // fontSize: "1rem",
           }}
         >
           Hey, I'm Zekarias Asaminew!
@@ -155,6 +155,7 @@ const Home = ({ toggleColorMode }: Props) => {
           component="div"
           sx={{
             mb: 3,
+            fontWeight: 300,
             lineHeight: 1.8,
             fontSize: "1rem",
           }}
@@ -169,11 +170,12 @@ const Home = ({ toggleColorMode }: Props) => {
             Augustana College
           </Link>
           . On the side, I like doing a little chemical mixing (no Walter White
-          stuff — just the legally sanctioned, lab-approved kind).
+          stuff; just the legally sanctioned, lab-approved kind).
         </Typography>
 
         <Typography
           variant="body1"
+          fontWeight="300"
           component="div"
           sx={{
             mb: 3,
@@ -199,6 +201,7 @@ const Home = ({ toggleColorMode }: Props) => {
             mb: 5,
             lineHeight: 1.8,
             fontSize: "1rem",
+            fontWeight: 300,
           }}
         >
           Feel free to explore my work or get in touch!

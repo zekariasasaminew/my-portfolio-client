@@ -98,6 +98,7 @@ const ExperienceCard = memo(({ experience }: ExperienceCardProps) => {
       <Box sx={{ pl: "2.25rem" }}>
         <Typography
           variant="body1"
+          fontWeight="300"
           component="ul"
           sx={{
             listStyle: "none",

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import BookIcon from "@mui/icons-material/Book";
 import Navbar from "../components/Navbar";
 import { notes } from "../data/notes"; // Assuming you have a notes data file
-import type { Note } from "../types/note"; // Assuming you have a Note type defined
 
 interface NotesProps {
   toggleColorMode: () => void;

@@ -92,9 +92,15 @@ const NotesDetail = ({ toggleColorMode }: NotesDetailProps) => {
               →
             </Typography>
             <Box>
-              <Typography variant="body1" sx={{ mb: 0.5, fontWeight: 500 }}>
-                {note.content}
-              </Typography>
+              {note.content.map((paragraph: string, idx: number) => (
+                <Typography
+                  key={idx}
+                  variant="body1"
+                  sx={{ mb: 1.5, fontWeight: 300, whiteSpace: "pre-line" }}
+                >
+                  {paragraph}
+                </Typography>
+              ))}
               <Typography variant="body2" color="text.secondary">
                 {"tags: " + note.tags.join(", ")}
               </Typography>
