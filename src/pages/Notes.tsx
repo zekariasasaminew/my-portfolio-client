@@ -2,7 +2,8 @@ import { Box, Typography, Link, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import BookIcon from "@mui/icons-material/Book";
 import Navbar from "../components/Navbar";
-import { notes } from "../data/notes"; // Assuming you have a notes data file
+import { notes } from "../data/notes";
+import ReactMarkdown from "react-markdown";
 
 interface NotesProps {
   toggleColorMode: () => void;
@@ -88,11 +89,12 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
                       mr: 1,
                       fontSize: "1.1rem",
                       lineHeight: 1.8,
+                      mt: 0.5,
                     }}
                   >
                     →
                   </Typography>
-                  <Box>
+                  <Box sx={{ flex: 1 }}>
                     <Link
                       href={`/notes/${note.id}`}
                       sx={{
@@ -104,11 +106,74 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
                         },
                       }}
                     >
-                      <Typography variant="body1" sx={{ mb: 0.5 }}>
-                        {note.title}
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          mb: 0.5,
+                          fontWeight: 500,
+                          "& strong": { fontWeight: 600 },
+                          "& em": { fontStyle: "italic" },
+                          "& code": {
+                            backgroundColor:
+                              theme.palette.mode === "dark"
+                                ? "#2d3748"
+                                : "#f7fafc",
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#e2e8f0"
+                                : "#2d3748",
+                            padding: "0.125rem 0.25rem",
+                            borderRadius: "0.25rem",
+                            fontSize: "0.875rem",
+                            fontFamily:
+                              'Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                          },
+                        }}
+                      >
+                        <ReactMarkdown>{note.title}</ReactMarkdown>
                       </Typography>
                     </Link>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        mb: 1,
+                        opacity: 0.8,
+                        lineHeight: 1.5,
+                        display: "-webkit-box",
+                        "-webkit-line-clamp": 2,
+                        "-webkit-box-orient": "vertical",
+                        overflow: "hidden",
+                        "& p": { margin: 0 },
+                        "& strong": { fontWeight: 600 },
+                        "& em": { fontStyle: "italic" },
+                        "& code": {
+                          backgroundColor:
+                            theme.palette.mode === "dark"
+                              ? "#2d3748"
+                              : "#f7fafc",
+                          color:
+                            theme.palette.mode === "dark"
+                              ? "#e2e8f0"
+                              : "#2d3748",
+                          padding: "0.1rem 0.2rem",
+                          borderRadius: "0.2rem",
+                          fontSize: "0.8rem",
+                          fontFamily:
+                            'Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                        },
+                      }}
+                    >
+                      <ReactMarkdown>
+                        {note.content[0].substring(0, 150) +
+                          (note.content[0].length > 150 ? "..." : "")}
+                      </ReactMarkdown>
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ fontSize: "0.875rem", fontWeight: 500 }}
+                    >
                       {"tags: " + note.tags.join(", ")}
                     </Typography>
                   </Box>
