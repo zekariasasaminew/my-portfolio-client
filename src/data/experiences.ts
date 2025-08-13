@@ -1,9 +1,9 @@
-import type { Experience } from '../types/experience';
+import type { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
     company: "John Deere",
-    title: "Software Engineer",
+    title: "Part-Time Student Software Engineer",
     location: "East Moline, IL",
     startDate: "Jan 2025",
     endDate: "Present",
@@ -11,17 +11,17 @@ export const experiences: Experience[] = [
     iconType: "code",
     themeColor: {
       dark: "#4CAF50",
-      light: "#2E7D32"
+      light: "#2E7D32",
     },
     points: [
-      "Contributed fullstack to 4 major internal apps, collaborating with PMs, UX designers, and factory stakeholders on solutions that have driven $2.2M in cost savings across 10+ factories since deployment",
-      "Reduced processing time by 70% in a key factory app by optimizing API calls and integrating Redis caching",
-      "Led the foundational setup of my team’s first centrally deployed enterprise app, architecting the codebase and test suite from the ground up",
-      "Containerized and deployed applications to a Kubernetes cluster using Docker, improving deployment consistency and scalability"
-    ]
+      "Drive **$2.2M** in projected annual savings by leading development of **4 production applications** serving **6,000+ workers** across **10+ factories**",
+      "Built scalable **RAG pipeline** with `LangChain` & `LangGraph` - achieved **82% Top-3 hit rate**, **0.70 MRR**, and **sub-second p95 latency** on **100K+ documents**",
+      "Integrated enterprise **LLMs** via `OpenAI` & `AWS Bedrock` - reduced **p95 latency by 40%** and boosted **response relevance by 25%**",
+      "Optimized `Kubernetes` workloads by resolving **StatefulSet failures** - restored service availability and cut **pod downtime by 85%**",
+    ],
   },
   {
-    company: "Augustana College",
+    company: "OSL",
     title: "Software Engineer",
     location: "Rock Island, IL",
     startDate: "May 2025",
@@ -30,35 +30,35 @@ export const experiences: Experience[] = [
     iconType: "school",
     themeColor: {
       dark: "#AA00FF",
-      light: "#4A148C"
+      light: "#4A148C",
     },
     points: [
-      "Building a full-stack platform for the Office of Student Life to manage events, organizations, and campus engagement for 400+ predicted users",
-      "Utilizing React Native, Redux, Node.js, AWS, and PostgreSQL to deliver a scalable and mobile-friendly experience, reducing manual workflows by 70%",
-      "Designed a PostgreSQL schema with relational integrity to manage student orgs, events, and RSVPs, enabling complex queries and reducing redundant data by 60%"
-    ]
+      "Launched campus-wide engagement platform adopted by **400+ students** and **30+ student organizations**",
+      "Built real-time **RSVP tracking** with `QR scanning` using `PostgreSQL` - reduced **check-in time by 80%** with optimistic writes",
+      "Automated attendance reporting with **scheduled exports** - eliminated manual `Excel` workflows and improved accuracy",
+    ],
   },
   {
     company: "EDGE",
     title: "Software Engineer",
     location: "Rock Island, IL",
-    startDate: "Aug 2024",
-    endDate: "Dec 2024",
+    startDate: "Aug 2023",
+    endDate: "Dec 2023",
     companyUrl: "https://www.augustana.edu/academics/core/edge",
     iconType: "web",
     themeColor: {
       dark: "#FF9800",
-      light: "#E65100"
+      light: "#E65100",
     },
     points: [
-      "Architected and developed responsive web applications using React, Next.js, and Tailwind CSS, increasing user engagement by 40%",
-      "Implemented CI/CD pipelines with GitHub Actions, enabling 80% faster deployment cycles and robust automated testing",
-      "Integrated Redux Toolkit and RTK Query for efficient state management, reducing frontend API calls by 60%"
-    ]
+      "Built cross-platform application from **concept to deployment** supporting **200+ active users**",
+      "Delivered responsive web interfaces with **accessibility across 3 device classes** - improved engagement and reach",
+      "Optimized performance - cut **median page load time by 45%** through backend `API` optimization and streamlined UI flows",
+    ],
   },
   {
     company: "Augustana College",
-    title: "Software Engineering Research Intern",
+    title: "Research Assistant",
     location: "Rock Island, IL",
     startDate: "Jan 2024",
     endDate: "Jun 2024",
@@ -66,12 +66,12 @@ export const experiences: Experience[] = [
     iconType: "science",
     themeColor: {
       dark: "#2196F3",
-      light: "#1565C0"
+      light: "#1565C0",
     },
     points: [
-      "Developed a numerical model to approximate pursuit curve solutions for non-linear differential equations with high precision",
-      "Improved solution accuracy by 25% and reduced computation time by 30% through optimization techniques",
-      "Conducted comparative analysis across velocity profiles (constant, variable, increasing) for pursued and pursuer agents"
-    ]
-  }
+      "Developed numerical model for **pursuit curve solutions** with **non-linear differential equations** and high precision",
+      "Improved **solution accuracy by 25%** and reduced **computation time by 30%** through optimization techniques",
+      "Conducted comparative analysis across **velocity profiles** (constant, variable, increasing) for pursuit dynamics",
+    ],
+  },
 ];

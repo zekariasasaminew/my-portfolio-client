@@ -19,7 +19,7 @@ const Experience = ({ toggleColorMode }: ExperienceProps) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "650px",
+        maxWidth: "900px", // Increased from 650px for better readability
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         display: "flex",
