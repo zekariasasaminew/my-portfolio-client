@@ -147,7 +147,7 @@ const Home = ({ toggleColorMode }: Props) => {
             // fontSize: "1rem",
           }}
         >
-          Hey, I'm Zekarias Asaminew!
+          Hi, I'm Zekarias Asaminew
         </Typography>
 
         <Typography
@@ -164,14 +164,14 @@ const Home = ({ toggleColorMode }: Props) => {
           <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
             John Deere
           </Link>
-          , where I work on innovative tech solutions. I try my best to not
-          force push to main. I am a Junior at{" "}
+          , where I develop innovative technology solutions for agricultural
+          systems. Currently pursuing my degree as a Junior at{" "}
           <Link href="https://www.augustana.edu" target="_blank" sx={LinkStyle}>
             Augustana College
           </Link>{" "}
-          majoring in Computer Science and Bioinformatics. On the side, I enjoy
-          experimenting with chemical reactions — all safely within the bounds
-          of a certified lab (no Breaking Bad here).
+          with a dual major in Computer Science and Bioinformatics. When I'm not
+          coding, you'll find me in the lab conducting biochemical research —
+          safely exploring the intersection of technology and life sciences.
         </Typography>
 
         <Typography
@@ -184,16 +184,17 @@ const Home = ({ toggleColorMode }: Props) => {
             fontSize: "1rem",
           }}
         >
-          I love creating tools that make life easier and a little more clever.
-          Check out my{" "}
+          I'm passionate about building tools that solve real problems and make
+          complex processes more intuitive. Explore my{" "}
           <Link href="/experience" sx={LinkStyle}>
             experience
           </Link>{" "}
-          to see my work, or browse through my{" "}
+          to see the projects I've worked on, or check out my{" "}
           <Link href="/notes" sx={LinkStyle}>
             notes
           </Link>{" "}
-          where I rant a bit about tech and development.
+          where I share insights about development, technology, and the
+          occasional technical deep-dive.
         </Typography>
 
         <Typography
