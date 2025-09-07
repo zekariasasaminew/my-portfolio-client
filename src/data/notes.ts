@@ -13,8 +13,8 @@ export const notes: Note[] = [
     "## How it Works Now\n\nOn a Dependabot PR, the workflow checks the update type. If it's a patch, it enables auto merge. **GitHub waits for branch protection checks to pass, then merges the PR automatically.**",
     "## Key Takeaways\n\n- ✅ **Check the PR author, not the event actor**\n- ✅ **Use actions that accept the PR number, not local git context**\n- ✅ **Let branch protection decide when the merge happens**",
     ],
-    createdAt: "2025-09-07",
-    updatedAt: "2025-09-07",
+    createdAt: "2025-09-02",
+    updatedAt: "2025-09-03",
     tags: ["#github", "#dependabot", "#actions", "#automation"],
   },
   {
