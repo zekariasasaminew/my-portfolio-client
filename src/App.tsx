@@ -8,6 +8,7 @@ import Notes from "./pages/Notes";
 import NotesDetail from "./pages/NotesDetail";
 import About from "./pages/About";
 import CursorFollower from "./components/CursorFollower";
+import { Analytics } from "@vercel/analytics/next";
 
 const BackgroundPattern = () => (
   <div
@@ -90,6 +91,7 @@ function App() {
       <CssBaseline />
       <BackgroundPattern />
       <CursorFollower />
+      <Analytics />
       <Routes>
         <Route path="/" element={<Home toggleColorMode={toggleColorMode} />} />
         <Route
