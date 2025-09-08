@@ -8,7 +8,7 @@ import Notes from "./pages/Notes";
 import NotesDetail from "./pages/NotesDetail";
 import About from "./pages/About";
 import CursorFollower from "./components/CursorFollower";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const BackgroundPattern = () => (
   <div
