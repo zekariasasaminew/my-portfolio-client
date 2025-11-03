@@ -18,18 +18,26 @@ interface Section {
 }
 
 export const aboutSections: Record<string, Section> = {
-  projects: {
-    id: "projects",
-    title: "Fun Side Projects",
+  tech: {
+    id: "tech",
+    title: "Tech Journey",
+    image: "/images/about/tech2.JPG",
+    description:
+      "From writing my first line of code to building full-stack applications at John Deere. Currently working with React, Node.js, TypeScript, and Kubernetes to develop enterprise solutions. Open source contributor to React and GitHub Desktop, passionate about creating efficient, scalable applications.",
+  },
+  leadership: {
+    id: "leadership",
+    title: "Leadership & Community",
     image: "/images/about/projects.png",
-    description: " It's a work in progress, but it's a fun project to work on.",
-    link: "https://my-gf-to-do-list.vercel.app/",
+    description:
+      "Tech Lead at Google Developer Group, leading project teams from architecture to release and mentoring 130+ members. Vice President of Data Analytics Club at Augustana College, coordinating hackathons and building resources for 102 members.",
   },
   lab: {
     id: "lab",
     title: "Inside the Lab",
     image: "/images/about/lab.jpg",
-    description: "I am also biochemistry major",
+    description:
+      "Dual major in Computer Science and Bioinformatics, exploring the intersection of technology and life sciences. Passionate about leveraging computational tools to solve biological problems.",
   },
   football: {
     id: "football",
@@ -38,12 +46,13 @@ export const aboutSections: Record<string, Section> = {
     description:
       "Football isn't just a sport, it's a way to connect and share moments of joy.",
   },
-  tech: {
-    id: "tech",
-    title: "Tech Journey",
-    image: "/images/about/tech2.JPG",
+  projects: {
+    id: "projects",
+    title: "Side Projects",
+    image: "/images/about/projects.png",
     description:
-      "From writing my first line of code to building full-stack applications at John Deere. Passionate about web technologies, automation, and creating intuitive user experiences.",
+      "Building tools that solve real problems. Check out my projects like PlanIt (AI-powered college planner) and Node (campus engagement app).",
+    link: "https://my-gf-to-do-list.vercel.app/",
   },
 } as const;
 
@@ -52,11 +61,11 @@ export type SectionId = keyof typeof aboutSections;
 const About = ({ toggleColorMode }: AboutProps) => {
   const location = useLocation();
   const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
-    projects: null,
+    tech: null,
+    leadership: null,
     lab: null,
     football: null,
-    tech: null,
-    community: null,
+    projects: null,
   });
 
   // Scroll to section if hash is present in URL
@@ -89,9 +98,9 @@ const About = ({ toggleColorMode }: AboutProps) => {
       {Object.entries(aboutSections).map(([id, section]) => (
         <Box
           key={id}
-          ref={(el: HTMLDivElement | null) =>
-            (sectionRefs.current[id as SectionId] = el)
-          }
+          ref={(el: HTMLDivElement | null) => {
+            sectionRefs.current[id as SectionId] = el;
+          }}
           id={id}
           sx={{
             mb: 8,
