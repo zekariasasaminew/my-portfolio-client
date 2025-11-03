@@ -136,6 +136,17 @@ const ExperienceCard = memo(({ experience }: ExperienceCardProps) => {
                 color: "inherit", // Keep default text color
                 fontWeight: 500,
               },
+              "& a": {
+                color: "#00D9FF",
+                textDecoration: "underline",
+                textDecorationColor: "rgba(0, 217, 255, 0.4)",
+                textUnderlineOffset: "3px",
+                transition: "all 0.2s ease",
+                "&:hover": {
+                  color: "#5EEDFF",
+                  textDecorationColor: "rgba(0, 217, 255, 0.7)",
+                },
+              },
             },
           }}
         >
