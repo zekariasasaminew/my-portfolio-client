@@ -7,7 +7,6 @@ import Experience from "./pages/Experience";
 import Notes from "./pages/Notes";
 import NotesDetail from "./pages/NotesDetail";
 import About from "./pages/About";
-import CursorFollower from "./components/CursorFollower";
 import { Analytics } from "@vercel/analytics/react";
 
 const BackgroundPattern = () => (
@@ -90,7 +89,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BackgroundPattern />
-      <CursorFollower />
       <Analytics />
       <Routes>
         <Route path="/" element={<Home toggleColorMode={toggleColorMode} />} />
