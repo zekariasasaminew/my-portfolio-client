@@ -8,6 +8,7 @@ export interface Project {
   githubUrl: string;
   liveUrl?: string;
   npmUrl?: string;
+  pluginUrl?: string;
 }
 
 export interface OpenSourceContribution {

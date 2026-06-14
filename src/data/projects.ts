@@ -4,12 +4,13 @@ export const projects: Project[] = [
   {
     name: "jetbrains-acp",
     description:
-      "Universal ACP client plugin for all JetBrains IDEs — IntelliJ, WebStorm, PyCharm, and more.",
+      "Universal ACP client plugin for all JetBrains IDEs. Works with IntelliJ, WebStorm, PyCharm, and more.",
     language: "Kotlin",
     tags: ["Kotlin", "JetBrains", "Plugin", "IDE"],
     stars: 11,
     forks: 4,
     githubUrl: "https://github.com/zekariasasaminew/jetbrains-acp",
+    pluginUrl: "https://plugins.jetbrains.com/plugin/30472-agentport",
   },
   {
     name: "instruct-sync",
@@ -22,12 +23,22 @@ export const projects: Project[] = [
     npmUrl: "https://www.npmjs.com/package/instruct-sync",
   },
   {
-    name: "campus-ai",
+    name: "planit",
     description:
-      "AI-powered campus assistant built on Cloudflare Workers AI, Durable Objects, and Pages — companion to the CampusEx student marketplace.",
-    language: "JavaScript",
-    tags: ["JavaScript", "Cloudflare", "AI", "Edge"],
-    githubUrl: "https://github.com/zekariasasaminew/campus-ai",
+      "AI-powered college planner that helps students map out their academic journey with smart scheduling and course recommendations.",
+    language: "TypeScript",
+    tags: ["TypeScript", "AI", "Next.js"],
+    githubUrl: "https://github.com/zekariasasaminew/planit",
+    liveUrl: "https://planit-lovat.vercel.app",
+  },
+  {
+    name: "CampusEx",
+    description:
+      "A campus marketplace where students buy, sell, and give away used items scoped to a single school community. Born from watching dumpsters fill with perfectly good furniture every move-out. Grew to 340+ users and 100+ listings at Augustana College.",
+    language: "TypeScript",
+    tags: ["TypeScript", "Next.js", "Marketplace"],
+    githubUrl: "https://github.com/zekariasasaminew/campusEx",
+    liveUrl: "https://www.campus-ex.com",
   },
 ];
 
