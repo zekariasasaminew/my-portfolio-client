@@ -144,7 +144,6 @@ const Home = ({ toggleColorMode }: Props) => {
           sx={{
             mb: 3,
             lineHeight: 1.8,
-            // fontSize: "1rem",
           }}
         >
           Hi, I'm Zekarias Asaminew
@@ -153,60 +152,102 @@ const Home = ({ toggleColorMode }: Props) => {
         <Typography
           variant="body1"
           component="div"
-          sx={{
-            mb: 3,
-            fontWeight: 300,
-            lineHeight: 1.8,
-            fontSize: "1rem",
-          }}
+          sx={{ mb: 3, fontWeight: 300, lineHeight: 1.8, fontSize: "1rem" }}
         >
-          I'm a software engineer at{" "}
+          I'm a software engineer who likes building things people actually use.
+          For the past two-plus years as a Student Software Engineer at{" "}
           <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
             John Deere
           </Link>
-          , where I develop innovative technology solutions for agricultural
-          systems. Currently pursuing my degree as a Junior at{" "}
+          , I've shipped enterprise applications that support thousands of
+          employees across more than ten factories, the kind of work where a bug
+          isn't an abstraction, it's someone on a factory floor waiting on a
+          tool. I'm finishing a self-designed CS and Bioinformatics major at{" "}
           <Link href="https://www.augustana.edu" target="_blank" sx={LinkStyle}>
             Augustana College
-          </Link>{" "}
-          with a dual major in Computer Science and Bioinformatics. When I'm not
-          coding, you'll find me in the lab conducting biochemical research —
-          safely exploring the intersection of technology and life sciences.
+          </Link>
+          , the first contract major of its kind there, and this summer I'm
+          joining{" "}
+          <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
+            EY
+          </Link>
+          's Tax Technology &amp; Transformation team in Chicago to work at the
+          intersection of software and large-scale business systems.
         </Typography>
 
         <Typography
           variant="body1"
-          fontWeight="300"
           component="div"
-          sx={{
-            mb: 3,
-            lineHeight: 1.8,
-            fontSize: "1rem",
-          }}
+          sx={{ mb: 3, fontWeight: 300, lineHeight: 1.8, fontSize: "1rem" }}
         >
-          I'm passionate about building tools that solve real problems and make
-          complex processes more intuitive. Explore my{" "}
-          <Link href="/experience" sx={LinkStyle}>
-            experience
+          Outside of work, I build in the open. I'm the top external contributor
+          to{" "}
+          <Link
+            href="https://github.com/desktop/desktop"
+            target="_blank"
+            sx={LinkStyle}
+          >
+            GitHub Desktop
+          </Link>
+          , I've landed a fix in the{" "}
+          <Link
+            href="https://github.com/facebook/react"
+            target="_blank"
+            sx={LinkStyle}
+          >
+            React Compiler
+          </Link>
+          , and I've shipped tools like{" "}
+          <Link
+            href="https://github.com/zekariasasaminew/jetbrains-acp"
+            target="_blank"
+            sx={LinkStyle}
+          >
+            jetbrains-acp
           </Link>{" "}
-          to see the projects I've worked on, or check out my{" "}
-          <Link href="/notes" sx={LinkStyle}>
-            notes
-          </Link>{" "}
-          where I share insights about development, technology, and the
-          occasional technical deep-dive.
+          (an open-source ACP client for JetBrains IDEs) and{" "}
+          <Link
+            href="https://github.com/zekariasasaminew/instruct-sync"
+            target="_blank"
+            sx={LinkStyle}
+          >
+            instruct-sync
+          </Link>
+          . I care deeply about developer experience and agentic tooling. I
+          introduced GitHub Copilot CLI as my team's primary development
+          platform at Deere and ran a workshop on it at my college's first-ever
+          hackathon.
         </Typography>
 
         <Typography
           variant="body1"
-          sx={{
-            mb: 5,
-            lineHeight: 1.8,
-            fontSize: "1rem",
-            fontWeight: 300,
-          }}
+          component="div"
+          sx={{ mb: 3, fontWeight: 300, lineHeight: 1.8, fontSize: "1rem" }}
         >
-          Feel free to explore my work or get in touch!
+          I also like turning everyday observations into products.{" "}
+          <Link
+            href="https://github.com/zekariasasaminew/campus-ai"
+            target="_blank"
+            sx={LinkStyle}
+          >
+            CampusEx
+          </Link>{" "}
+          started when I noticed students tossing out perfectly good furniture at
+          move-out; it's now a campus marketplace with 500+ users. For my senior
+          research I'm building an EEG-based brain-computer interface, and I've
+          collected a few wins along the way, including Best Insight at ASA
+          DataFest and induction into the al-Khwarizmi Computer Science Honor
+          Society.
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{ mb: 5, fontWeight: 300, lineHeight: 1.8, fontSize: "1rem" }}
+        >
+          When I'm not coding, I'm playing soccer, overthinking my Fantasy
+          Premier League lineup, or taking photos. I'm drawn to problems where
+          software, AI, and real-world systems meet, and I'm looking for a team
+          where I can keep building things that matter.
         </Typography>
 
         {/* Social Links */}
