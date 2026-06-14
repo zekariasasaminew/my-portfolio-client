@@ -176,6 +176,26 @@ const ProjectCard = ({ project }: { project: Project }) => {
             <OpenInNewIcon sx={{ fontSize: "0.75rem" }} />
           </Link>
         )}
+        {project.pluginUrl && (
+          <Link
+            href={project.pluginUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              color: "text.secondary",
+              textDecoration: "none",
+              fontSize: "0.8rem",
+              opacity: 0.85,
+              "&:hover": { opacity: 1, textDecoration: "underline" },
+            }}
+          >
+            Marketplace
+            <OpenInNewIcon sx={{ fontSize: "0.75rem" }} />
+          </Link>
+        )}
       </Box>
     </Box>
   );

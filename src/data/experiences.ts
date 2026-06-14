@@ -2,11 +2,27 @@ import type { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
+    company: "EY",
+    title: "Tax Technology & Transformation Intern",
+    location: "Chicago, IL",
+    startDate: "Jun 2025",
+    endDate: "Present",
+    companyUrl: "https://www.ey.com",
+    iconType: "web",
+    themeColor: {
+      dark: "#FFE600",
+      light: "#9B7F00",
+    },
+    points: [
+      "Joining EY's Tax Technology & Transformation team in Chicago to work at the intersection of enterprise software and large-scale business systems",
+    ],
+  },
+  {
     company: "John Deere",
     title: "Software Engineer (Part-Time)",
     location: "Moline, IL",
     startDate: "Jan 2025",
-    endDate: "Present",
+    endDate: "Jun 2025",
     companyUrl: "https://www.deere.com",
     iconType: "code",
     themeColor: {
