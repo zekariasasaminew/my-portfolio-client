@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Box, Typography, Link, useTheme, IconButton } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import TerminalIcon from "@mui/icons-material/Terminal";
+import ChatTerminal from "./ChatTerminal";
 
 interface NavbarProps {
   toggleColorMode: () => void;
@@ -10,9 +13,10 @@ interface NavbarProps {
 const Navbar = ({ toggleColorMode }: NavbarProps) => {
   const theme = useTheme();
   const location = useLocation();
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    // @ts-ignore -- Complex type inference issue with MUI sx prop
+    // @ts-expect-error -- Complex type inference issue with MUI sx prop
     <Box
       sx={{
         display: "flex",
@@ -97,6 +101,15 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
         </Link>
         <IconButton
           sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
+          onClick={() => setChatOpen(true)}
+          aria-label="Ask me anything"
+          color="inherit"
+          size="small"
+        >
+          <TerminalIcon fontSize="small" />
+        </IconButton>
+        <IconButton
+          sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
           onClick={toggleColorMode}
           color="inherit"
           size="small"
@@ -108,6 +121,7 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
           )}
         </IconButton>
       </Box>
+      <ChatTerminal open={chatOpen} onClose={() => setChatOpen(false)} />
     </Box>
   );
 };
