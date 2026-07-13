@@ -25,7 +25,7 @@ export const projects: Project[] = [
   {
     name: "planit",
     description:
-      "AI-powered college planner that helps students map out their academic journey with smart scheduling and course recommendations.",
+      "LLM-powered planner that generates 4-year degree paths, cutting planning time 90% for 1,000+ students.",
     language: "TypeScript",
     tags: ["TypeScript", "AI", "Next.js"],
     githubUrl: "https://github.com/zekariasasaminew/planit",
@@ -34,22 +34,30 @@ export const projects: Project[] = [
   {
     name: "CampusEx",
     description:
-      "A campus marketplace where students buy, sell, and give away used items scoped to a single school community. Born from watching dumpsters fill with perfectly good furniture every move-out. Grew to 340+ users and 100+ listings at Augustana College.",
+      "A production P2P campus marketplace with an 11-table PostgreSQL schema, row-level security, and GPT-4o vision moderation scoring listings across 9 safety categories via a Deno Edge Function. Born from watching dumpsters fill with perfectly good furniture every move-out. Grew to 720+ active users and 200+ listings in 3 weeks, entirely through word of mouth, under $20/mo in infra costs.",
     language: "TypeScript",
-    tags: ["TypeScript", "Next.js", "Marketplace"],
+    tags: ["TypeScript", "Next.js", "Supabase", "Marketplace"],
     githubUrl: "https://github.com/zekariasasaminew/campusEx",
     liveUrl: "https://www.campus-ex.com",
+  },
+  {
+    name: "campus-ai",
+    description:
+      "AI-powered campus assistant and companion service to CampusEx, built on Cloudflare Workers AI, Durable Objects, and Pages.",
+    language: "JavaScript",
+    tags: ["JavaScript", "Cloudflare Workers", "AI", "Durable Objects"],
+    githubUrl: "https://github.com/zekariasasaminew/campus-ai",
   },
 ];
 
 export const openSourceContributions: OpenSourceContribution[] = [
   {
     name: "React",
-    repo: "facebook/react",
+    repo: "react/react",
     description: "The library for web and native user interfaces.",
     language: "JavaScript",
     tags: ["JavaScript", "UI"],
-    githubUrl: "https://github.com/facebook/react",
+    githubUrl: "https://github.com/react/react",
   },
   {
     name: "GitHub Desktop",
