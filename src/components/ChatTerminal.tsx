@@ -83,7 +83,7 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
-          history: nextMessages.slice(-6),
+          history: messages.slice(-6),
         }),
       });
 

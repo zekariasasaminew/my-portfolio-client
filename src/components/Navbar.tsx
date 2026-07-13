@@ -16,7 +16,6 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    // @ts-expect-error -- Complex type inference issue with MUI sx prop
     <Box
       sx={{
         display: "flex",
