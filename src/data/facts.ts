@@ -51,7 +51,7 @@ export const leadershipStats: LeadershipStat[] = [
 
 export const impactStats: string[] = [
   "$3.7M+ saved · John Deere",
-  "#1 external contributor · GitHub Desktop",
+  "Top external contributor · GitHub Desktop v3.5.4",
   "720+ users · CampusEx",
   "130 members led · GDG",
 ];
@@ -69,4 +69,4 @@ export const resumeFiles = {
 } as const;
 
 export const positioningStatement =
-  "Zekarias Asaminew is a software engineer specializing in agentic AI and LLM tooling — LangChain, LangGraph, RAG pipelines, the OpenAI/GPT-4o API, vector databases, and autonomous agents. He is a Computer Science and Bioinformatics student at Augustana College (graduating Dec 2026), currently a Tax Technology & Transformation Intern at EY, and previously a part-time Software Engineer at John Deere. He is the #1 external contributor to GitHub Desktop and has a merged compiler fix in React. He is looking for a new-grad software engineering role.";
+  "Zekarias Asaminew is a software engineer specializing in agentic AI and LLM tooling — LangChain, LangGraph, RAG pipelines, the OpenAI/GPT-4o API, vector databases, and autonomous agents. He is a Computer Science and Bioinformatics student at Augustana College (graduating Dec 2026), currently a Tax Technology & Transformation Intern at EY, and previously a part-time Software Engineer at John Deere, where he built an agentic pipeline that traces production alerts back to the responsible git commit and opens a draft PR fix. He was the most-credited external contributor in GitHub Desktop's v3.5.4 release changelog (three shipped fixes, including adding Copilot commit-message generation to the context menu) and has a merged compiler fix in React. He is looking for a new-grad software engineering role.";
