@@ -2,6 +2,14 @@ import type { Project, OpenSourceContribution } from "../types/project";
 
 export const projects: Project[] = [
   {
+    name: "pact",
+    description:
+      "Parallel Agent Coordination Tool. Orchestrates multiple AI coding agent CLIs (Claude Code, Copilot CLI, Codex) on one repo without them conflicting. Actively in progress.",
+    language: "Rust",
+    tags: ["Rust", "CLI", "AI Tools", "Git Worktrees"],
+    githubUrl: "https://github.com/zekariasasaminew/pact",
+  },
+  {
     name: "jetbrains-acp",
     description:
       "Universal ACP client plugin for all JetBrains IDEs. Works with IntelliJ, WebStorm, PyCharm, and more.",
