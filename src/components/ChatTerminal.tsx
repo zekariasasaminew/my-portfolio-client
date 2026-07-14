@@ -1,12 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Box, Drawer, Typography, IconButton, useTheme } from "@mui/material";
-import { alpha } from "@mui/material/styles";
-import CloseIcon from "@mui/icons-material/Close";
-
-interface ChatTerminalProps {
-  open: boolean;
-  onClose: () => void;
-}
+import { Box, Typography } from "@mui/material";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -22,6 +15,19 @@ const SUGGESTED_QUESTIONS = [
 
 const MAX_MESSAGE_LENGTH = 500;
 
+// Fixed-dark palette, independent of the site's light/dark toggle - a real
+// terminal doesn't switch to light mode.
+const TERM = {
+  bg: "#0c0e12",
+  titlebar: "#14161b",
+  border: "#2a2d33",
+  fg: "#e8e6e1",
+  fgDim: "#8b8f98",
+  amber: "#d4a24e",
+  mint: "#6fd8a0",
+  red: "#c9605a",
+};
+
 const linkify = (text: string) => {
   const urlPattern = /(https?:\/\/[^\s)]+)/g;
   const parts = text.split(urlPattern);
@@ -32,7 +38,7 @@ const linkify = (text: string) => {
         href={part}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ color: "inherit", textDecoration: "underline" }}
+        style={{ color: TERM.mint, textDecoration: "underline" }}
       >
         {part}
       </a>
@@ -42,20 +48,13 @@ const linkify = (text: string) => {
   );
 };
 
-const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
-  const theme = useTheme();
+const ChatTerminal = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [open]);
 
   useEffect(() => {
     transcriptRef.current?.scrollTo({
@@ -83,13 +82,13 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
-          history: messages.slice(-6),
+          history: messages.slice(-16),
         }),
       });
 
       if (response.status === 429) {
         setError(
-          "I'm getting a lot of questions today — try again later, or just email me."
+          "I'm getting a lot of questions today. Try again later, or just email me."
         );
         setIsStreaming(false);
         return;
@@ -126,75 +125,76 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
   };
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        sx: {
-          width: { xs: "100%", sm: 420 },
-          backgroundColor: theme.palette.background.paper,
-          backgroundImage: "none",
-        },
+    <Box
+      sx={{
+        background: TERM.bg,
+        border: `1px solid ${TERM.border}`,
+        borderRadius: "10px",
+        overflow: "hidden",
+        boxShadow: "0 20px 60px -20px rgba(0,0,0,0.55)",
       }}
     >
+      {/* Title bar */}
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          fontFamily:
-            'ui-monospace, "JetBrains Mono", "Fira Code", monospace',
+          alignItems: "center",
+          gap: "0.5rem",
+          px: "0.9rem",
+          py: "0.7rem",
+          background: TERM.titlebar,
+          borderBottom: `1px solid ${TERM.border}`,
         }}
       >
-        {/* Header */}
-        <Box
+        <Box sx={{ width: 11, height: 11, borderRadius: "50%", background: TERM.red }} />
+        <Box sx={{ width: 11, height: 11, borderRadius: "50%", background: TERM.amber }} />
+        <Box sx={{ width: 11, height: 11, borderRadius: "50%", background: TERM.mint }} />
+        <Typography
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            px: 2,
-            py: 1.5,
-            borderBottom: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
+            m: "0 auto",
+            transform: "translateX(-18px)",
+            fontFamily: "inherit",
+            fontSize: "0.78rem",
+            color: TERM.fgDim,
           }}
         >
-          <Typography
-            variant="body2"
-            sx={{ fontFamily: "inherit", color: theme.palette.text.secondary }}
-          >
-            zek@portfolio:~$ ask
-          </Typography>
-          <IconButton size="small" onClick={onClose} aria-label="Close chat">
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </Box>
+          zek@portfolio: ~
+        </Typography>
+      </Box>
 
-        {/* Transcript */}
+      {/* Body */}
+      <Box
+        sx={{
+          px: { xs: "1rem", sm: "1.3rem" },
+          pt: "1.1rem",
+          pb: "0.9rem",
+          fontFamily:
+            'ui-monospace, "JetBrains Mono", "Fira Code", monospace',
+          fontSize: "0.88rem",
+          lineHeight: 1.65,
+          color: TERM.fg,
+          minHeight: 280,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Box
           ref={transcriptRef}
           aria-live="polite"
-          sx={{
-            flex: 1,
-            overflowY: "auto",
-            px: 2,
-            py: 2,
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
+          sx={{ flex: 1, overflowY: "auto", maxHeight: 360 }}
         >
           {messages.length === 0 && (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
               <Typography
-                variant="body2"
                 sx={{
-                  color: theme.palette.text.secondary,
+                  color: TERM.fgDim,
                   fontFamily: "inherit",
-                  mb: 1,
+                  fontSize: "inherit",
+                  mb: "0.4rem",
                 }}
               >
-                Ask me anything about Zekarias — his experience, projects, or
-                open source work.
+                ask anything about zekarias's experience, projects, or open
+                source work.
               </Typography>
               {SUGGESTED_QUESTIONS.map((q) => (
                 <Box
@@ -204,17 +204,18 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
                   sx={{
                     textAlign: "left",
                     background: "none",
-                    border: `1px solid ${alpha(theme.palette.text.primary, 0.15)}`,
-                    borderRadius: 1,
-                    px: 1.5,
-                    py: 1,
+                    border: `1px solid ${TERM.border}`,
+                    borderRadius: "6px",
+                    px: "0.8rem",
+                    py: "0.55rem",
                     fontFamily: "inherit",
-                    fontSize: "0.85rem",
-                    color: theme.palette.text.primary,
+                    fontSize: "0.83rem",
+                    color: TERM.fg,
                     cursor: "pointer",
-                    transition: "border-color 0.2s ease",
+                    transition: "border-color 0.15s ease, background 0.15s ease",
                     "&:hover": {
-                      borderColor: alpha(theme.palette.text.primary, 0.35),
+                      borderColor: TERM.amber,
+                      background: "rgba(212,162,78,0.07)",
                     },
                   }}
                 >
@@ -225,25 +226,13 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
           )}
 
           {messages.map((msg, i) => (
-            <Box key={i}>
-              <Typography
-                variant="caption"
-                sx={{
-                  display: "block",
-                  color: theme.palette.text.secondary,
-                  fontFamily: "inherit",
-                  mb: 0.5,
-                }}
-              >
+            <Box key={i} sx={{ mb: "0.5rem" }}>
+              <Box component="span" sx={{ color: msg.role === "user" ? TERM.mint : TERM.amber }}>
                 {msg.role === "user" ? "you>" : "zek>"}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontFamily: "inherit",
-                  lineHeight: 1.6,
-                  whiteSpace: "pre-wrap",
-                }}
+              </Box>{" "}
+              <Box
+                component="span"
+                sx={{ whiteSpace: "pre-wrap" }}
               >
                 {linkify(msg.content)}
                 {msg.role === "assistant" &&
@@ -255,17 +244,18 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
                         display: "inline-block",
                         width: "0.5em",
                         height: "1em",
-                        ml: 0.5,
+                        ml: "2px",
                         verticalAlign: "text-bottom",
-                        backgroundColor: theme.palette.text.primary,
+                        backgroundColor: TERM.amber,
                         animation: "blink 1s step-start infinite",
-                        "@keyframes blink": {
-                          "50%": { opacity: 0 },
+                        "@media (prefers-reduced-motion: reduce)": {
+                          animation: "none",
                         },
+                        "@keyframes blink": { "50%": { opacity: 0 } },
                       }}
                     />
                   )}
-              </Typography>
+              </Box>
             </Box>
           ))}
 
@@ -273,18 +263,16 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
             <Box
               role="alert"
               sx={{
-                border: `1px solid ${alpha(theme.palette.error.main, 0.4)}`,
-                borderRadius: 1,
-                px: 1.5,
-                py: 1,
+                border: `1px solid ${TERM.red}66`,
+                borderRadius: "6px",
+                px: "0.8rem",
+                py: "0.6rem",
+                mt: "0.5rem",
               }}
             >
-              <Typography
-                variant="body2"
-                sx={{ fontFamily: "inherit", color: theme.palette.error.main }}
-              >
+              <Box component="span" sx={{ color: TERM.red }}>
                 {error}
-              </Typography>
+              </Box>
             </Box>
           )}
         </Box>
@@ -299,18 +287,15 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 1,
-            px: 2,
-            py: 1.5,
-            borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
+            gap: "0.6rem",
+            mt: "auto",
+            pt: "0.9rem",
+            borderTop: `1px solid ${TERM.border}`,
           }}
         >
-          <Typography
-            component="span"
-            sx={{ fontFamily: "inherit", color: theme.palette.text.secondary }}
-          >
+          <Box component="span" sx={{ color: TERM.fgDim }}>
             &gt;
-          </Typography>
+          </Box>
           <Box
             component="input"
             ref={inputRef}
@@ -320,7 +305,7 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
             }
             disabled={isStreaming}
             maxLength={MAX_MESSAGE_LENGTH}
-            placeholder="Ask a question…"
+            placeholder="ask a question…"
             aria-label="Ask a question about Zekarias"
             sx={{
               flex: 1,
@@ -328,14 +313,14 @@ const ChatTerminal = ({ open, onClose }: ChatTerminalProps) => {
               border: "none",
               outline: "none",
               fontFamily: "inherit",
-              fontSize: "0.9rem",
-              color: theme.palette.text.primary,
-              "&::placeholder": { color: theme.palette.text.secondary },
+              fontSize: "inherit",
+              color: TERM.fg,
+              "&::placeholder": { color: TERM.fgDim },
             }}
           />
         </Box>
       </Box>
-    </Drawer>
+    </Box>
   );
 };
 
