@@ -46,14 +46,6 @@ export const aboutSections: Record<string, Section> = {
     description:
       "Football isn't just a sport, it's a way to connect and share moments of joy.",
   },
-  projects: {
-    id: "projects",
-    title: "Side Projects",
-    image: "/images/about/projects.png",
-    description:
-      "Building tools that solve real problems. Check out my projects like PlanIt (AI-powered college planner) and Node (campus engagement app).",
-    link: "https://my-gf-to-do-list.vercel.app/",
-  },
 } as const;
 
 export type SectionId = keyof typeof aboutSections;
@@ -65,7 +57,6 @@ const About = ({ toggleColorMode }: AboutProps) => {
     leadership: null,
     lab: null,
     football: null,
-    projects: null,
   });
 
   // Scroll to section if hash is present in URL
@@ -177,6 +168,23 @@ const About = ({ toggleColorMode }: AboutProps) => {
           </motion.div>
         </Box>
       ))}
+
+      <Typography variant="body1" sx={{ opacity: 0.9 }}>
+        See everything I've built{" "}
+        <Link
+          href="/projects"
+          sx={{
+            color: "inherit",
+            textDecoration: "underline",
+            textDecorationColor: "rgba(255, 255, 255, 0.3)",
+            "&:hover": {
+              textDecorationColor: "rgba(255, 255, 255, 0.6)",
+            },
+          }}
+        >
+          on the projects page →
+        </Link>
+      </Typography>
     </Box>
   );
 };

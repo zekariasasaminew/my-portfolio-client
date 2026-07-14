@@ -1,9 +1,22 @@
-import { Box, Typography, Link, useTheme } from "@mui/material";
+import { useState } from "react";
+import {
+  Box,
+  Typography,
+  Link,
+  useTheme,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
+import { impactStats, contact, resumeFiles } from "../data/facts";
 // import { aboutSections } from "./About";
 
 interface Props {
@@ -12,6 +25,7 @@ interface Props {
 
 const Home = ({ toggleColorMode }: Props) => {
   const theme = useTheme();
+  const [resumeAnchor, setResumeAnchor] = useState<null | HTMLElement>(null);
 
   const LinkStyle = {
     color: "inherit",
@@ -155,24 +169,24 @@ const Home = ({ toggleColorMode }: Props) => {
           sx={{ mb: 3, fontWeight: 300, lineHeight: 1.8, fontSize: "1rem" }}
         >
           I'm a software engineer who likes building things people actually use.
-          For the past two-plus years as a Student Software Engineer at{" "}
+          I'm currently a Tax Technology &amp; Transformation Intern at{" "}
+          <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
+            EY
+          </Link>{" "}
+          in Chicago, building agents that automate manual, ticket-driven work.
+          Before that, I spent a year and a half as a Student Software Engineer
+          at{" "}
           <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
             John Deere
           </Link>
-          , I've shipped enterprise applications that support thousands of
+          , where I shipped enterprise applications that support thousands of
           employees across more than ten factories, the kind of work where a bug
           isn't an abstraction, it's someone on a factory floor waiting on a
           tool. I'm finishing a self-designed CS and Bioinformatics major at{" "}
           <Link href="https://www.augustana.edu" target="_blank" sx={LinkStyle}>
             Augustana College
           </Link>
-          , the first contract major of its kind there, and this summer I'm
-          joining{" "}
-          <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
-            EY
-          </Link>
-          's Tax Technology &amp; Transformation team in Chicago to work at the
-          intersection of software and large-scale business systems.
+          , the first contract major of its kind there.
         </Typography>
 
         <Typography
@@ -191,7 +205,7 @@ const Home = ({ toggleColorMode }: Props) => {
           </Link>
           , I've landed a fix in the{" "}
           <Link
-            href="https://github.com/facebook/react"
+            href="https://github.com/react/react"
             target="_blank"
             sx={LinkStyle}
           >
@@ -226,19 +240,43 @@ const Home = ({ toggleColorMode }: Props) => {
         >
           I also like turning everyday observations into products.{" "}
           <Link
-            href="https://github.com/zekariasasaminew/campus-ai"
+            href="https://github.com/zekariasasaminew/campusEx"
             target="_blank"
             sx={LinkStyle}
           >
             CampusEx
           </Link>{" "}
           started when I noticed students tossing out perfectly good furniture at
-          move-out; it's now a campus marketplace with 500+ users. For my senior
+          move-out; it's now a campus marketplace with 720+ users. For my senior
           research I'm building an EEG-based brain-computer interface, and I've
           collected a few wins along the way, including Best Insight at ASA
           DataFest and induction into the al-Khwarizmi Computer Science Honor
           Society.
         </Typography>
+
+        {/* Impact strip */}
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 3 }}>
+          {impactStats.map((stat) => (
+            <Box
+              key={stat}
+              component="span"
+              sx={{
+                display: "inline-block",
+                px: 1,
+                py: 0.25,
+                borderRadius: 0.75,
+                fontSize: "0.7rem",
+                letterSpacing: "0.3px",
+                fontFamily: "monospace",
+                border: `1px solid ${alpha(theme.palette.text.primary, 0.15)}`,
+                color: theme.palette.text.secondary,
+                lineHeight: 1.6,
+              }}
+            >
+              {stat}
+            </Box>
+          ))}
+        </Box>
 
         <Typography
           variant="body1"
@@ -276,6 +314,50 @@ const Home = ({ toggleColorMode }: Props) => {
           >
             <LinkedInIcon />
           </Link>
+          <Link
+            href={`mailto:${contact.email}`}
+            sx={{
+              ...LinkStyle,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <EmailOutlinedIcon />
+          </Link>
+          <IconButton
+            onClick={(e) => setResumeAnchor(e.currentTarget)}
+            aria-label="Download resume"
+            sx={{
+              p: 0,
+              color: "inherit",
+              opacity: 0.85,
+              "&:hover": { opacity: 1, backgroundColor: "transparent" },
+            }}
+          >
+            <DescriptionOutlinedIcon />
+          </IconButton>
+          <Menu
+            anchorEl={resumeAnchor}
+            open={Boolean(resumeAnchor)}
+            onClose={() => setResumeAnchor(null)}
+          >
+            <MenuItem
+              component="a"
+              href={resumeFiles.swe.href}
+              download
+              onClick={() => setResumeAnchor(null)}
+            >
+              Resume ({resumeFiles.swe.label})
+            </MenuItem>
+            <MenuItem
+              component="a"
+              href={resumeFiles.general.href}
+              download
+              onClick={() => setResumeAnchor(null)}
+            >
+              Resume ({resumeFiles.general.label})
+            </MenuItem>
+          </Menu>
         </Box>
 
         {/* Spotify Now Playing */}

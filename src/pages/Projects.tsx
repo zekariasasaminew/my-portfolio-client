@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Box, Typography, Link, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import StarIcon from "@mui/icons-material/Star";
@@ -10,6 +11,13 @@ import type { Project, OpenSourceContribution } from "../types/project";
 
 interface ProjectsProps {
   toggleColorMode: () => void;
+}
+
+interface MergedPR {
+  repo: string;
+  title: string;
+  url: string;
+  mergedAt: string;
 }
 
 const Tag = ({ label }: { label: string }) => {
@@ -201,7 +209,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
   );
 };
 
-const OSSRow = ({ contrib }: { contrib: OpenSourceContribution }) => {
+const OSSRow = ({
+  contrib,
+  recentPRs,
+}: {
+  contrib: OpenSourceContribution;
+  recentPRs?: MergedPR[];
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -270,6 +284,27 @@ const OSSRow = ({ contrib }: { contrib: OpenSourceContribution }) => {
             <Tag key={tag} label={tag} />
           ))}
         </Box>
+        {recentPRs && recentPRs.length > 0 && (
+          <Box sx={{ mt: 1.5, display: "flex", flexDirection: "column", gap: 0.5 }}>
+            {recentPRs.slice(0, 3).map((pr) => (
+              <Link
+                key={pr.url}
+                href={pr.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: "text.secondary",
+                  textDecoration: "none",
+                  fontSize: "0.78rem",
+                  opacity: 0.75,
+                  "&:hover": { opacity: 1, textDecoration: "underline" },
+                }}
+              >
+                · {pr.title}
+              </Link>
+            ))}
+          </Box>
+        )}
       </Box>
     </Box>
   );
@@ -277,6 +312,29 @@ const OSSRow = ({ contrib }: { contrib: OpenSourceContribution }) => {
 
 const Projects = ({ toggleColorMode }: ProjectsProps) => {
   const theme = useTheme();
+  const [livePRsByRepo, setLivePRsByRepo] = useState<Record<string, MergedPR[]>>(
+    {}
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/github-activity", { signal: AbortSignal.timeout(4000) })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { mergedPRs?: MergedPR[] } | null) => {
+        if (cancelled || !data?.mergedPRs?.length) return;
+        const grouped: Record<string, MergedPR[]> = {};
+        for (const pr of data.mergedPRs) {
+          (grouped[pr.repo] ??= []).push(pr);
+        }
+        setLivePRsByRepo(grouped);
+      })
+      .catch(() => {
+        // silent fallback - static descriptions already render fine on their own
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <Box
@@ -336,7 +394,11 @@ const Projects = ({ toggleColorMode }: ProjectsProps) => {
           </Typography>
           <Box>
             {openSourceContributions.map((contrib, idx) => (
-              <OSSRow key={idx} contrib={contrib} />
+              <OSSRow
+                key={idx}
+                contrib={contrib}
+                recentPRs={livePRsByRepo[contrib.repo]}
+              />
             ))}
           </Box>
         </Box>
