@@ -58,7 +58,7 @@ export default async function handler(req: Request): Promise<Response> {
     .map((c) => `[${c.title}] ${c.text}`)
     .join("\n\n");
 
-  const history = (body.history ?? []).slice(-6).map((m) => ({
+  const history = (body.history ?? []).slice(-16).map((m) => ({
     role: m.role === "user" ? ("user" as const) : ("assistant" as const),
     content: String(m.content).slice(0, MAX_MESSAGE_LENGTH),
   }));
