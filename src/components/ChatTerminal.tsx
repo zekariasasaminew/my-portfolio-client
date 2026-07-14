@@ -88,7 +88,7 @@ const ChatTerminal = () => {
 
       if (response.status === 429) {
         setError(
-          "I'm getting a lot of questions today — try again later, or just email me."
+          "I'm getting a lot of questions today. Try again later, or just email me."
         );
         setIsStreaming(false);
         return;
@@ -193,7 +193,7 @@ const ChatTerminal = () => {
                   mb: "0.4rem",
                 }}
               >
-                ask anything about zekarias — his experience, projects, or open
+                ask anything about zekarias's experience, projects, or open
                 source work.
               </Typography>
               {SUGGESTED_QUESTIONS.map((q) => (

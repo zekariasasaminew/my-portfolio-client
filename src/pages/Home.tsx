@@ -83,7 +83,7 @@ const Home = ({ toggleColorMode }: Props) => {
             mb: 1,
           }}
         >
-          Software Engineer — Agentic AI
+          Software Engineer · Agentic AI
         </Typography>
 
         <Typography
@@ -120,7 +120,7 @@ const Home = ({ toggleColorMode }: Props) => {
           </Link>
           , where he shipped a pipeline that traces production alerts back to
           the responsible git commit and opens the fix as a draft PR. Ask the
-          terminal below — it knows the rest.
+          terminal below. It knows the rest.
         </Typography>
 
         <Box sx={{ mb: 3 }}>
@@ -206,19 +206,19 @@ const Home = ({ toggleColorMode }: Props) => {
           >
             <MenuItem
               component="a"
-              href={resumeFiles.swe.href}
+              href={resumeFiles.ai.href}
               download
               onClick={() => setResumeAnchor(null)}
             >
-              Resume ({resumeFiles.swe.label})
+              Resume ({resumeFiles.ai.label})
             </MenuItem>
             <MenuItem
               component="a"
-              href={resumeFiles.general.href}
+              href={resumeFiles.coreSwe.href}
               download
               onClick={() => setResumeAnchor(null)}
             >
-              Resume ({resumeFiles.general.label})
+              Resume ({resumeFiles.coreSwe.label})
             </MenuItem>
           </Menu>
         </Box>
