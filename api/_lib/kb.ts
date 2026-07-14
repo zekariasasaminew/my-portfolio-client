@@ -1,4 +1,4 @@
-import kbData from "./kb-embeddings.json";
+import kbData from "./kb-embeddings.json" with { type: "json" };
 
 export interface KBChunk {
   id: string;

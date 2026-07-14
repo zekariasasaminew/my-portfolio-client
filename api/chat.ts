@@ -1,6 +1,6 @@
-import { openai, EMBEDDING_MODEL, EMBEDDING_DIMENSIONS, CHAT_MODEL } from "./_lib/openai";
-import { retrieveContext } from "./_lib/kb";
-import { checkRateLimit } from "./_lib/ratelimit";
+import { openai, EMBEDDING_MODEL, EMBEDDING_DIMENSIONS, CHAT_MODEL } from "./_lib/openai.js";
+import { retrieveContext } from "./_lib/kb.js";
+import { checkRateLimit } from "./_lib/ratelimit.js";
 
 export const config = { runtime: "edge" };
 

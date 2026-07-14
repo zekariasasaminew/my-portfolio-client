@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { fetchMergedPRs } from "./_lib/github";
+import { fetchMergedPRs } from "./_lib/github.js";
 
 export default async function handler(
   _req: VercelRequest,
