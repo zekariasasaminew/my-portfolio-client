@@ -71,6 +71,18 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
           Projects
         </Link>
         <Link
+          href="/tools"
+          sx={{
+            ...(location.pathname === "/tools" && {
+              borderBottom: `2px solid ${theme.palette.text.primary}`,
+              paddingBottom: "2px",
+              opacity: "1 !important",
+            }),
+          }}
+        >
+          Tools
+        </Link>
+        <Link
           href="/experience"
           sx={{
             ...(location.pathname === "/experience" && {
