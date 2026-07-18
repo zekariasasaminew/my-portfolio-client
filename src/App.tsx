@@ -8,6 +8,7 @@ import Notes from "./pages/Notes";
 import NotesDetail from "./pages/NotesDetail";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
+import Tools from "./pages/Tools";
 import { Analytics } from "@vercel/analytics/react";
 
 const BackgroundPattern = () => (
@@ -112,6 +113,10 @@ function App() {
         <Route
           path="/projects"
           element={<Projects toggleColorMode={toggleColorMode} />}
+        />
+        <Route
+          path="/tools"
+          element={<Tools toggleColorMode={toggleColorMode} />}
         />
       </Routes>
     </ThemeProvider>
