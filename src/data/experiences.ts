@@ -2,11 +2,28 @@ import type { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
+    company: "EY",
+    title: "Tax Technology & Transformation Intern",
+    location: "Chicago, IL",
+    startDate: "Jun 2026",
+    endDate: "Present",
+    companyUrl: "https://www.ey.com",
+    iconType: "web",
+    themeColor: {
+      dark: "#FFE600",
+      light: "#9B7F00",
+    },
+    points: [
+      "Automated a manual, ticket-driven Excel report by building an agent to validate, clean, and update records daily, cutting a **2+ hour task to under a minute**",
+      "Audited team workflows to surface repetitive manual work and prioritized automation opportunities",
+    ],
+  },
+  {
     company: "John Deere",
     title: "Software Engineer (Part-Time)",
     location: "Moline, IL",
     startDate: "Jan 2025",
-    endDate: "Present",
+    endDate: "Jun 2026",
     companyUrl: "https://www.deere.com",
     iconType: "code",
     themeColor: {
@@ -14,10 +31,11 @@ export const experiences: Experience[] = [
       light: "#2E7D32",
     },
     points: [
-      "Saved **$3.5M annually** by developing and maintaining **4 enterprise applications** optimizing factory workflows and reducing downtime",
-      "Architected full-stack systems using `React (Next.js)`, `Node.js`, and `mssql`, improving workflow efficiency",
-      "Reduced **API latency by 40%** for high-frequency queries by integrating `Redis` caching to accelerate data retrieval",
-      "Cut **deployment downtime by 85%** by automating `Kubernetes` DevOps workflows and resolving pod-level issues",
+      "Delivered features across **4 enterprise** `React`/`Next.js` apps, contributing to **$3.7M+** in projected annual savings",
+      "Built an agentic pipeline correlating `New Relic` alerts with git commits to auto-diagnose failures & open draft PR fixes",
+      "Automated review, testing, and merging of Dependabot/Mend PRs, auto-fixing failing tests",
+      "Introduced `GitHub Copilot CLI`, automating **90%+** of documentation & reducing **API latency 40%** via `Redis`",
+      "Cut **deployment time 85%** via automated `Kubernetes` CI/CD",
     ],
   },
   {
@@ -33,9 +51,9 @@ export const experiences: Experience[] = [
       light: "#0891B2",
     },
     points: [
-      "Contributed core fixes to [**React**](https://github.com/facebook/react), resolving compiler mismatches with **100% test coverage**",
-      "Enhanced [**GitHub Desktop**](https://github.com/desktop/desktop) (**4M+ users**) cross-platform builds, improving setup reliability and release stability",
-      "Collaborated with maintainers on issue triage, regression testing, and PR refactors improving developer experience",
+      "Ranked **#1 external contributor** in [**GitHub Desktop**](https://github.com/desktop/desktop) v3.5.4 with **3 merged PRs**; contributed a compiler fix to [**React**](https://github.com/react/react) with **100% test coverage**",
+      "Improved GitHub Desktop's cross-platform build reliability, tightening setup consistency & release stability",
+      "Built `jetbrains-acp`, a universal ACP client unifying GitHub Copilot CLI, Claude Code, & Gemini CLI across JetBrains IDEs",
     ],
   },
   {
@@ -54,24 +72,6 @@ export const experiences: Experience[] = [
       "Built a `React Native` app with `OAuth2` + `PostgreSQL` for **450 students** to join clubs and check in via QR codes",
       "Automated RSVP and attendance tracking, cutting manual work from **8 hrs to 30 mins**, boosting efficiency by **85%**",
       "Engineered `AWS Lambda` functions for dashboards, reducing reporting errors by **30%** across **65 student clubs**",
-    ],
-  },
-  {
-    company: "EDGE",
-    title: "Software Engineer Intern",
-    location: "Rock Island, IL",
-    startDate: "May 2024",
-    endDate: "Dec 2024",
-    companyUrl: "https://www.augustana.edu/academics/core/edge",
-    iconType: "web",
-    themeColor: {
-      dark: "#FF9800",
-      light: "#E65100",
-    },
-    points: [
-      "Engineered `React` + `Node.js` web applications, improving data flow and automating client operations by **60%**",
-      "Developed `Express` APIs with `mssql`, enabling seamless data flow and backend integration for client applications",
-      "Optimized `SQL` pipelines, reducing query latency by **45%** and improving reliability for **200+ active users**",
     ],
   },
 ];

@@ -1,10 +1,23 @@
-import { Box, Typography, Link, useTheme } from "@mui/material";
+import { useState } from "react";
+import {
+  Box,
+  Typography,
+  Link,
+  useTheme,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Navbar from "../components/Navbar";
+import ChatTerminal from "../components/ChatTerminal";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
-// import { aboutSections } from "./About";
+import { impactStats, contact, resumeFiles } from "../data/facts";
 
 interface Props {
   toggleColorMode: () => void;
@@ -12,6 +25,7 @@ interface Props {
 
 const Home = ({ toggleColorMode }: Props) => {
   const theme = useTheme();
+  const [resumeAnchor, setResumeAnchor] = useState<null | HTMLElement>(null);
 
   const LinkStyle = {
     color: "inherit",
@@ -46,7 +60,7 @@ const Home = ({ toggleColorMode }: Props) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "650px",
+        maxWidth: "700px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         display: "flex",
@@ -58,96 +72,31 @@ const Home = ({ toggleColorMode }: Props) => {
     >
       <Navbar toggleColorMode={toggleColorMode} />
 
-      {/* Infinite Auto-scroll Image Navigation */}
-      {/* <Box
-        sx={{
-          position: "relative",
-          mb: 6,
-          mt: 2,
-          height: "150px",
-          overflow: "hidden",
-          "&::before, &::after": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            width: "50px",
-            height: "100%",
-            zIndex: 2,
-          },
-          "&::before": {
-            left: 0,
-            background: `linear-gradient(to right, ${theme.palette.background.default}, transparent)`,
-          },
-          "&::after": {
-            right: 0,
-            background: `linear-gradient(to left, ${theme.palette.background.default}, transparent)`,
-          },
-        }}
-      > */}
-      {/* <motion.div
-          style={{
-            display: "flex",
-            gap: "1rem",
-            width: "fit-content",
-          }}
-          animate={{
-            x: [`0%`, `-50%`],
-          }}
-          transition={{
-            duration: 20,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-          whileHover={{ animationPlayState: "paused" }}
-        > */}
-      {/* Triple the items for smoother loop */}
-      {/* {[
-            ...Object.entries(aboutSections),
-            ...Object.entries(aboutSections),
-          ].map(([id, section], index) => (
-            <Link
-              key={`${id}-${index}`}
-              href={`/about#${id}`}
-              sx={{
-                textDecoration: "none",
-                color: "inherit",
-                width: "150px",
-                flexShrink: 0,
-              }}
-            >
-              <Box
-                component="img"
-                src={section.image}
-                alt={section.title}
-                sx={{
-                  width: "150px",
-                  height: "100px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                  transition: "transform 0.2s ease",
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                  },
-                }}
-              />
-            </Link>
-          ))}
-        </motion.div> */}
-      {/* </Box> */}
-
-      {/* Main Content */}
       <Box sx={{ flex: 1 }}>
+        <Typography
+          sx={{
+            fontFamily: "monospace",
+            fontSize: "0.78rem",
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: theme.palette.mode === "dark" ? "#7fd8a6" : "#0a8f4f",
+            mb: 1,
+          }}
+        >
+          Software Engineer · Agentic AI
+        </Typography>
+
         <Typography
           variant="h4"
           sx={{
-            mb: 3,
-            lineHeight: 1.8,
-            // fontSize: "1rem",
+            fontSize: { xs: "2rem", md: "2.6rem" },
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
+            mb: 2,
           }}
         >
-          Hi, I'm Zekarias Asaminew
+          Zekarias Asaminew
         </Typography>
 
         <Typography
@@ -155,59 +104,52 @@ const Home = ({ toggleColorMode }: Props) => {
           component="div"
           sx={{
             mb: 3,
-            fontWeight: 300,
-            lineHeight: 1.8,
-            fontSize: "1rem",
+            lineHeight: 1.7,
+            fontSize: "1.05rem",
+            color: theme.palette.text.secondary,
+            maxWidth: "50ch",
           }}
         >
-          I'm a software engineer at{" "}
+          Currently building agents at{" "}
+          <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
+            EY
+          </Link>
+          . Previously{" "}
           <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
             John Deere
           </Link>
-          , where I develop innovative technology solutions for agricultural
-          systems. Currently pursuing my degree as a Junior at{" "}
-          <Link href="https://www.augustana.edu" target="_blank" sx={LinkStyle}>
-            Augustana College
-          </Link>{" "}
-          with a dual major in Computer Science and Bioinformatics. When I'm not
-          coding, you'll find me in the lab conducting biochemical research —
-          safely exploring the intersection of technology and life sciences.
+          , where he shipped a pipeline that traces production alerts back to
+          the responsible git commit and opens the fix as a draft PR. Ask the
+          terminal below. It knows the rest.
         </Typography>
 
-        <Typography
-          variant="body1"
-          fontWeight="300"
-          component="div"
-          sx={{
-            mb: 3,
-            lineHeight: 1.8,
-            fontSize: "1rem",
-          }}
-        >
-          I'm passionate about building tools that solve real problems and make
-          complex processes more intuitive. Explore my{" "}
-          <Link href="/experience" sx={LinkStyle}>
-            experience
-          </Link>{" "}
-          to see the projects I've worked on, or check out my{" "}
-          <Link href="/notes" sx={LinkStyle}>
-            notes
-          </Link>{" "}
-          where I share insights about development, technology, and the
-          occasional technical deep-dive.
-        </Typography>
+        <Box sx={{ mb: 3 }}>
+          <ChatTerminal />
+        </Box>
 
-        <Typography
-          variant="body1"
-          sx={{
-            mb: 5,
-            lineHeight: 1.8,
-            fontSize: "1rem",
-            fontWeight: 300,
-          }}
-        >
-          Feel free to explore my work or get in touch!
-        </Typography>
+        {/* Impact strip */}
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 3 }}>
+          {impactStats.map((stat) => (
+            <Box
+              key={stat}
+              component="span"
+              sx={{
+                display: "inline-block",
+                px: 1,
+                py: 0.25,
+                borderRadius: 0.75,
+                fontSize: "0.7rem",
+                letterSpacing: "0.3px",
+                fontFamily: "monospace",
+                border: `1px solid ${alpha(theme.palette.text.primary, 0.15)}`,
+                color: theme.palette.text.secondary,
+                lineHeight: 1.6,
+              }}
+            >
+              {stat}
+            </Box>
+          ))}
+        </Box>
 
         {/* Social Links */}
         <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
@@ -235,6 +177,50 @@ const Home = ({ toggleColorMode }: Props) => {
           >
             <LinkedInIcon />
           </Link>
+          <Link
+            href={`mailto:${contact.email}`}
+            sx={{
+              ...LinkStyle,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <EmailOutlinedIcon />
+          </Link>
+          <IconButton
+            onClick={(e) => setResumeAnchor(e.currentTarget)}
+            aria-label="Download resume"
+            sx={{
+              p: 0,
+              color: "inherit",
+              opacity: 0.85,
+              "&:hover": { opacity: 1, backgroundColor: "transparent" },
+            }}
+          >
+            <DescriptionOutlinedIcon />
+          </IconButton>
+          <Menu
+            anchorEl={resumeAnchor}
+            open={Boolean(resumeAnchor)}
+            onClose={() => setResumeAnchor(null)}
+          >
+            <MenuItem
+              component="a"
+              href={resumeFiles.ai.href}
+              download
+              onClick={() => setResumeAnchor(null)}
+            >
+              Resume ({resumeFiles.ai.label})
+            </MenuItem>
+            <MenuItem
+              component="a"
+              href={resumeFiles.coreSwe.href}
+              download
+              onClick={() => setResumeAnchor(null)}
+            >
+              Resume ({resumeFiles.coreSwe.label})
+            </MenuItem>
+          </Menu>
         </Box>
 
         {/* Spotify Now Playing */}
