@@ -23,21 +23,21 @@ export const aboutSections: Record<string, Section> = {
     title: "Tech Journey",
     image: "/images/about/tech2.JPG",
     description:
-      "From writing my first line of code to building full-stack applications at John Deere. Currently working with React, Node.js, TypeScript, and Kubernetes to develop enterprise solutions. Open source contributor to React and GitHub Desktop, passionate about creating efficient, scalable applications.",
+      "From writing his first line of code to shipping enterprise applications at John Deere that support thousands of employees across more than ten factories - the kind of work where a bug isn't an abstraction, it's someone on a factory floor waiting on a tool. He introduced GitHub Copilot CLI as his team's primary development platform and ran a workshop on it at Augustana's first-ever hackathon. Outside of work, he builds in the open: jetbrains-acp (an ACP client for JetBrains IDEs) and instruct-sync, on top of his GitHub Desktop and React contributions. CampusEx, his campus marketplace, started when he noticed students tossing out perfectly good furniture at move-out.",
   },
   leadership: {
     id: "leadership",
     title: "Leadership & Community",
     image: "/images/about/projects.png",
     description:
-      "Tech Lead at Google Developer Group, leading project teams from architecture to release and mentoring 130+ members. Vice President of Data Analytics Club at Augustana College, coordinating hackathons and building resources for 102 members.",
+      "Tech Lead at Google Developer Group, leading project teams from architecture to release and mentoring 130+ members. Vice President of Data Analytics Club at Augustana College, coordinating hackathons and building resources for 102 members. Along the way: Best Insight Award at ASA DataFest and induction into the al-Khwarizmi Computer Science Honor Society.",
   },
   lab: {
     id: "lab",
     title: "Inside the Lab",
     image: "/images/about/lab.jpg",
     description:
-      "Dual major in Computer Science and Bioinformatics, exploring the intersection of technology and life sciences. Passionate about leveraging computational tools to solve biological problems.",
+      "A self-designed Computer Science and Bioinformatics major, the first contract major of its kind at Augustana - exploring the intersection of technology and life sciences. For his senior research, he's building an EEG-based brain-computer interface.",
   },
   football: {
     id: "football",
@@ -45,14 +45,6 @@ export const aboutSections: Record<string, Section> = {
     image: "/images/about/football.png",
     description:
       "Football isn't just a sport, it's a way to connect and share moments of joy.",
-  },
-  projects: {
-    id: "projects",
-    title: "Side Projects",
-    image: "/images/about/projects.png",
-    description:
-      "Building tools that solve real problems. Check out my projects like PlanIt (AI-powered college planner) and Node (campus engagement app).",
-    link: "https://my-gf-to-do-list.vercel.app/",
   },
 } as const;
 
@@ -65,7 +57,6 @@ const About = ({ toggleColorMode }: AboutProps) => {
     leadership: null,
     lab: null,
     football: null,
-    projects: null,
   });
 
   // Scroll to section if hash is present in URL
@@ -177,6 +168,23 @@ const About = ({ toggleColorMode }: AboutProps) => {
           </motion.div>
         </Box>
       ))}
+
+      <Typography variant="body1" sx={{ opacity: 0.9 }}>
+        See everything I've built{" "}
+        <Link
+          href="/projects"
+          sx={{
+            color: "inherit",
+            textDecoration: "underline",
+            textDecorationColor: "rgba(255, 255, 255, 0.3)",
+            "&:hover": {
+              textDecorationColor: "rgba(255, 255, 255, 0.6)",
+            },
+          }}
+        >
+          on the projects page →
+        </Link>
+      </Typography>
     </Box>
   );
 };
