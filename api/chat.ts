@@ -1,6 +1,22 @@
 import { openai, EMBEDDING_MODEL, EMBEDDING_DIMENSIONS, CHAT_MODEL } from "./_lib/openai.js";
 import { retrieveContext } from "./_lib/kb.js";
 import { checkRateLimit } from "./_lib/ratelimit.js";
+import { redis } from "./_lib/redis.js";
+
+const MAX_CHAT_QUESTION_LOG = 500;
+
+async function logChatQuestion(question: string) {
+  if (!redis) return;
+  try {
+    await redis.lpush(
+      "analytics:chat_questions",
+      JSON.stringify({ question, timestamp: Date.now() })
+    );
+    await redis.ltrim("analytics:chat_questions", 0, MAX_CHAT_QUESTION_LOG - 1);
+  } catch {
+    // Logging must never break the chat response.
+  }
+}
 
 export const config = { runtime: "edge" };
 
@@ -47,6 +63,8 @@ export default async function handler(req: Request): Promise<Response> {
   if (!message || message.length === 0 || message.length > MAX_MESSAGE_LENGTH) {
     return new Response("Invalid message", { status: 400 });
   }
+
+  await logChatQuestion(message);
 
   const history = (body.history ?? []).slice(-16).map((m) => ({
     role: m.role === "user" ? ("user" as const) : ("assistant" as const),
