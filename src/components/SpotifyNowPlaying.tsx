@@ -21,8 +21,9 @@ export default function SpotifyNowPlaying() {
   useEffect(() => {
     const fetchLastPlayed = async () => {
       try {
-        const response = await fetch(ENDPOINTS.LAST_PLAYED, {
+        const response = await fetch(`${ENDPOINTS.LAST_PLAYED}?t=${Date.now()}`, {
           method: "GET",
+          cache: "no-store",
           headers: {
             Accept: "application/json",
           },
