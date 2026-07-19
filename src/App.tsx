@@ -32,7 +32,7 @@ const BackgroundPattern = () => (
 function App() {
   const [mode, setMode] = useState<"light" | "dark">(() => {
     const savedMode = localStorage.getItem("themeMode");
-    return savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
+    return savedMode === "light" || savedMode === "dark" ? savedMode : "light";
   });
 
   const theme = useMemo(
