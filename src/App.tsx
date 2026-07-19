@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Experience from "./pages/Experience";
 import Notes from "./pages/Notes";
@@ -9,7 +9,32 @@ import NotesDetail from "./pages/NotesDetail";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Tools from "./pages/Tools";
+import AnalyticsPage from "./pages/Analytics";
 import { Analytics } from "@vercel/analytics/react";
+import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
+
+function usePageAnalytics() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.startsWith("/analytics")) return;
+
+    trackPageview(location.pathname);
+    markPageEntered();
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) trackSessionEnd(location.pathname);
+    };
+    const handleUnload = () => trackSessionEnd(location.pathname);
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("beforeunload", handleUnload);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, [location.pathname]);
+}
 
 const BackgroundPattern = () => (
   <div
@@ -31,6 +56,8 @@ const BackgroundPattern = () => (
 );
 
 function App() {
+  usePageAnalytics();
+
   const [mode, setMode] = useState<"light" | "dark">(() => {
     const savedMode = localStorage.getItem("themeMode");
     return savedMode === "light" || savedMode === "dark" ? savedMode : "light";
@@ -117,6 +144,10 @@ function App() {
         <Route
           path="/tools"
           element={<Tools toggleColorMode={toggleColorMode} />}
+        />
+        <Route
+          path="/analytics"
+          element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
         />
       </Routes>
     </ThemeProvider>

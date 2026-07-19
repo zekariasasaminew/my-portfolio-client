@@ -18,6 +18,7 @@ import Navbar from "../components/Navbar";
 import ChatTerminal from "../components/ChatTerminal";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
 import { impactStats, contact, resumeFiles } from "../data/facts";
+import { trackClick } from "../lib/analytics";
 
 interface Props {
   toggleColorMode: () => void;
@@ -157,6 +158,7 @@ const Home = ({ toggleColorMode }: Props) => {
             href="https://github.com/zekariasasaminew"
             target="_blank"
             rel="noopener"
+            onClick={() => trackClick("github")}
             sx={{
               ...LinkStyle,
               display: "flex",
@@ -169,6 +171,7 @@ const Home = ({ toggleColorMode }: Props) => {
             href="https://linkedin.com/in/zekarias-asaminew"
             target="_blank"
             rel="noopener"
+            onClick={() => trackClick("linkedin")}
             sx={{
               ...LinkStyle,
               display: "flex",
@@ -208,7 +211,10 @@ const Home = ({ toggleColorMode }: Props) => {
               component="a"
               href={resumeFiles.ai.href}
               download
-              onClick={() => setResumeAnchor(null)}
+              onClick={() => {
+                trackClick("resume-ai");
+                setResumeAnchor(null);
+              }}
             >
               Resume ({resumeFiles.ai.label})
             </MenuItem>
@@ -216,7 +222,10 @@ const Home = ({ toggleColorMode }: Props) => {
               component="a"
               href={resumeFiles.coreSwe.href}
               download
-              onClick={() => setResumeAnchor(null)}
+              onClick={() => {
+                trackClick("resume-core-swe");
+                setResumeAnchor(null);
+              }}
             >
               Resume ({resumeFiles.coreSwe.label})
             </MenuItem>
