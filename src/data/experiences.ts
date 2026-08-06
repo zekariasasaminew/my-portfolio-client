@@ -8,6 +8,7 @@ export const experiences: Experience[] = [
     startDate: "Jun 2026",
     endDate: "Present",
     companyUrl: "https://www.ey.com",
+    detailLink: "/ey-internship",
     iconType: "web",
     themeColor: {
       dark: "#FFE600",

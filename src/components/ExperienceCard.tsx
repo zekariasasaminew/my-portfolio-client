@@ -162,6 +162,25 @@ const ExperienceCard = memo(({ experience }: ExperienceCardProps) => {
             </li>
           ))}
         </Box>
+        {experience.detailLink && (
+          <Link
+            href={experience.detailLink}
+            sx={{
+              display: "inline-block",
+              mt: 2,
+              fontSize: "0.9rem",
+              fontWeight: 500,
+              color:
+                theme.palette.mode === "dark"
+                  ? experience.themeColor.dark
+                  : experience.themeColor.light,
+              textDecoration: "none",
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            Read the full story →
+          </Link>
+        )}
       </Box>
     </Box>
   );
