@@ -6,6 +6,7 @@ export interface Experience {
   endDate: string;
   points: string[];
   companyUrl?: string;
+  detailLink?: string;
   iconType: 'code' | 'science' | 'web' | 'school';
   themeColor: {
     dark: string;
