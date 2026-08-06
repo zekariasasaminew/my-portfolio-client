@@ -199,6 +199,53 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
     />
   );
 
+  const photo = ({
+    src,
+    alt,
+    caption,
+    orientation = "landscape",
+  }: {
+    src: string;
+    alt: string;
+    caption: string;
+    orientation?: "portrait" | "landscape";
+  }) => (
+    <Box
+      component="figure"
+      sx={{ m: 0, my: 4, display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Box
+        component="img"
+        src={src}
+        alt={alt}
+        loading="lazy"
+        sx={{
+          width: "100%",
+          maxWidth: orientation === "portrait" ? "320px" : "560px",
+          borderRadius: "10px",
+          boxShadow:
+            theme.palette.mode === "dark"
+              ? "0 8px 24px rgba(0,0,0,0.4)"
+              : "0 8px 24px rgba(0,0,0,0.12)",
+          objectFit: "cover",
+        }}
+      />
+      <Typography
+        component="figcaption"
+        variant="body2"
+        sx={{
+          mt: 1.5,
+          color: theme.palette.text.secondary,
+          fontStyle: "italic",
+          textAlign: "center",
+          maxWidth: "50ch",
+        }}
+      >
+        {caption}
+      </Typography>
+    </Box>
+  );
+
   return (
     <Box
       component={motion.div}
@@ -262,6 +309,14 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           made room for a summer intern and meant it. That part of the story
           comes later on this page, and it's the part I care about most.
         </Typography>
+
+        {photo({
+          src: "/images/ey/training-week-dinner.jpg",
+          alt: "A group of interns at a dinner table during first week training, before the internship officially began.",
+          caption:
+            "Some of us during first week training, before the internship had even officially started.",
+          orientation: "landscape",
+        })}
       </Box>
 
       {sectionDivider}
@@ -341,6 +396,14 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
             {paragraph}
           </Typography>
         ))}
+
+        {photo({
+          src: "/images/ey/intern-celebration-schools.jpg",
+          alt: "Specialty Tax interns lined up at the all-intern celebration, each wearing merch from their own school.",
+          caption:
+            "Specialty Tax interns at the all-intern celebration, repping our schools.",
+          orientation: "portrait",
+        })}
 
         {/* How I grew: stylized, self-authored competency summary */}
         <Box sx={{ mt: 5 }}>
@@ -424,6 +487,14 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           in full.
         </Typography>
 
+        {photo({
+          src: "/images/ey/ttt-team-dinner.jpg",
+          alt: "The TTT team at a dinner in Chicago.",
+          caption:
+            "The TTT team at a Chicago dinner, on the night the air quality hit 500 from the Canadian wildfire smoke.",
+          orientation: "landscape",
+        })}
+
         {peopleGroups.map((group) => (
           <Box key={group.title} sx={{ mb: 4 }}>
             <Typography
@@ -446,6 +517,13 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
                 ({person.role}). {person.body}
               </Typography>
             ))}
+            {group.title === "Peer Buddies and Early Guides" &&
+              photo({
+                src: "/images/ey/ticket-to-ride.jpg",
+                alt: "Quang, Chris, and Brian playing Ticket to Ride around a table.",
+                caption: "Quang, Chris, and Brian, mid-game of Ticket to Ride.",
+                orientation: "portrait",
+              })}
           </Box>
         ))}
       </Box>
@@ -454,6 +532,12 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
 
       {/* Closing */}
       <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
+        {photo({
+          src: "/images/ey/cassie-last-day.jpg",
+          alt: "Zekarias and Cassie, his co-intern, smiling together on their last day working together.",
+          caption: "Cassie, my co-intern, on our last day working together.",
+          orientation: "portrait",
+        })}
         <Typography
           component="p"
           variant="body1"
