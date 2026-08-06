@@ -28,38 +28,38 @@ const engagements: Engagement[] = [
     title: "A Global Animal Health Company",
     context:
       "An indirect tax project built around a stack of client-provided documents that all needed to agree with each other.",
-    body: "Most of my time here went into consolidating and cross-checking spreadsheets, client files against our own analyses, line by line. I used AI to speed up the repetitive parts of that comparison work, but the bigger lesson came from where I slowed down instead: the tax-technical reasoning behind a given cell rarely shows up in the file itself. I learned to ask what a number meant before I touched it, not after.",
+    body: "Most of my time on this one went into consolidating spreadsheets and cross-checking client files against our own analyses, line by line. I leaned on AI to speed through the repetitive comparison work, but the bigger lesson honestly came from the opposite direction, from slowing down. The tax-technical reasoning behind a given cell almost never shows up in the file itself, so I got in the habit of asking what a number actually meant before I touched it instead of after.",
   },
   {
     title: "A Fortune 100 Electronics Distributor",
     context:
       "A certificate-processing workflow ahead of a hard deadline: a multi-day cutover.",
-    body: "I wrote a JavaScript automation for part of the certificate workflow, then walked the team through the logic so they could validate it against what the project actually needed. Their feedback changed a few assumptions I'd baked in, and the revised version held up. Over four days, the team processed more than 70,000 certificates, and the automation carried a real share of that load. It was the first time I'd built something and watched it work under actual pressure, not just in a test file.",
+    body: "I wrote a JavaScript automation for part of the certificate workflow, then sat down with the team and walked through the logic so they could check it against what the project actually needed. Their feedback caught a few assumptions I'd baked in without realizing it, and once I fixed those, the thing held up. Over four days the team processed more than 70,000 certificates, and my script carried a real chunk of that. First time I'd built something and then watched it hold up under real pressure instead of just a test file.",
   },
   {
     title: "A Supermajor Energy Client",
     context:
       "Country-by-country e-invoicing design on SAP S/4HANA, across several jurisdictions.",
-    body: "I contributed to design work spanning multiple countries, including Belgium's self-billing flow through a PEPPOL-certified access point, and country design slides for a few Latin American markets. Most of my hands-on work was building and refining the process-flow diagrams and legends that anchor those design documents, which meant sitting with how the accounting side actually behaves and making sure the diagrams told the same story.",
+    body: "This one had me contributing to design work across several countries, including Belgium's self-billing flow through a PEPPOL-certified access point, plus country design slides for a few Latin American markets. Most of what I actually touched was the process-flow diagrams and legends that anchor those design documents, and getting those right meant sitting with how the accounting side behaves day to day, so the diagrams weren't just technically correct, they matched reality.",
   },
   {
     title: "Vertex Taxability Matrix Work",
     context: "A state-by-state taxability review, done the slow way on purpose.",
-    body: "I merged a Vertex taxability matrix against a client's product and category matrix across the US, state by state, then audited the result row by row, translating Vertex's shorthand (E, T, T-star, D) into plain-English taxability for each state and category pair. It was tedious in the way that matters: the mismatches I caught sat at the exact intersection where a wrong assumption would have counted most.",
+    body: "I merged a Vertex taxability matrix against a client's product and category matrix, state by state across the US, then went through the result row by row, translating Vertex's shorthand (E, T, T-star, D) into plain-English taxability for every state and category pair. It was tedious, but the useful kind of tedious. Every mismatch I found sat right at the intersection where a wrong assumption would have actually mattered.",
   },
   {
     title: "An Internal AI Initiative",
     context: "The project I'm proudest of, because it started with listening.",
-    body: "I designed a product taxonomy classification agent in the firm's internal agent studio. When we ran into its limits, I wrote an architecture design document for a custom agent to close the gaps we'd found. What makes this one stick with me is where it started: not with a tool I wanted to try, but with paying attention to how the team actually spends its time.",
+    body: "I designed a product taxonomy classification agent in the firm's internal agent studio, and when we hit its ceiling, I wrote up an architecture design document for a custom agent that could close the gaps we'd found. What sticks with me about this one is where it actually started. Not with some tool I was excited to try out, but with paying attention to how the team spends its time and noticing where it was getting wasted.",
   },
 ];
 
 const reflectionParagraphs: string[] = [
-  "The most useful thing I brought to any project wasn't a script or a shortcut, it was a good question asked early. Tax has more depth than I gave it credit for walking in, and I got better over the summer at pausing before I automated anything, because the fastest way to build the wrong tool is to skip the part where you ask what the work is actually for.",
-  "Being trusted with real client work, even in small slices, changed how I read a set of requirements and how I reviewed my own output before sending it along. Ownership feels different when there's a client on the other end of the thing you're doing, and I noticed myself double-checking things I might have glossed over in a school project.",
-  "Every win I had with AI came from noticing a manual pattern first and only then reaching for a tool, whether that tool ended up being a script, an agent, or just a better Excel formula. AI didn't do the thinking for me. It did the repeating, once I'd figured out what was worth repeating.",
-  "Explaining my logic to a reviewer, walking someone through a design doc, or just writing a clear message mattered as much as the work behind it. I got better at saying what I meant the first time, because the alternative was a longer conversation later.",
-  "And under all of it were the people who made the summer what it was. That's not a side note. It's most of the story, and it's next.",
+  "If I'm honest, the most useful thing I brought to any of these projects wasn't a script or a shortcut. It was asking a good question early, before touching anything. I walked in underestimating how much depth tax actually has, and by the end of the summer I'd gotten a lot better at pausing before I automated something, because the fastest way to build the wrong tool is to skip the part where you ask what the work is even for.",
+  "Getting trusted with real client work, even small slices of it, changed how I read requirements and how carefully I reviewed my own output before sending anything along. There's an actual client on the other end of what you're doing, and that changes ownership completely. I caught myself double-checking things I probably would have glossed over in a school project.",
+  "Every real win I had with AI started the same way: I noticed a manual pattern first, and only then went looking for the right tool, whether that ended up being a script, an agent, or honestly just a better Excel formula. AI never did the thinking part for me. What it did was handle the repeating, but only after I'd already figured out what was worth repeating.",
+  "Explaining my logic to a reviewer, walking someone through a design doc, even just writing a clear Teams message, mattered just as much as the work behind it. I got better at saying what I meant the first time around, mostly because I learned the alternative was always a longer, more annoying conversation later.",
+  "Underneath all of that were the people who actually made the summer what it was. That's not a footnote to everything else I just said. It's most of the story, honestly, and it's up next.",
 ];
 
 const competencies: { name: string; note: string }[] = [
@@ -257,8 +257,6 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         maxWidth: "760px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
-        display: "flex",
-        flexDirection: "column",
         color: theme.palette.text.primary,
         position: "relative",
         zIndex: 1,
@@ -294,20 +292,21 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           Eight Weeks at EY
         </Typography>
         <Typography component="div" variant="body1" sx={{ ...proseSx, mb: 2 }}>
-          This summer I spent eight weeks in Chicago on EY's Tax Transformation
-          team, inside the Tax Technology and Transformation practice, working
-          on indirect tax projects at a Big Four firm. I went in hoping to find
-          the overlap between computer science and tax work, somewhere I could
-          use automation and AI without losing sight of the tax logic
-          underneath it.
+          This summer I spent eight weeks in Chicago with EY's Tax
+          Transformation team, inside the Tax Technology and Transformation
+          practice, on the indirect tax side. Going in, I mostly wanted to
+          know if there was real overlap between computer science and tax
+          work, somewhere I could bring in automation or AI without losing
+          the actual tax logic underneath it.
         </Typography>
         <Typography component="div" variant="body1" sx={proseSx}>
-          I found more of that overlap than I expected, plus a cutover
-          weekend, a taxability matrix with more nuance than any spreadsheet
-          lets on, and a chance to design an AI agent from the ground up. What
-          surprised me most wasn't the work itself. It was how many people
-          made room for a summer intern and meant it. That part of the story
-          comes later on this page, and it's the part I care about most.
+          There was more overlap than I expected. I also ended up in the
+          middle of a cutover weekend, buried in a taxability matrix with way
+          more nuance than any spreadsheet lets on, and building an AI agent
+          from scratch. Honestly though, the work wasn't the part that
+          surprised me most. It was how many people took the time to make
+          room for a summer intern, and actually meant it. That's most of
+          what this page is about.
         </Typography>
 
         {photo({
@@ -363,11 +362,11 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         ))}
 
         <Typography component="p" variant="body1" sx={{ ...proseSx, mt: 5 }}>
-          Different clients, different formats, same throughline. Whether it
-          was Excel, JavaScript, or an agent built from scratch, the work
-          always came back to the same question: where is a person doing
-          something a machine could do faster, so that the person can go do
-          something a machine can't.
+          Different clients, different formats, but it kept coming back to
+          the same question every time: where's a person doing something a
+          machine could do faster, so that person can go spend their time on
+          something a machine can't. Excel, JavaScript, an agent built from
+          scratch, didn't matter. That was the actual job.
         </Typography>
       </Box>
 
