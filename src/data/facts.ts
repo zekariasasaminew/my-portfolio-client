@@ -50,10 +50,10 @@ export const leadershipStats: LeadershipStat[] = [
 ];
 
 export const impactStats: string[] = [
-  "$3.7M+ saved · John Deere",
   "Top external contributor · GitHub Desktop v3.5.4",
   "720+ users · CampusEx",
   "130 members led · GDG",
+  "$3.7M+ saved · John Deere",
 ];
 
 export const contact = {
