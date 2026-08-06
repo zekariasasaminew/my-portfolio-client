@@ -14,10 +14,7 @@ export const experiences: Experience[] = [
       dark: "#FFE600",
       light: "#9B7F00",
     },
-    points: [
-      "Automated a manual, ticket-driven Excel report by building an agent to validate, clean, and update records daily, cutting a **2+ hour task to under a minute**",
-      "Audited team workflows to surface repetitive manual work and prioritized automation opportunities",
-    ],
+    points: [],
   },
   {
     company: "John Deere",
@@ -34,9 +31,7 @@ export const experiences: Experience[] = [
     points: [
       "Delivered features across **4 enterprise** `React`/`Next.js` apps, contributing to **$3.7M+** in projected annual savings",
       "Built an agentic pipeline correlating `New Relic` alerts with git commits to auto-diagnose failures & open draft PR fixes",
-      "Automated review, testing, and merging of Dependabot/Mend PRs, auto-fixing failing tests",
       "Introduced `GitHub Copilot CLI`, automating **90%+** of documentation & reducing **API latency 40%** via `Redis`",
-      "Cut **deployment time 85%** via automated `Kubernetes` CI/CD",
     ],
   },
   {
