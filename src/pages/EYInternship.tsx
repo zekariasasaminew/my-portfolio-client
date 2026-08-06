@@ -191,7 +191,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
   const sectionDivider = (
     <Divider
       sx={{
-        my: { xs: 5, md: 7 },
+        my: { xs: 3, md: 4 },
         borderColor: accent,
         opacity: 0.25,
         maxWidth: "120px",
@@ -265,7 +265,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       <Navbar toggleColorMode={toggleColorMode} />
 
       {/* Hero */}
-      <Box component="section" sx={{ mb: { xs: 5, md: 7 } }}>
+      <Box component="section" sx={{ mb: { xs: 3, md: 4 } }}>
         <Typography
           sx={{
             fontFamily: "monospace",
@@ -310,10 +310,10 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         </Typography>
 
         {photo({
-          src: "/images/ey/training-week-dinner.jpg",
-          alt: "A group of interns at a dinner table during first week training, before the internship officially began.",
+          src: "/images/ey/ttt-team-dinner.jpg",
+          alt: "The TTT team at a dinner in Chicago.",
           caption:
-            "Some of us during first week training, before the internship had even officially started.",
+            "The TTT team at a Chicago dinner, on the night the air quality hit 500 from the Canadian wildfire smoke.",
           orientation: "landscape",
         })}
       </Box>
@@ -321,17 +321,13 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       {sectionDivider}
 
       {/* What I actually worked on */}
-      <Box component="section" sx={{ mb: { xs: 5, md: 7 } }}>
-        <Typography component="h2" variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-          What I Actually Worked On
-        </Typography>
+      <Box component="section" sx={{ mb: { xs: 3, md: 4 } }}>
         <Typography
-          component="p"
-          variant="body1"
-          sx={{ ...proseSx, mb: 4, color: theme.palette.text.secondary }}
+          component="h2"
+          variant="h5"
+          sx={{ fontWeight: 600, mb: 4 }}
         >
-          Five threads, one throughline: less manual work, more time for the
-          parts of tax that actually need a human.
+          What I Actually Worked On
         </Typography>
 
         {engagements.map((engagement) => (
@@ -373,16 +369,13 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       {sectionDivider}
 
       {/* Reflection */}
-      <Box component="section" sx={{ mb: { xs: 5, md: 7 } }}>
-        <Typography component="h2" variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-          What the Summer Taught Me
-        </Typography>
+      <Box component="section" sx={{ mb: { xs: 3, md: 4 } }}>
         <Typography
-          component="p"
-          variant="body1"
-          sx={{ ...proseSx, mb: 3, color: theme.palette.text.secondary }}
+          component="h2"
+          variant="h5"
+          sx={{ fontWeight: 600, mb: 3 }}
         >
-          Five things I didn't fully believe until I lived them.
+          What the Summer Taught Me
         </Typography>
 
         {reflectionParagraphs.map((paragraph, index) => (
@@ -422,8 +415,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
               maxWidth: "70ch",
             }}
           >
-            Six areas the summer stretched me in, in my own words, not a
-            lifted form.
+            Six areas that actually stretched me this summer.
           </Typography>
           <Box
             component="ul"
@@ -473,7 +465,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       {sectionDivider}
 
       {/* People */}
-      <Box component="section" sx={{ mb: { xs: 5, md: 7 } }}>
+      <Box component="section" sx={{ mb: { xs: 3, md: 4 } }}>
         <Typography component="h2" variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
           People I'm Grateful For
         </Typography>
@@ -487,10 +479,10 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         </Typography>
 
         {photo({
-          src: "/images/ey/ttt-team-dinner.jpg",
-          alt: "The TTT team at a dinner in Chicago.",
+          src: "/images/ey/training-week-dinner.jpg",
+          alt: "A group of interns at a dinner table during first week training, before the internship officially began.",
           caption:
-            "The TTT team at a Chicago dinner, on the night the air quality hit 500 from the Canadian wildfire smoke.",
+            "Some of us during first week training, before the internship had even officially started.",
           orientation: "landscape",
         })}
 
@@ -512,8 +504,8 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
               >
                 <Box component="strong" sx={{ fontWeight: 700 }}>
                   {person.name}
-                </Box>{" "}
-                ({person.role}). {person.body}
+                </Box>
+                . {person.body}
               </Typography>
             ))}
             {group.title === "Peer Buddies and Early Guides" &&
