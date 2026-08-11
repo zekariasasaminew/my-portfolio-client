@@ -6,52 +6,12 @@ interface EYInternshipProps {
   toggleColorMode: () => void;
 }
 
-interface Engagement {
-  title: string;
-  context: string;
-  body: string;
-}
-
-interface Person {
-  name: string;
-  role: string;
-  body: string;
-}
-
-interface PeopleGroup {
-  title: string;
-  people: Person[];
-}
-
-const engagements: Engagement[] = [
-  {
-    title: "A Global Animal Health Company",
-    context:
-      "An indirect tax project built around a stack of client-provided documents that all needed to agree with each other.",
-    body: "Most of my time on this one went into consolidating spreadsheets and cross-checking client files against our own analyses, line by line. I leaned on AI to speed through the repetitive comparison work, but the bigger lesson honestly came from the opposite direction, from slowing down. The tax-technical reasoning behind a given cell almost never shows up in the file itself, so I got in the habit of asking what a number actually meant before I touched it instead of after.",
-  },
-  {
-    title: "A Fortune 100 Electronics Distributor",
-    context:
-      "A certificate-processing workflow ahead of a hard deadline: a multi-day cutover.",
-    body: "I wrote a JavaScript automation for part of the certificate workflow, then sat down with the team and walked through the logic so they could check it against what the project actually needed. Their feedback caught a few assumptions I'd baked in without realizing it, and once I fixed those, the thing held up. Over four days the team processed more than 70,000 certificates, and my script carried a real chunk of that. First time I'd built something and then watched it hold up under real pressure instead of just a test file.",
-  },
-  {
-    title: "A Supermajor Energy Client",
-    context:
-      "Country-by-country e-invoicing design on SAP S/4HANA, across several jurisdictions.",
-    body: "This one had me contributing to design work across several countries, including Belgium's self-billing flow through a PEPPOL-certified access point, plus country design slides for a few Latin American markets. Most of what I actually touched was the process-flow diagrams and legends that anchor those design documents, and getting those right meant sitting with how the accounting side behaves day to day, so the diagrams weren't just technically correct, they matched reality.",
-  },
-  {
-    title: "Vertex Taxability Matrix Work",
-    context: "A state-by-state taxability review, done the slow way on purpose.",
-    body: "I merged a Vertex taxability matrix against a client's product and category matrix, state by state across the US, then went through the result row by row, translating Vertex's shorthand (E, T, T-star, D) into plain-English taxability for every state and category pair. It was tedious, but the useful kind of tedious. Every mismatch I found sat right at the intersection where a wrong assumption would have actually mattered.",
-  },
-  {
-    title: "An Internal AI Initiative",
-    context: "The project I'm proudest of, because it started with listening.",
-    body: "I designed a product taxonomy classification agent in the firm's internal agent studio, and when we hit its ceiling, I wrote up an architecture design document for a custom agent that could close the gaps we'd found. What sticks with me about this one is where it actually started. Not with some tool I was excited to try out, but with paying attention to how the team spends its time and noticing where it was getting wasted.",
-  },
+const engagements: string[] = [
+  "Wrote a JavaScript automation for a certificate-processing workflow — it carried a real chunk of the 70,000+ certificates processed during a 4-day cutover",
+  "Designed a product-taxonomy classification agent in EY's internal agent studio, then wrote the architecture doc for a custom agent when it hit a ceiling",
+  "Used AI tools to speed through reconciling client spreadsheets against internal analyses on an indirect-tax project",
+  "Contributed system-design documentation — process-flow diagrams, country-specific logic — for a multi-country e-invoicing rollout on SAP S/4HANA",
+  "Merged and translated a 50-state Vertex taxability matrix into structured, plain-English taxability logic",
 ];
 
 const reflectionParagraphs: string[] = [
@@ -59,7 +19,6 @@ const reflectionParagraphs: string[] = [
   "Getting trusted with real client work, even small slices of it, changed how I read requirements and how carefully I reviewed my own output before sending anything along. There's an actual client on the other end of what you're doing, and that changes ownership completely. I caught myself double-checking things I probably would have glossed over in a school project.",
   "Every real win I had with AI started the same way: I noticed a manual pattern first, and only then went looking for the right tool, whether that ended up being a script, an agent, or honestly just a better Excel formula. AI never did the thinking part for me. What it did was handle the repeating, but only after I'd already figured out what was worth repeating.",
   "Explaining my logic to a reviewer, walking someone through a design doc, even just writing a clear Teams message, mattered just as much as the work behind it. I got better at saying what I meant the first time around, mostly because I learned the alternative was always a longer, more annoying conversation later.",
-  "Underneath all of that were the people who actually made the summer what it was. That's not a footnote to everything else I just said. It's most of the story, honestly, and it's up next.",
 ];
 
 const competencies: { name: string; note: string }[] = [
@@ -86,94 +45,6 @@ const competencies: { name: string; note: string }[] = [
   {
     name: "Relationship Building",
     note: "Coffee chats turned out to matter as much as any deliverable. Maybe more.",
-  },
-];
-
-const peopleGroups: PeopleGroup[] = [
-  {
-    title: "The One Who Anchored It All",
-    people: [
-      {
-        name: "Filo",
-        role: "my counselor",
-        body: "Every internship needs one person who patiently opens every door, and mine was Filo. She onboarded me into her client and internal meetings, walked me through the day-to-day, gave me real tasks, and then took the time to review them with feedback that actually made me better. Our weekly one-on-ones over coffee turned into conversations about career, about being an international student, and about the long game. She showed me what steady, generous mentorship looks like.",
-      },
-    ],
-  },
-  {
-    title: "The Recruiter Who Was There Before, During, and After",
-    people: [
-      {
-        name: "Stephanie",
-        role: "my recruiter",
-        body: "Stephanie was the pillar of the whole experience: pre-arrival logistics, a mid-summer immigration situation handled with the visa and immigration team, and every small \"who do I even ask about this\" moment in between. We also bonded over the Midwest. She's from Des Moines, I'm from the Quad Cities, and I got very lucky landing with a recruiter who already understood exactly where I was coming from.",
-      },
-    ],
-  },
-  {
-    title: "Peer Buddies and Early Guides",
-    people: [
-      {
-        name: "Quang",
-        role: "peer buddy",
-        body: "Quang was the first teammate I met in person, at the training hotel, before the internship even officially began. He'd already been my pre-interview peer buddy and helped me prep for it. We ended up bonding over football and the World Cup, and that made the first nervous days a lot easier.",
-      },
-      {
-        name: "Brian",
-        role: "peer buddy",
-        body: "Brian gave me weekly one-on-ones, pointed me to the same training material that had helped him when he started, got me access to the Vertex sandbox so I could teach myself the basics, and offered steady guidance the whole way through.",
-      },
-      {
-        name: "Corey",
-        role: "senior manager",
-        body: "Corey and I spoke before I even started, and that conversation set my expectations for team dynamics and the day-to-day. Travel and a firm break kept us from working together as closely as either of us probably wanted, but shadowing his calls and asking questions afterward was some of the best learning of the summer.",
-      },
-    ],
-  },
-  {
-    title: "The People I Worked Closely With",
-    people: [
-      {
-        name: "Jordyn",
-        role: "manager",
-        body: "Jordyn led my first real client-facing engagement. She was patient explaining things that were new to me, gave me tasks with real review and feedback, and brought a warmth that made it easy to ask questions instead of guessing. She's a big part of how I learned what great client service actually looks like.",
-      },
-      {
-        name: "Kaye",
-        role: "manager",
-        body: "Kaye and I worked closely during the certificate cutover weekend. She backed the automation idea when it was still just an idea, gave sharp feedback on the logic, and helped it land inside the broader team effort instead of staying a side project.",
-      },
-      {
-        name: "Forrest",
-        role: "AI initiative",
-        body: "Forrest was my partner on the agent-studio classifier and the custom-agent architecture doc. He walked me through how the team used to do this work so I could actually see what \"old way versus new way\" meant, and his feedback was the kind I looked forward to getting.",
-      },
-      {
-        name: "Michael",
-        role: "executive director",
-        body: "What started as a research request in the team's lounge chat turned into a small analysis project with Michael. He was a delight to work with, and a good reminder that saying yes to low-stakes asks is usually worth it.",
-      },
-      {
-        name: "Bhakti",
-        role: "collaborator",
-        body: "Bhakti and I worked together on both the animal-health and electronics-distributor projects. I'm grateful for the day-to-day partnership, the kind that makes the actual grind of a project easier to get through.",
-      },
-    ],
-  },
-  {
-    title: "The Coffee Chats I'll Remember",
-    people: [
-      {
-        name: "Kate and Rob",
-        role: "New York and Hoboken",
-        body: "Different offices meant we never overlapped on client work, but our early coffee chats shaped how I thought about standing out on the team from day one.",
-      },
-      {
-        name: "Chris",
-        role: "manager",
-        body: "Chris interviewed me for the role. We never got to work together directly, but I want to thank him for trusting me enough to bring me in and let me contribute.",
-      },
-    ],
   },
 ];
 
@@ -291,22 +162,13 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         >
           Eight Weeks at EY
         </Typography>
-        <Typography component="div" variant="body1" sx={{ ...proseSx, mb: 2 }}>
-          This summer I spent eight weeks in Chicago with EY's Tax
-          Transformation team, inside the Tax Technology and Transformation
-          practice, on the indirect tax side. Going in, I mostly wanted to
-          know if there was real overlap between computer science and tax
-          work, somewhere I could bring in automation or AI without losing
-          the actual tax logic underneath it.
-        </Typography>
         <Typography component="div" variant="body1" sx={proseSx}>
-          There was more overlap than I expected. I also ended up in the
-          middle of a cutover weekend, buried in a taxability matrix with way
-          more nuance than any spreadsheet lets on, and building an AI agent
-          from scratch. Honestly though, the work wasn't the part that
-          surprised me most. It was how many people took the time to make
-          room for a summer intern, and actually meant it. That's most of
-          what this page is about.
+          Spent eight weeks in Chicago this summer on EY's Tax Technology and
+          Transformation team, indirect tax side. Went in wondering if there
+          was any real overlap between software and tax work. Turned out
+          there was: a cutover I automated with a script, a taxability matrix
+          with way more nuance than a spreadsheet lets on, and an AI agent
+          built from scratch.
         </Typography>
 
         {photo({
@@ -328,40 +190,31 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         <Typography
           component="p"
           variant="body1"
-          sx={{ ...proseSx, mb: 4, color: theme.palette.text.secondary }}
+          sx={{ ...proseSx, mb: 3, color: theme.palette.text.secondary }}
         >
           Five threads, one throughline: less manual work, more time for the
           parts of tax that actually need a human.
         </Typography>
 
-        {engagements.map((engagement) => (
-          <Box key={engagement.title} sx={{ mb: 4 }}>
-            <Typography
-              component="h3"
-              variant="h6"
-              sx={{ fontWeight: 600, mb: 0.5 }}
-            >
-              {engagement.title}
+        <Box
+          component="ul"
+          sx={{
+            ...proseSx,
+            m: 0,
+            pl: 3,
+            display: "flex",
+            flexDirection: "column",
+            gap: 1.5,
+          }}
+        >
+          {engagements.map((engagement) => (
+            <Typography key={engagement} component="li" variant="body1" sx={proseSx}>
+              {engagement}
             </Typography>
-            <Typography
-              component="p"
-              variant="body2"
-              sx={{
-                color: theme.palette.text.secondary,
-                fontStyle: "italic",
-                mb: 1,
-                maxWidth: "70ch",
-              }}
-            >
-              {engagement.context}
-            </Typography>
-            <Typography component="p" variant="body1" sx={proseSx}>
-              {engagement.body}
-            </Typography>
-          </Box>
-        ))}
+          ))}
+        </Box>
 
-        <Typography component="p" variant="body1" sx={{ ...proseSx, mt: 5 }}>
+        <Typography component="p" variant="body1" sx={{ ...proseSx, mt: 4 }}>
           Different clients, different formats, but it kept coming back to
           the same question every time: where's a person doing something a
           machine could do faster, so that person can go spend their time on
@@ -382,7 +235,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           variant="body1"
           sx={{ ...proseSx, mb: 3, color: theme.palette.text.secondary }}
         >
-          Five things I didn't fully believe until I lived them.
+          A few things I didn't fully believe until I lived them.
         </Typography>
 
         {reflectionParagraphs.map((paragraph, index) => (
@@ -482,8 +335,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           variant="body1"
           sx={{ ...proseSx, mb: 4, color: theme.palette.text.secondary }}
         >
-          This is the part of the summer I'll remember longest, so here it is
-          in full.
+          This is the part of the summer I'll remember longest.
         </Typography>
 
         {photo({
@@ -494,37 +346,25 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           orientation: "landscape",
         })}
 
-        {peopleGroups.map((group) => (
-          <Box key={group.title} sx={{ mb: 4 }}>
-            <Typography
-              component="h3"
-              variant="subtitle1"
-              sx={{ fontWeight: 600, mb: 2, color: accent }}
-            >
-              {group.title}
-            </Typography>
-            {group.people.map((person) => (
-              <Typography
-                key={person.name}
-                component="p"
-                variant="body1"
-                sx={{ ...proseSx, mb: 2.5 }}
-              >
-                <Box component="strong" sx={{ fontWeight: 700 }}>
-                  {person.name}
-                </Box>{" "}
-                ({person.role}). {person.body}
-              </Typography>
-            ))}
-            {group.title === "Peer Buddies and Early Guides" &&
-              photo({
-                src: "/images/ey/ticket-to-ride.jpg",
-                alt: "Quang, Chris, and Brian playing Ticket to Ride around a table.",
-                caption: "Quang, Chris, and Brian, mid-game of Ticket to Ride.",
-                orientation: "portrait",
-              })}
-          </Box>
-        ))}
+        <Typography component="p" variant="body1" sx={{ ...proseSx, mb: 2.5 }}>
+          Worked with a genuinely good team this summer — people who
+          onboarded me, reviewed my work, answered questions I probably
+          should've already known the answer to, and made room for a summer
+          intern without making it a whole thing. That mattered more than any
+          single project did.
+        </Typography>
+        <Typography component="p" variant="body1" sx={proseSx}>
+          Same goes for the other interns — training week, the cutover
+          weekend, the group chats that kept everyone sane along the way.
+          Good group to go through the summer with.
+        </Typography>
+
+        {photo({
+          src: "/images/ey/ticket-to-ride.jpg",
+          alt: "A few interns playing Ticket to Ride around a table.",
+          caption: "Mid-game of Ticket to Ride with a few fellow interns.",
+          orientation: "portrait",
+        })}
       </Box>
 
       {sectionDivider}
@@ -533,8 +373,8 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       <Box component="section" sx={{ mb: { xs: 5, md: 6 } }}>
         {photo({
           src: "/images/ey/cassie-last-day.jpg",
-          alt: "Zekarias and Cassie, his co-intern, smiling together on their last day working together.",
-          caption: "Cassie, my co-intern, on our last day working together.",
+          alt: "Zekarias and a co-intern smiling together on their last day working together.",
+          caption: "With a co-intern, on our last day working together.",
           orientation: "portrait",
         })}
         <Typography
@@ -546,9 +386,9 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
             fontWeight: 500,
           }}
         >
-          Eight weeks, on paper. In practice, a group of people who invested in
-          me. If you're reading this and we worked together this summer: thank
-          you. I hope our paths cross again.
+          Eight weeks on paper. Longer than that in practice. If you're
+          reading this and we worked together this summer — thanks. Hope our
+          paths cross again.
         </Typography>
       </Box>
 
@@ -570,8 +410,8 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
         >
           About this page: written in the first person after my last day.
-          Names are first names only, and every client is anonymized. No logos,
-          no forms, no screenshots, just what the summer actually felt like.
+          Every client is anonymized — no logos, no forms, no screenshots,
+          just what the summer actually felt like.
         </Typography>
       </Box>
     </Box>
