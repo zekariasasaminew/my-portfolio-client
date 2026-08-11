@@ -23,7 +23,7 @@
     "highlight.js": "^11.11.1",
     "openai": "^6.46.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
+    "react-dom": "^19.2.8",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.2",
     "rehype-highlight": "^7.0.2",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.8",
-    "@types/react-dom": "^19.2.3",
+    "@types/react-dom": "^19.2.4",
     "@vercel/node": "^5.8.24",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "dotenv": "^17.4.2",
