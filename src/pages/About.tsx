@@ -23,7 +23,7 @@ export const aboutSections: Record<string, Section> = {
     title: "Tech Journey",
     image: "/images/about/tech2.JPG",
     description:
-      "From writing his first line of code to shipping enterprise applications at John Deere that support thousands of employees across more than ten factories - the kind of work where a bug isn't an abstraction, it's someone on a factory floor waiting on a tool. He introduced GitHub Copilot CLI as his team's primary development platform and ran a workshop on it at Augustana's first-ever hackathon. Outside of work, he builds in the open: jetbrains-acp (an ACP client for JetBrains IDEs) and instruct-sync, on top of his GitHub Desktop and React contributions. CampusEx, his campus marketplace, started when he noticed students tossing out perfectly good furniture at move-out.",
+      "From writing his first line of code to building agents inside a Big Four tax practice at EY and shipping enterprise applications at John Deere that support thousands of employees across more than ten factories - the kind of work where a bug isn't an abstraction, it's someone on a factory floor waiting on a tool. He introduced GitHub Copilot CLI as his team's primary development platform and ran a workshop on it at Augustana's first-ever hackathon. Outside of work, he builds in the open: jetbrains-acp (an ACP client for JetBrains IDEs) and instruct-sync, on top of his GitHub Desktop and React contributions. CampusEx, his campus marketplace, started when he noticed students tossing out perfectly good furniture at move-out.",
   },
   leadership: {
     id: "leadership",

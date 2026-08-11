@@ -8,15 +8,13 @@ export const experiences: Experience[] = [
     startDate: "Jun 2026",
     endDate: "Present",
     companyUrl: "https://www.ey.com",
+    detailLink: "/ey-internship",
     iconType: "web",
     themeColor: {
       dark: "#FFE600",
       light: "#9B7F00",
     },
-    points: [
-      "Automated a manual, ticket-driven Excel report by building an agent to validate, clean, and update records daily, cutting a **2+ hour task to under a minute**",
-      "Audited team workflows to surface repetitive manual work and prioritized automation opportunities",
-    ],
+    points: [],
   },
   {
     company: "John Deere",
