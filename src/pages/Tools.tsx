@@ -75,7 +75,7 @@ const ToolCard = ({ tool }: { tool: Tool }) => {
               gap: 0.4,
               color: "text.secondary",
             }}
-            title="Runs entirely in your browser — your data never leaves your machine"
+            title="Runs entirely in your browser: your data never leaves your machine"
           >
             <LockIcon sx={{ fontSize: "0.8rem" }} />
             <Typography variant="caption">client-side</Typography>
@@ -232,7 +232,7 @@ const Tools = ({ toggleColorMode }: ToolsProps) => {
           </Box>
         ) : (
           <Typography variant="body2" color="text.secondary" sx={{ opacity: 0.7 }}>
-            Nothing published here yet — check back soon.
+            Nothing published here yet. Check back soon.
           </Typography>
         )}
       </Box>

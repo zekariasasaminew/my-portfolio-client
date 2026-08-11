@@ -7,10 +7,10 @@ interface EYInternshipProps {
 }
 
 const engagements: string[] = [
-  "Wrote a JavaScript automation for a certificate-processing workflow — it carried a real chunk of the 70,000+ certificates processed during a 4-day cutover",
+  "Wrote a JavaScript automation for a certificate-processing workflow. It carried a real chunk of the 70,000+ certificates processed during a 4-day cutover",
   "Designed a product-taxonomy classification agent in EY's internal agent studio, then wrote the architecture doc for a custom agent when it hit a ceiling",
   "Used AI tools to speed through reconciling client spreadsheets against internal analyses on an indirect-tax project",
-  "Contributed system-design documentation — process-flow diagrams, country-specific logic — for a multi-country e-invoicing rollout on SAP S/4HANA",
+  "Contributed system-design documentation for a multi-country e-invoicing rollout on SAP S/4HANA: process-flow diagrams, country-specific logic",
   "Merged and translated a 50-state Vertex taxability matrix into structured, plain-English taxability logic",
 ];
 
@@ -19,33 +19,6 @@ const reflectionParagraphs: string[] = [
   "Getting trusted with real client work, even small slices of it, changed how I read requirements and how carefully I reviewed my own output before sending anything along. There's an actual client on the other end of what you're doing, and that changes ownership completely. I caught myself double-checking things I probably would have glossed over in a school project.",
   "Every real win I had with AI started the same way: I noticed a manual pattern first, and only then went looking for the right tool, whether that ended up being a script, an agent, or honestly just a better Excel formula. AI never did the thinking part for me. What it did was handle the repeating, but only after I'd already figured out what was worth repeating.",
   "Explaining my logic to a reviewer, walking someone through a design doc, even just writing a clear Teams message, mattered just as much as the work behind it. I got better at saying what I meant the first time around, mostly because I learned the alternative was always a longer, more annoying conversation later.",
-];
-
-const competencies: { name: string; note: string }[] = [
-  {
-    name: "Critical Thinking",
-    note: "Slowed down more, assumed less. The best fixes came after the second question, not the first.",
-  },
-  {
-    name: "Time Management",
-    note: "Learned to size up a task before diving in, especially with a cutover deadline that wasn't moving.",
-  },
-  {
-    name: "Client Trust and Value",
-    note: "Trust got built in small, reviewed deliverables. It was never declared upfront.",
-  },
-  {
-    name: "Communicating with Impact",
-    note: "Got sharper at saying the important thing first, then the detail.",
-  },
-  {
-    name: "Leading with Questions",
-    note: "Traded my instinct to guess for the habit of asking, especially in unfamiliar tax territory.",
-  },
-  {
-    name: "Relationship Building",
-    note: "Coffee chats turned out to matter as much as any deliverable. Maybe more.",
-  },
 ];
 
 const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
@@ -256,71 +229,6 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
             "Specialty Tax interns at the all-intern celebration, repping our schools.",
           orientation: "portrait",
         })}
-
-        {/* How I grew: stylized, self-authored competency summary */}
-        <Box sx={{ mt: 5 }}>
-          <Typography
-            component="h3"
-            variant="subtitle1"
-            sx={{ fontWeight: 600, mb: 2 }}
-          >
-            How I Grew
-          </Typography>
-          <Typography
-            component="p"
-            variant="body2"
-            sx={{
-              color: theme.palette.text.secondary,
-              mb: 3,
-              maxWidth: "70ch",
-            }}
-          >
-            Six areas the summer stretched me in, in my own words, not a
-            lifted form.
-          </Typography>
-          <Box
-            component="ul"
-            sx={{
-              listStyle: "none",
-              p: 0,
-              m: 0,
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-              gap: 2,
-            }}
-          >
-            {competencies.map((competency) => (
-              <Box
-                component="li"
-                key={competency.name}
-                sx={{
-                  p: 2.5,
-                  borderRadius: "12px",
-                  border: `1px solid ${accent}33`,
-                  backgroundColor:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255,255,255,0.02)"
-                      : "rgba(0,0,0,0.015)",
-                }}
-              >
-                <Typography
-                  component="p"
-                  variant="body2"
-                  sx={{ fontWeight: 600, mb: 0.75, color: accent }}
-                >
-                  {competency.name}
-                </Typography>
-                <Typography
-                  component="p"
-                  variant="body2"
-                  sx={{ color: theme.palette.text.secondary, lineHeight: 1.6 }}
-                >
-                  {competency.note}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        </Box>
       </Box>
 
       {sectionDivider}
@@ -347,14 +255,14 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         })}
 
         <Typography component="p" variant="body1" sx={{ ...proseSx, mb: 2.5 }}>
-          Worked with a genuinely good team this summer — people who
+          Worked with a genuinely good team this summer, people who
           onboarded me, reviewed my work, answered questions I probably
           should've already known the answer to, and made room for a summer
           intern without making it a whole thing. That mattered more than any
           single project did.
         </Typography>
         <Typography component="p" variant="body1" sx={proseSx}>
-          Same goes for the other interns — training week, the cutover
+          Same goes for the other interns: training week, the cutover
           weekend, the group chats that kept everyone sane along the way.
           Good group to go through the summer with.
         </Typography>
@@ -387,7 +295,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           }}
         >
           Eight weeks on paper. Longer than that in practice. If you're
-          reading this and we worked together this summer — thanks. Hope our
+          reading this and we worked together this summer, thanks. Hope our
           paths cross again.
         </Typography>
       </Box>
@@ -410,7 +318,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
         >
           About this page: written in the first person after my last day.
-          Every client is anonymized — no logos, no forms, no screenshots,
+          Every client is anonymized: no logos, no forms, no screenshots,
           just what the summer actually felt like.
         </Typography>
       </Box>
