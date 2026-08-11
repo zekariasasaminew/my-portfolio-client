@@ -55,6 +55,7 @@ const ChatTerminal = () => {
   const [error, setError] = useState<string | null>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const accumulatedRef = useRef("");
 
   useEffect(() => {
     transcriptRef.current?.scrollTo({
@@ -102,17 +103,17 @@ const ChatTerminal = () => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let accumulated = "";
+      accumulatedRef.current = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        accumulated += decoder.decode(value, { stream: true });
+        accumulatedRef.current += decoder.decode(value, { stream: true });
         setMessages((prev) => {
           const updated = [...prev];
           updated[updated.length - 1] = {
             role: "assistant",
-            content: accumulated,
+            content: accumulatedRef.current,
           };
           return updated;
         });
