@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Tools from "./pages/Tools";
 import AnalyticsPage from "./pages/Analytics";
+import EYInternship from "./pages/EYInternship";
 import { Analytics } from "@vercel/analytics/react";
 import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
 
@@ -148,6 +149,10 @@ function App() {
         <Route
           path="/analytics"
           element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
+        />
+        <Route
+          path="/ey-internship"
+          element={<EYInternship toggleColorMode={toggleColorMode} />}
         />
       </Routes>
     </ThemeProvider>

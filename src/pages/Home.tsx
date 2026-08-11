@@ -19,6 +19,7 @@ import ChatTerminal from "../components/ChatTerminal";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
 import { impactStats, contact, resumeFiles } from "../data/facts";
 import { trackClick } from "../lib/analytics";
+import { FEATURE_FLAGS } from "../config";
 
 interface Props {
   toggleColorMode: () => void;
@@ -190,46 +191,50 @@ const Home = ({ toggleColorMode }: Props) => {
           >
             <EmailOutlinedIcon />
           </Link>
-          <IconButton
-            onClick={(e) => setResumeAnchor(e.currentTarget)}
-            aria-label="Download resume"
-            sx={{
-              p: 0,
-              color: "inherit",
-              opacity: 0.85,
-              "&:hover": { opacity: 1, backgroundColor: "transparent" },
-            }}
-          >
-            <DescriptionOutlinedIcon />
-          </IconButton>
-          <Menu
-            anchorEl={resumeAnchor}
-            open={Boolean(resumeAnchor)}
-            onClose={() => setResumeAnchor(null)}
-          >
-            <MenuItem
-              component="a"
-              href={resumeFiles.ai.href}
-              download
-              onClick={() => {
-                trackClick("resume-ai");
-                setResumeAnchor(null);
-              }}
-            >
-              Resume ({resumeFiles.ai.label})
-            </MenuItem>
-            <MenuItem
-              component="a"
-              href={resumeFiles.coreSwe.href}
-              download
-              onClick={() => {
-                trackClick("resume-core-swe");
-                setResumeAnchor(null);
-              }}
-            >
-              Resume ({resumeFiles.coreSwe.label})
-            </MenuItem>
-          </Menu>
+          {FEATURE_FLAGS.showResume && (
+            <>
+              <IconButton
+                onClick={(e) => setResumeAnchor(e.currentTarget)}
+                aria-label="Download resume"
+                sx={{
+                  p: 0,
+                  color: "inherit",
+                  opacity: 0.85,
+                  "&:hover": { opacity: 1, backgroundColor: "transparent" },
+                }}
+              >
+                <DescriptionOutlinedIcon />
+              </IconButton>
+              <Menu
+                anchorEl={resumeAnchor}
+                open={Boolean(resumeAnchor)}
+                onClose={() => setResumeAnchor(null)}
+              >
+                <MenuItem
+                  component="a"
+                  href={resumeFiles.ai.href}
+                  download
+                  onClick={() => {
+                    trackClick("resume-ai");
+                    setResumeAnchor(null);
+                  }}
+                >
+                  Resume ({resumeFiles.ai.label})
+                </MenuItem>
+                <MenuItem
+                  component="a"
+                  href={resumeFiles.coreSwe.href}
+                  download
+                  onClick={() => {
+                    trackClick("resume-core-swe");
+                    setResumeAnchor(null);
+                  }}
+                >
+                  Resume ({resumeFiles.coreSwe.label})
+                </MenuItem>
+              </Menu>
+            </>
+          )}
         </Box>
 
         {/* Spotify Now Playing */}
