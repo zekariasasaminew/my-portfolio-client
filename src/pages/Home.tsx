@@ -62,7 +62,7 @@ const Home = ({ toggleColorMode }: Props) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "700px",
+        maxWidth: "1200px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         display: "flex",
@@ -112,11 +112,11 @@ const Home = ({ toggleColorMode }: Props) => {
             maxWidth: "50ch",
           }}
         >
-          Currently building agents at{" "}
+          Software engineer, most recently building agents at{" "}
           <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
             EY
           </Link>
-          . Previously{" "}
+          . Before that,{" "}
           <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
             John Deere
           </Link>

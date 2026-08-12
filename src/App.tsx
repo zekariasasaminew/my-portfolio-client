@@ -1,18 +1,19 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
-import Experience from "./pages/Experience";
-import Notes from "./pages/Notes";
-import NotesDetail from "./pages/NotesDetail";
-import About from "./pages/About";
-import Projects from "./pages/Projects";
-import Tools from "./pages/Tools";
-import AnalyticsPage from "./pages/Analytics";
-import EYInternship from "./pages/EYInternship";
 import { Analytics } from "@vercel/analytics/react";
 import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
+
+const Experience = lazy(() => import("./pages/Experience"));
+const Notes = lazy(() => import("./pages/Notes"));
+const NotesDetail = lazy(() => import("./pages/NotesDetail"));
+const About = lazy(() => import("./pages/About"));
+const Projects = lazy(() => import("./pages/Projects"));
+const Tools = lazy(() => import("./pages/Tools"));
+const AnalyticsPage = lazy(() => import("./pages/Analytics"));
+const EYInternship = lazy(() => import("./pages/EYInternship"));
 
 function usePageAnalytics() {
   const location = useLocation();
@@ -120,41 +121,43 @@ function App() {
       <CssBaseline />
       <BackgroundPattern />
       <Analytics />
-      <Routes>
-        <Route path="/" element={<Home toggleColorMode={toggleColorMode} />} />
-        <Route
-          path="/about"
-          element={<About toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/experience"
-          element={<Experience toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/notes"
-          element={<Notes toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/notes/:id"
-          element={<NotesDetail toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/projects"
-          element={<Projects toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/tools"
-          element={<Tools toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/analytics"
-          element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
-        />
-        <Route
-          path="/ey-internship"
-          element={<EYInternship toggleColorMode={toggleColorMode} />}
-        />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home toggleColorMode={toggleColorMode} />} />
+          <Route
+            path="/about"
+            element={<About toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/experience"
+            element={<Experience toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/notes"
+            element={<Notes toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/notes/:id"
+            element={<NotesDetail toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/projects"
+            element={<Projects toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/tools"
+            element={<Tools toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/analytics"
+            element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
+          />
+          <Route
+            path="/ey-internship"
+            element={<EYInternship toggleColorMode={toggleColorMode} />}
+          />
+        </Routes>
+      </Suspense>
     </ThemeProvider>
   );
 }

@@ -10,7 +10,7 @@ const SUGGESTED_QUESTIONS = [
   "What did you build at John Deere?",
   "Tell me about CampusEx",
   "What's your open source track record?",
-  "Are you looking for new-grad roles?",
+  "What's your tech stack?",
 ];
 
 const MAX_MESSAGE_LENGTH = 500;

@@ -20,7 +20,7 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "650px",
+        maxWidth: "1200px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         display: "flex",
@@ -138,7 +138,6 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
                       color="text.secondary"
                       sx={{
                         mb: 1,
-                        opacity: 0.8,
                         lineHeight: 1.5,
                         display: "-webkit-box",
                         "-webkit-line-clamp": 2,

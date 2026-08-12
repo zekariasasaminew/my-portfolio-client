@@ -75,7 +75,7 @@ const About = ({ toggleColorMode }: AboutProps) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "800px",
+        maxWidth: "1200px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         display: "flex",
