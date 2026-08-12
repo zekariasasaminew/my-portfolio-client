@@ -138,7 +138,6 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
                       color="text.secondary"
                       sx={{
                         mb: 1,
-                        opacity: 0.8,
                         lineHeight: 1.5,
                         display: "-webkit-box",
                         "-webkit-line-clamp": 2,
