@@ -2,26 +2,11 @@ import type { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
-    company: "EY",
-    title: "Tax Technology & Transformation Intern",
-    location: "Chicago, IL",
-    startDate: "Jun 2026",
-    endDate: "Present",
-    companyUrl: "https://www.ey.com",
-    detailLink: "/ey-internship",
-    iconType: "web",
-    themeColor: {
-      dark: "#FFE600",
-      light: "#9B7F00",
-    },
-    points: [],
-  },
-  {
     company: "John Deere",
     title: "Software Engineer (Part-Time)",
     location: "Moline, IL",
     startDate: "Jan 2025",
-    endDate: "Jun 2026",
+    endDate: "Present",
     companyUrl: "https://www.deere.com",
     iconType: "code",
     themeColor: {
@@ -34,6 +19,26 @@ export const experiences: Experience[] = [
       "Automated review, testing, and merging of Dependabot/Mend PRs, auto-fixing failing tests",
       "Introduced `GitHub Copilot CLI`, automating **90%+** of documentation & reducing **API latency 40%** via `Redis`",
       "Cut **deployment time 85%** via automated `Kubernetes` CI/CD",
+    ],
+  },
+    {
+    company: "EY",
+    title: "AI Engineer Intern",
+    location: "Chicago, IL",
+    startDate: "Jun 2026",
+    endDate: "Aug 2026",
+    companyUrl: "https://www.ey.com",
+    detailLink: "/ey-internship",
+    iconType: "web",
+    themeColor: {
+      dark: "#FFE600",
+      light: "#9B7F00",
+    },
+    points: [
+      "Designed & built an **AI agent** for product-taxonomy classification in EY's internal agent studio",
+      "Authored the architecture doc for a custom agent to close platform capability gaps",
+      "Built an automated certificate pipeline handling **70,000+** certificates during a **4-day** production cutover",
+      "Normalized a **50-state** taxability matrix into structured, machine-readable logic for `SAP S/4HANA` e-invoicing",
     ],
   },
   {
