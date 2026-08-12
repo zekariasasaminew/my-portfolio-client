@@ -98,7 +98,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "820px",
+        maxWidth: "1200px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         color: theme.palette.text.primary,
@@ -108,6 +108,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
     >
       <Navbar toggleColorMode={toggleColorMode} />
 
+      <Box sx={{ maxWidth: "800px", mx: "auto" }}>
       {/* Hero */}
       <Box component="section" sx={{ mb: { xs: 5, md: 7 } }}>
         <Typography
@@ -321,6 +322,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
           Every client is anonymized: no logos, no forms, no screenshots,
           just what the summer actually felt like.
         </Typography>
+      </Box>
       </Box>
     </Box>
   );

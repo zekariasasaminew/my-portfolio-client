@@ -21,7 +21,7 @@ const NotesDetail = ({ toggleColorMode }: NotesDetailProps) => {
       <Box
         sx={{
           minHeight: "100vh",
-          maxWidth: "720px",
+          maxWidth: "1200px",
           margin: "0 auto",
           padding: { xs: "2rem", md: "4rem" },
           display: "flex",
@@ -42,7 +42,7 @@ const NotesDetail = ({ toggleColorMode }: NotesDetailProps) => {
     <Box
       sx={{
         minHeight: "100vh",
-        maxWidth: "720px",
+        maxWidth: "1200px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         color: theme.palette.text.primary,
