@@ -2,21 +2,6 @@ import type { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
-    company: "EY",
-    title: "Tax Technology & Transformation Intern",
-    location: "Chicago, IL",
-    startDate: "Jun 2026",
-    endDate: "Present",
-    companyUrl: "https://www.ey.com",
-    detailLink: "/ey-internship",
-    iconType: "web",
-    themeColor: {
-      dark: "#FFE600",
-      light: "#9B7F00",
-    },
-    points: [],
-  },
-  {
     company: "John Deere",
     title: "Software Engineer (Part-Time)",
     location: "Moline, IL",
@@ -35,6 +20,21 @@ export const experiences: Experience[] = [
       "Introduced `GitHub Copilot CLI`, automating **90%+** of documentation & reducing **API latency 40%** via `Redis`",
       "Cut **deployment time 85%** via automated `Kubernetes` CI/CD",
     ],
+  },
+    {
+    company: "EY",
+    title: "Tax Technology & Transformation Intern",
+    location: "Chicago, IL",
+    startDate: "Jun 2026",
+    endDate: "Aug 2026",
+    companyUrl: "https://www.ey.com",
+    detailLink: "/ey-internship",
+    iconType: "web",
+    themeColor: {
+      dark: "#FFE600",
+      light: "#9B7F00",
+    },
+    points: [],
   },
   {
     company: "Open Source",
