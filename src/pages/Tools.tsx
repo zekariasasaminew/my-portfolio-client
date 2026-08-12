@@ -193,7 +193,7 @@ const Tools = ({ toggleColorMode }: ToolsProps) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "900px",
+        maxWidth: "1100px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         display: "flex",
