@@ -6,7 +6,7 @@ export const experiences: Experience[] = [
     title: "Software Engineer (Part-Time)",
     location: "Moline, IL",
     startDate: "Jan 2025",
-    endDate: "Jun 2026",
+    endDate: "Present",
     companyUrl: "https://www.deere.com",
     iconType: "code",
     themeColor: {
