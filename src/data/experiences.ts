@@ -23,7 +23,7 @@ export const experiences: Experience[] = [
   },
     {
     company: "EY",
-    title: "Tax Technology & Transformation Intern",
+    title: "AI Engineer Intern",
     location: "Chicago, IL",
     startDate: "Jun 2026",
     endDate: "Aug 2026",
@@ -34,7 +34,12 @@ export const experiences: Experience[] = [
       dark: "#FFE600",
       light: "#9B7F00",
     },
-    points: [],
+    points: [
+      "Designed & built an **AI agent** for product-taxonomy classification in EY's internal agent studio",
+      "Authored the architecture doc for a custom agent to close platform capability gaps",
+      "Built an automated certificate pipeline handling **70,000+** certificates during a **4-day** production cutover",
+      "Normalized a **50-state** taxability matrix into structured, machine-readable logic for `SAP S/4HANA` e-invoicing",
+    ],
   },
   {
     company: "Open Source",
