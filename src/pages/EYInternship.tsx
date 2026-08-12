@@ -98,7 +98,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
       transition={{ duration: 0.8 }}
       sx={{
         minHeight: "100vh",
-        maxWidth: "760px",
+        maxWidth: "820px",
         margin: "0 auto",
         padding: { xs: "2rem", md: "4rem" },
         color: theme.palette.text.primary,
