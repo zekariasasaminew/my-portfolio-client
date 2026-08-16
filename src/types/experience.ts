@@ -5,6 +5,7 @@ export interface Experience {
   startDate: string;
   endDate: string;
   points: string[];
+  techTags?: string[];
   companyUrl?: string;
   detailLink?: string;
   iconType: 'code' | 'science' | 'web' | 'school';

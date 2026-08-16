@@ -20,6 +20,7 @@ export const experiences: Experience[] = [
       "Introduced `GitHub Copilot CLI`, automating **90%+** of documentation & reducing **API latency 40%** via `Redis`",
       "Cut **deployment time 85%** via automated `Kubernetes` CI/CD",
     ],
+    techTags: ["React", "Next.js", "Kubernetes", "Redis", "GitHub Actions"],
   },
     {
     company: "EY",
@@ -40,6 +41,7 @@ export const experiences: Experience[] = [
       "Built an automated certificate pipeline handling **70,000+** certificates during a **4-day** production cutover",
       "Normalized a **50-state** taxability matrix into structured, machine-readable logic for `SAP S/4HANA` e-invoicing",
     ],
+    techTags: ["AI Agents", "JavaScript", "SAP S/4HANA"],
   },
   {
     company: "Open Source",
@@ -58,6 +60,7 @@ export const experiences: Experience[] = [
       "Improved GitHub Desktop's cross-platform build reliability, tightening setup consistency & release stability",
       "Built `jetbrains-acp`, a universal ACP client unifying GitHub Copilot CLI, Claude Code, & Gemini CLI across JetBrains IDEs",
     ],
+    techTags: ["TypeScript", "Kotlin", "React", "Electron"],
   },
   {
     company: "OSL",
@@ -76,5 +79,6 @@ export const experiences: Experience[] = [
       "Automated RSVP and attendance tracking, cutting manual work from **8 hrs to 30 mins**, boosting efficiency by **85%**",
       "Engineered `AWS Lambda` functions for dashboards, reducing reporting errors by **30%** across **65 student clubs**",
     ],
+    techTags: ["React Native", "AWS Lambda", "PostgreSQL", "OAuth2"],
   },
 ];
