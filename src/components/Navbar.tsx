@@ -19,12 +19,12 @@ interface NavbarProps {
 }
 
 const NAV_LINKS = [
-  { href: "/about", label: "About", enabled: FEATURE_FLAGS.showAbout },
-  { href: "/projects", label: "Projects", enabled: true },
-  { href: "/tools", label: "Tools", enabled: FEATURE_FLAGS.showTools },
-  { href: "/experience", label: "Experience", enabled: true },
-  { href: "/notes", label: "Notes", enabled: true },
-].filter((link) => link.enabled);
+  { href: "/#about", label: "About" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/notes", label: "Notes" },
+];
 
 const Navbar = ({ toggleColorMode }: NavbarProps) => {
   const theme = useTheme();
@@ -45,17 +45,18 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
           href="/"
           sx={{
             textDecoration: "none",
+            color: "inherit",
           }}
         >
           <Typography
-            variant="h4"
+            variant="h6"
             sx={{
-              fontFamily: "'Pacifico', 'Brush Script MT', cursive",
-              color: "#36684c",
-              letterSpacing: "2px",
+              fontWeight: 700,
+              color: "inherit",
+              letterSpacing: "-0.01em",
             }}
           >
-            Zekarias
+            Zekarias Asaminew
           </Typography>
         </Link>
       </Box>
@@ -92,21 +93,23 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
               }),
             }}
           >
-            {link.label}
+            {link.label.toLowerCase()}
           </Link>
         ))}
-        <IconButton
-          sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
-          onClick={toggleColorMode}
-          color="inherit"
-          size="small"
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon fontSize="small" />
-          ) : (
-            <Brightness4Icon fontSize="small" />
-          )}
-        </IconButton>
+        {FEATURE_FLAGS.showThemeToggle && (
+          <IconButton
+            sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
+            onClick={toggleColorMode}
+            color="inherit"
+            size="small"
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon fontSize="small" />
+            ) : (
+              <Brightness4Icon fontSize="small" />
+            )}
+          </IconButton>
+        )}
       </Box>
 
       {/* Mobile nav */}
@@ -117,18 +120,20 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
           gap: 0.5,
         }}
       >
-        <IconButton
-          sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
-          onClick={toggleColorMode}
-          color="inherit"
-          size="small"
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon fontSize="small" />
-          ) : (
-            <Brightness4Icon fontSize="small" />
-          )}
-        </IconButton>
+        {FEATURE_FLAGS.showThemeToggle && (
+          <IconButton
+            sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
+            onClick={toggleColorMode}
+            color="inherit"
+            size="small"
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon fontSize="small" />
+            ) : (
+              <Brightness4Icon fontSize="small" />
+            )}
+          </IconButton>
+        )}
         <IconButton
           aria-label="Open navigation menu"
           onClick={(e) => setMenuAnchor(e.currentTarget)}

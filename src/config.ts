@@ -6,6 +6,5 @@ export const ENDPOINTS = {
 
 export const FEATURE_FLAGS = {
   showResume: false,
-  showAbout: false,
-  showTools: false,
+  showThemeToggle: false,
 } as const;

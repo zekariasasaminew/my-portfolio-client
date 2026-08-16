@@ -5,8 +5,13 @@ export interface Experience {
   startDate: string;
   endDate: string;
   points: string[];
+  techTags?: string[];
   companyUrl?: string;
   detailLink?: string;
+  logoDomain?: string;
+  logoIcon?: string;
+  logoSrc?: string;
+  logoNeedsLightBg?: boolean;
   iconType: 'code' | 'science' | 'web' | 'school';
   themeColor: {
     dark: string;

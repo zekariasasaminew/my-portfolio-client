@@ -6,12 +6,8 @@ import Home from "./pages/Home";
 import { Analytics } from "@vercel/analytics/react";
 import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
 
-const Experience = lazy(() => import("./pages/Experience"));
 const Notes = lazy(() => import("./pages/Notes"));
 const NotesDetail = lazy(() => import("./pages/NotesDetail"));
-const About = lazy(() => import("./pages/About"));
-const Projects = lazy(() => import("./pages/Projects"));
-const Tools = lazy(() => import("./pages/Tools"));
 const AnalyticsPage = lazy(() => import("./pages/Analytics"));
 const EYInternship = lazy(() => import("./pages/EYInternship"));
 
@@ -62,7 +58,7 @@ function App() {
 
   const [mode, setMode] = useState<"light" | "dark">(() => {
     const savedMode = localStorage.getItem("themeMode");
-    return savedMode === "light" || savedMode === "dark" ? savedMode : "light";
+    return savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
   });
 
   const theme = useMemo(
@@ -73,8 +69,8 @@ function App() {
           ...(mode === "dark"
             ? {
                 background: {
-                  default: "#0A0A0A",
-                  paper: "#121212",
+                  default: "#161616",
+                  paper: "#1e1e1e",
                 },
                 text: {
                   primary: "rgba(255, 255, 255, 0.87)",
@@ -83,12 +79,12 @@ function App() {
               }
             : {
                 background: {
-                  default: "#fff",
-                  paper: "#f5f5f5",
+                  default: "#FAF3E7",
+                  paper: "#F3EBDA",
                 },
                 text: {
-                  primary: "rgba(0, 0, 0, 0.87)",
-                  secondary: "rgba(0, 0, 0, 0.6)",
+                  primary: "#241F1A",
+                  secondary: "rgba(36, 31, 26, 0.62)",
                 },
               }),
         },
@@ -125,28 +121,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home toggleColorMode={toggleColorMode} />} />
           <Route
-            path="/about"
-            element={<About toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/experience"
-            element={<Experience toggleColorMode={toggleColorMode} />}
-          />
-          <Route
             path="/notes"
             element={<Notes toggleColorMode={toggleColorMode} />}
           />
           <Route
             path="/notes/:id"
             element={<NotesDetail toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/projects"
-            element={<Projects toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/tools"
-            element={<Tools toggleColorMode={toggleColorMode} />}
           />
           <Route
             path="/analytics"
