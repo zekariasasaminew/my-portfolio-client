@@ -27,6 +27,41 @@ const CompanyLogo = ({ exp, size }: { exp: Experience; size: number }) => {
     return <GitHubIcon sx={{ fontSize: `${size}px`, color: accent, flexShrink: 0 }} />;
   }
 
+  if (exp.logoSrc && !failed) {
+    const img = (
+      <Box
+        component="img"
+        src={exp.logoSrc}
+        alt={`${exp.company} logo`}
+        onError={() => setFailed(true)}
+        sx={
+          exp.logoNeedsLightBg
+            ? { width: "72%", height: "72%" }
+            : { width: `${size}px`, height: `${size}px` }
+        }
+      />
+    );
+
+    if (!exp.logoNeedsLightBg) return img;
+
+    return (
+      <Box
+        sx={{
+          width: `${size}px`,
+          height: `${size}px`,
+          flexShrink: 0,
+          borderRadius: "4px",
+          bgcolor: "#ffffff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {img}
+      </Box>
+    );
+  }
+
   if (exp.logoIcon && !failed) {
     return (
       <Box

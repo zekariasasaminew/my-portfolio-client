@@ -10,6 +10,8 @@ export interface Experience {
   detailLink?: string;
   logoDomain?: string;
   logoIcon?: string;
+  logoSrc?: string;
+  logoNeedsLightBg?: boolean;
   iconType: 'code' | 'science' | 'web' | 'school';
   themeColor: {
     dark: string;
