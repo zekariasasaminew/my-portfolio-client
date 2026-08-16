@@ -16,6 +16,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
+import HeroDoodle from "../components/home/HeroDoodle";
 import AboutSection from "../components/home/AboutSection";
 import ExperienceSection from "../components/home/ExperienceSection";
 import ProjectsSection from "../components/home/ProjectsSection";
@@ -79,8 +80,16 @@ const Home = ({ toggleColorMode }: Props) => {
       {/* Hero */}
       <Box
         component="section"
-        sx={{ mb: { xs: 8, md: 10 }, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
+        sx={{
+          mb: { xs: 10, md: 18 },
+          mt: { xs: 3, md: 6 },
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
       >
+        <HeroDoodle />
         <Typography
           component="h1"
           variant="h4"
