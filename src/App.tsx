@@ -57,7 +57,10 @@ function App() {
   usePageAnalytics();
 
   const [mode, setMode] = useState<"light" | "dark">(() => {
-    const savedMode = localStorage.getItem("themeMode");
+    // Versioned key: bumping this ignores any "themeMode" saved by
+    // visitors from before dark became the default, so they land on
+    // dark like everyone else instead of keeping a stale preference.
+    const savedMode = localStorage.getItem("themeMode_v2");
     return savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
   });
 
@@ -107,7 +110,7 @@ function App() {
   const toggleColorMode = () => {
     setMode((prevMode) => {
       const newMode = prevMode === "light" ? "dark" : "light";
-      localStorage.setItem("themeMode", newMode);
+      localStorage.setItem("themeMode_v2", newMode);
       return newMode;
     });
   };
