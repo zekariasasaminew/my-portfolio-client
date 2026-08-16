@@ -11,10 +11,10 @@ const HeroDoodle = () => {
   return (
     <Box
       sx={{
-        width: { xs: "130px", md: "170px" },
-        height: { xs: "130px", md: "170px" },
+        width: { xs: "170px", md: "220px" },
+        height: { xs: "170px", md: "220px" },
         color: theme.palette.text.secondary,
-        opacity: 0.4,
+        opacity: 0.7,
         mb: 4,
         animation: "hero-doodle-spin 40s linear infinite",
         "@keyframes hero-doodle-spin": {
@@ -28,7 +28,7 @@ const HeroDoodle = () => {
           d={ROSE_PATH}
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.4"
+          strokeWidth="1.6"
           strokeLinejoin="round"
         />
       </svg>
