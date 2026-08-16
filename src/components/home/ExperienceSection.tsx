@@ -27,11 +27,23 @@ const CompanyLogo = ({ exp, size }: { exp: Experience; size: number }) => {
     return <GitHubIcon sx={{ fontSize: `${size}px`, color: accent, flexShrink: 0 }} />;
   }
 
+  if (exp.logoIcon && !failed) {
+    return (
+      <Box
+        component="img"
+        src={`https://api.iconify.design/${exp.logoIcon}.svg`}
+        alt={`${exp.company} logo`}
+        onError={() => setFailed(true)}
+        sx={{ width: `${size}px`, height: `${size}px`, flexShrink: 0 }}
+      />
+    );
+  }
+
   if (exp.logoDomain && !failed) {
     return (
       <Box
         component="img"
-        src={`https://www.google.com/s2/favicons?sz=64&domain=${exp.logoDomain}`}
+        src={`https://icons.duckduckgo.com/ip3/${exp.logoDomain}.ico`}
         alt={`${exp.company} logo`}
         onError={() => setFailed(true)}
         sx={{ width: `${size}px`, height: `${size}px`, flexShrink: 0, borderRadius: "3px" }}

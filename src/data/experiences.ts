@@ -8,7 +8,7 @@ export const experiences: Experience[] = [
     startDate: "Jan 2025",
     endDate: "Present",
     companyUrl: "https://www.deere.com",
-    logoDomain: "deere.com",
+    logoIcon: "simple-icons/johndeere",
     iconType: "code",
     themeColor: {
       dark: "#4CAF50",
