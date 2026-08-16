@@ -1,29 +1,28 @@
-import { useEffect, useState } from "react";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import {
   Box,
-  Typography,
-  Link,
-  useTheme,
   IconButton,
+  Link,
   Menu,
   MenuItem,
+  Typography,
+  useTheme,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
-import HeroDoodle from "../components/home/HeroDoodle";
 import AboutSection from "../components/home/AboutSection";
 import ExperienceSection from "../components/home/ExperienceSection";
 import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
-import { impactStats, contact, resumeFiles } from "../data/facts";
-import { trackClick } from "../lib/analytics";
 import { FEATURE_FLAGS } from "../config";
+import { contact, impactStats, resumeFiles } from "../data/facts";
+import { trackClick } from "../lib/analytics";
 
 interface Props {
   toggleColorMode: () => void;
@@ -44,7 +43,9 @@ const Home = ({ toggleColorMode }: Props) => {
     color: "inherit",
     textDecoration: "underline",
     textDecorationColor:
-      theme.palette.mode === "dark" ? "rgba(120, 255, 180, 0.45)" : "rgba(0, 180, 90, 0.32)",
+      theme.palette.mode === "dark"
+        ? "rgba(120, 255, 180, 0.45)"
+        : "rgba(0, 180, 90, 0.32)",
     textDecorationThickness: "2px",
     textUnderlineOffset: "3px",
     padding: "0 2px",
@@ -53,9 +54,13 @@ const Home = ({ toggleColorMode }: Props) => {
     transition: "all 0.2s ease",
     "&:hover": {
       textDecorationColor:
-        theme.palette.mode === "dark" ? "rgba(120, 255, 180, 0.7)" : "rgba(0, 180, 90, 0.55)",
+        theme.palette.mode === "dark"
+          ? "rgba(120, 255, 180, 0.7)"
+          : "rgba(0, 180, 90, 0.55)",
       backgroundColor:
-        theme.palette.mode === "dark" ? "rgba(120, 255, 180, 0.28)" : "rgba(0, 180, 90, 0.22)",
+        theme.palette.mode === "dark"
+          ? "rgba(120, 255, 180, 0.28)"
+          : "rgba(0, 180, 90, 0.22)",
     },
   };
 
@@ -91,7 +96,7 @@ const Home = ({ toggleColorMode }: Props) => {
           textAlign: "center",
         }}
       >
-        <HeroDoodle />
+        {/* <HeroDoodle /> */}
         <Typography
           component="h1"
           variant="h4"
@@ -103,7 +108,10 @@ const Home = ({ toggleColorMode }: Props) => {
             mb: 1,
           }}
         >
-          hi, i'm zekarias<Box component="span" sx={{ color: accent }}>.</Box>
+          hi, i'm zekarias
+          <Box component="span" sx={{ color: accent }}>
+            .
+          </Box>
         </Typography>
         <Typography
           component="h2"
@@ -142,7 +150,15 @@ const Home = ({ toggleColorMode }: Props) => {
         </Typography>
 
         {/* Impact strip */}
-        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1, mb: 3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: 1,
+            mb: 3,
+          }}
+        >
           {impactStats.map((stat) => (
             <Box
               key={stat}
@@ -166,7 +182,15 @@ const Home = ({ toggleColorMode }: Props) => {
         </Box>
 
         {/* Social Links */}
-        <Box sx={{ display: "flex", gap: 2, mb: 4, alignItems: "center", justifyContent: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            mb: 4,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Link
             href="https://github.com/zekariasasaminew"
             target="_blank"
@@ -257,10 +281,16 @@ const Home = ({ toggleColorMode }: Props) => {
           gap: 1,
         }}
       >
-        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
+        >
           © {new Date().getFullYear()} Zekarias Asaminew
         </Typography>
-        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}>
+        <Typography
+          variant="body2"
+          sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
+        >
           More:{" "}
           <Link href="/notes" sx={{ color: "inherit" }}>
             Notes
