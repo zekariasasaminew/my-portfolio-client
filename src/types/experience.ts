@@ -9,6 +9,7 @@ export interface Experience {
   companyUrl?: string;
   detailLink?: string;
   logoDomain?: string;
+  logoIcon?: string;
   iconType: 'code' | 'science' | 'web' | 'school';
   themeColor: {
     dark: string;

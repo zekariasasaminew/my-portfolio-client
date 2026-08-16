@@ -5,10 +5,20 @@ import { alpha } from "@mui/material/styles";
 interface TagProps {
   label: string;
   iconSlug?: string;
+  iconMonochrome?: boolean;
   fontWeight?: number;
+  fontSize?: string;
+  iconSize?: string;
 }
 
-const Tag = ({ label, iconSlug, fontWeight }: TagProps) => {
+const Tag = ({
+  label,
+  iconSlug,
+  iconMonochrome,
+  fontWeight,
+  fontSize = "0.7rem",
+  iconSize = "0.9rem",
+}: TagProps) => {
   const theme = useTheme();
   const [iconFailed, setIconFailed] = useState(false);
 
@@ -20,9 +30,9 @@ const Tag = ({ label, iconSlug, fontWeight }: TagProps) => {
         alignItems: "center",
         gap: 0.6,
         px: 1,
-        py: 0.25,
+        py: 0.35,
         borderRadius: 0.75,
-        fontSize: "0.7rem",
+        fontSize,
         letterSpacing: "0.3px",
         fontFamily: "monospace",
         fontWeight,
@@ -34,10 +44,15 @@ const Tag = ({ label, iconSlug, fontWeight }: TagProps) => {
       {iconSlug && !iconFailed && (
         <Box
           component="img"
-          src={`https://cdn.simpleicons.org/${iconSlug}`}
+          src={`https://api.iconify.design/${iconSlug}.svg`}
           alt=""
           onError={() => setIconFailed(true)}
-          sx={{ width: "0.9rem", height: "0.9rem", flexShrink: 0 }}
+          sx={{
+            width: iconSize,
+            height: iconSize,
+            flexShrink: 0,
+            filter: iconMonochrome && theme.palette.mode === "dark" ? "invert(1)" : "none",
+          }}
         />
       )}
       {label}
