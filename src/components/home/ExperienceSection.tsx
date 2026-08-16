@@ -128,7 +128,10 @@ const ExperienceSection = () => {
                   textAlign: "left",
                   px: 1.5,
                   py: 1.25,
-                  minWidth: { xs: "180px", md: "auto" },
+                  width: { xs: "170px", md: "auto" },
+                  minWidth: { xs: "170px", md: "auto" },
+                  flexShrink: 0,
+                  overflow: "hidden",
                   border: `1px solid ${
                     active ? accentFor(exp) : alpha(theme.palette.text.primary, 0.12)
                   }`,
@@ -144,7 +147,11 @@ const ExperienceSection = () => {
                 <Box sx={{ minWidth: 0 }}>
                   <Typography
                     variant="body2"
-                    sx={{ fontWeight: 600, lineHeight: 1.3, whiteSpace: "nowrap" }}
+                    sx={{
+                      fontWeight: 600,
+                      lineHeight: 1.3,
+                      whiteSpace: { xs: "normal", md: "nowrap" },
+                    }}
                   >
                     {exp.title}
                   </Typography>
