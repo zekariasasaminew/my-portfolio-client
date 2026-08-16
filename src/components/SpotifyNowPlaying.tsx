@@ -92,6 +92,7 @@ export default function SpotifyNowPlaying() {
       direction={{ xs: "column", sm: "row" }}
       alignItems="flex-start"
       spacing={2}
+      sx={{ textAlign: "left" }}
     >
       <Box
         component={motion.div}
