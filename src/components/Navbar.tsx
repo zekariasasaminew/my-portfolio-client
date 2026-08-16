@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import MenuIcon from "@mui/icons-material/Menu";
+import { FEATURE_FLAGS } from "../config";
 
 interface NavbarProps {
   toggleColorMode: () => void;
@@ -95,18 +96,20 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
             {link.label.toLowerCase()}
           </Link>
         ))}
-        <IconButton
-          sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
-          onClick={toggleColorMode}
-          color="inherit"
-          size="small"
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon fontSize="small" />
-          ) : (
-            <Brightness4Icon fontSize="small" />
-          )}
-        </IconButton>
+        {FEATURE_FLAGS.showThemeToggle && (
+          <IconButton
+            sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
+            onClick={toggleColorMode}
+            color="inherit"
+            size="small"
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon fontSize="small" />
+            ) : (
+              <Brightness4Icon fontSize="small" />
+            )}
+          </IconButton>
+        )}
       </Box>
 
       {/* Mobile nav */}
@@ -117,18 +120,20 @@ const Navbar = ({ toggleColorMode }: NavbarProps) => {
           gap: 0.5,
         }}
       >
-        <IconButton
-          sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
-          onClick={toggleColorMode}
-          color="inherit"
-          size="small"
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon fontSize="small" />
-          ) : (
-            <Brightness4Icon fontSize="small" />
-          )}
-        </IconButton>
+        {FEATURE_FLAGS.showThemeToggle && (
+          <IconButton
+            sx={{ opacity: 0.6, "&:hover": { opacity: 0.9 } }}
+            onClick={toggleColorMode}
+            color="inherit"
+            size="small"
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon fontSize="small" />
+            ) : (
+              <Brightness4Icon fontSize="small" />
+            )}
+          </IconButton>
+        )}
         <IconButton
           aria-label="Open navigation menu"
           onClick={(e) => setMenuAnchor(e.currentTarget)}

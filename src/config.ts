@@ -6,4 +6,5 @@ export const ENDPOINTS = {
 
 export const FEATURE_FLAGS = {
   showResume: false,
+  showThemeToggle: false,
 } as const;
