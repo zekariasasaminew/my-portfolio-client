@@ -58,7 +58,7 @@ function App() {
 
   const [mode, setMode] = useState<"light" | "dark">(() => {
     const savedMode = localStorage.getItem("themeMode");
-    return savedMode === "light" || savedMode === "dark" ? savedMode : "light";
+    return savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
   });
 
   const theme = useMemo(
@@ -69,8 +69,8 @@ function App() {
           ...(mode === "dark"
             ? {
                 background: {
-                  default: "#0A0A0A",
-                  paper: "#121212",
+                  default: "#161616",
+                  paper: "#1e1e1e",
                 },
                 text: {
                   primary: "rgba(255, 255, 255, 0.87)",

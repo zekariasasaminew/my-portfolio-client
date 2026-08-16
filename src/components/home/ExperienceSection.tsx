@@ -6,6 +6,8 @@ import CodeIcon from "@mui/icons-material/Code";
 import ScienceIcon from "@mui/icons-material/Science";
 import WebIcon from "@mui/icons-material/Web";
 import SchoolIcon from "@mui/icons-material/School";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import type { Experience } from "../../types/experience";
 import { experiences } from "../../data/experiences";
 import Tag from "../Tag";
 
@@ -15,6 +17,31 @@ const icons = {
   web: WebIcon,
   school: SchoolIcon,
 } as const;
+
+const CompanyLogo = ({ exp, size }: { exp: Experience; size: number }) => {
+  const theme = useTheme();
+  const [failed, setFailed] = useState(false);
+  const accent = theme.palette.mode === "dark" ? exp.themeColor.dark : exp.themeColor.light;
+
+  if (exp.company === "Open Source") {
+    return <GitHubIcon sx={{ fontSize: `${size}px`, color: accent, flexShrink: 0 }} />;
+  }
+
+  if (exp.logoDomain && !failed) {
+    return (
+      <Box
+        component="img"
+        src={`https://www.google.com/s2/favicons?sz=64&domain=${exp.logoDomain}`}
+        alt={`${exp.company} logo`}
+        onError={() => setFailed(true)}
+        sx={{ width: `${size}px`, height: `${size}px`, flexShrink: 0, borderRadius: "3px" }}
+      />
+    );
+  }
+
+  const Icon = icons[exp.iconType];
+  return <Icon sx={{ fontSize: `${size}px`, color: accent, flexShrink: 0 }} />;
+};
 
 const ExperienceSection = () => {
   const theme = useTheme();
@@ -41,7 +68,6 @@ const ExperienceSection = () => {
           }}
         >
           {experiences.map((exp, idx) => {
-            const Icon = icons[exp.iconType];
             const active = idx === selected;
             return (
               <Box
@@ -67,7 +93,7 @@ const ExperienceSection = () => {
                   transition: "border-color 0.2s ease, background-color 0.2s ease",
                 }}
               >
-                <Icon sx={{ fontSize: "1.1rem", color: accentFor(exp), flexShrink: 0 }} />
+                <CompanyLogo exp={exp} size={20} />
                 <Box sx={{ minWidth: 0 }}>
                   <Typography
                     variant="body2"

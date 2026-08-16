@@ -77,20 +77,10 @@ const Home = ({ toggleColorMode }: Props) => {
       <Navbar toggleColorMode={toggleColorMode} />
 
       {/* Hero */}
-      <Box component="section" sx={{ mb: { xs: 8, md: 10 } }}>
-        <Typography
-          sx={{
-            fontFamily: "monospace",
-            fontSize: "0.78rem",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: accent,
-            mb: 1,
-          }}
-        >
-          Software Engineer · Agentic AI
-        </Typography>
-
+      <Box
+        component="section"
+        sx={{ mb: { xs: 8, md: 10 }, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
+      >
         <Typography
           component="h1"
           variant="h4"
@@ -125,6 +115,7 @@ const Home = ({ toggleColorMode }: Props) => {
             fontSize: "1.05rem",
             color: theme.palette.text.secondary,
             maxWidth: "50ch",
+            mx: "auto",
           }}
         >
           Software engineer, most recently building agents at{" "}
@@ -140,7 +131,7 @@ const Home = ({ toggleColorMode }: Props) => {
         </Typography>
 
         {/* Impact strip */}
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 3 }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1, mb: 3 }}>
           {impactStats.map((stat) => (
             <Box
               key={stat}
@@ -164,7 +155,7 @@ const Home = ({ toggleColorMode }: Props) => {
         </Box>
 
         {/* Social Links */}
-        <Box sx={{ display: "flex", gap: 2, mb: 4, alignItems: "center" }}>
+        <Box sx={{ display: "flex", gap: 2, mb: 4, alignItems: "center", justifyContent: "center" }}>
           <Link
             href="https://github.com/zekariasasaminew"
             target="_blank"
