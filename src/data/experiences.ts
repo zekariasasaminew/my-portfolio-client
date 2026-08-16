@@ -8,6 +8,7 @@ export const experiences: Experience[] = [
     startDate: "Jan 2025",
     endDate: "Present",
     companyUrl: "https://www.deere.com",
+    logoDomain: "deere.com",
     iconType: "code",
     themeColor: {
       dark: "#4CAF50",
@@ -29,6 +30,7 @@ export const experiences: Experience[] = [
     startDate: "Jun 2026",
     endDate: "Aug 2026",
     companyUrl: "https://www.ey.com",
+    logoDomain: "ey.com",
     detailLink: "/ey-internship",
     iconType: "web",
     themeColor: {
@@ -69,6 +71,7 @@ export const experiences: Experience[] = [
     startDate: "May 2025",
     endDate: "Aug 2025",
     companyUrl: "https://www.augustana.edu",
+    logoDomain: "augustana.edu",
     iconType: "school",
     themeColor: {
       dark: "#AA00FF",

@@ -35,7 +35,7 @@ const SkillsSection = () => {
             </Typography>
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
               {group.items.map((item) => (
-                <Tag key={item} label={item} />
+                <Tag key={item.name} label={item.name} iconSlug={item.iconSlug} fontWeight={600} />
               ))}
             </Box>
           </Box>

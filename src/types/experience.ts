@@ -8,6 +8,7 @@ export interface Experience {
   techTags?: string[];
   companyUrl?: string;
   detailLink?: string;
+  logoDomain?: string;
   iconType: 'code' | 'science' | 'web' | 'school';
   themeColor: {
     dark: string;

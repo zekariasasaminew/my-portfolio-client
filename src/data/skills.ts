@@ -1,39 +1,56 @@
+export interface SkillItem {
+  name: string;
+  iconSlug?: string;
+}
+
 export interface SkillGroup {
   label: string;
-  items: string[];
+  items: SkillItem[];
 }
 
 export const skillGroups: SkillGroup[] = [
   {
     label: "Languages",
-    items: ["TypeScript / JavaScript", "Python", "Java", "SQL"],
-  },
-  {
-    label: "Frameworks",
-    items: ["React", "Next.js", "React Native", "Node.js", "FastAPI"],
-  },
-  {
-    label: "Infrastructure",
     items: [
-      "AWS (Lambda, EC2, S3)",
-      "Docker",
-      "Kubernetes",
-      "PostgreSQL",
-      "MongoDB",
-      "Redis",
-      "Supabase",
-      "GitHub Actions",
+      { name: "TypeScript", iconSlug: "typescript" },
+      { name: "JavaScript", iconSlug: "javascript" },
+      { name: "Python", iconSlug: "python" },
+      { name: "Java", iconSlug: "openjdk" },
+      { name: "SQL" },
     ],
   },
   {
     label: "AI & Agentic Tooling",
     items: [
-      "LangChain",
-      "LangGraph",
-      "OpenAI API",
-      "RAG Pipelines",
-      "GitHub Copilot CLI",
-      "Autonomous Agents",
+      { name: "LangChain", iconSlug: "langchain" },
+      { name: "LangGraph" },
+      { name: "OpenAI API", iconSlug: "openai" },
+      { name: "RAG Pipelines" },
+      { name: "GitHub Copilot CLI", iconSlug: "githubcopilot" },
+      { name: "Autonomous Agents" },
+    ],
+  },
+  {
+    label: "Frameworks",
+    items: [
+      { name: "React", iconSlug: "react" },
+      { name: "Next.js", iconSlug: "nextdotjs" },
+      { name: "React Native", iconSlug: "react" },
+      { name: "Node.js", iconSlug: "nodedotjs" },
+      { name: "FastAPI", iconSlug: "fastapi" },
+    ],
+  },
+  {
+    label: "Infrastructure",
+    items: [
+      { name: "AWS", iconSlug: "amazonwebservices" },
+      { name: "Docker", iconSlug: "docker" },
+      { name: "Kubernetes", iconSlug: "kubernetes" },
+      { name: "PostgreSQL", iconSlug: "postgresql" },
+      { name: "MongoDB", iconSlug: "mongodb" },
+      { name: "Redis", iconSlug: "redis" },
+      { name: "Supabase", iconSlug: "supabase" },
+      { name: "GitHub Actions", iconSlug: "githubactions" },
     ],
   },
 ];
