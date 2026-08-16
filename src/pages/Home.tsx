@@ -81,11 +81,13 @@ const Home = ({ toggleColorMode }: Props) => {
       <Box
         component="section"
         sx={{
-          mb: { xs: 10, md: 18 },
-          mt: { xs: 3, md: 6 },
+          minHeight: { xs: "auto", sm: "82vh" },
+          mb: { xs: 14, md: 8 },
+          mt: { xs: 5, md: 8 },
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           textAlign: "center",
         }}
       >

@@ -1,96 +1,35 @@
-import { useState } from "react";
 import { Box, useTheme } from "@mui/material";
-import { alpha } from "@mui/material/styles";
 
-type Motif = "soccer" | "chess" | "pool";
+const SPIRAL_PATH =
+  "M106.00 100.00 L106.47 100.59 L106.87 101.26 L107.21 102.01 L107.46 102.83 L107.61 103.71 L107.67 104.64 L107.62 105.61 L107.44 106.61 L107.15 107.62 L106.74 108.62 L106.20 109.62 L105.53 110.58 L104.74 111.49 L103.82 112.34 L102.79 113.12 L101.65 113.81 L100.40 114.40 L99.06 114.87 L97.64 115.21 L96.16 115.42 L94.61 115.47 L93.03 115.37 L91.42 115.11 L89.80 114.67 L88.20 114.07 L86.62 113.29 L85.09 112.33 L83.63 111.21 L82.25 109.92 L80.97 108.47 L79.81 106.87 L78.79 105.13 L77.92 103.26 L77.22 101.27 L76.71 99.19 L76.39 97.02 L76.27 94.78 L76.37 92.50 L76.69 90.20 L77.24 87.90 L78.02 85.61 L79.02 83.37 L80.26 81.20 L81.72 79.12 L83.40 77.15 L85.28 75.31 L87.37 73.63 L89.64 72.13 L92.07 70.83 L94.67 69.74 L97.39 68.89 L100.22 68.29 L103.14 67.95 L106.13 67.88 L109.15 68.09 L112.18 68.59 L115.20 69.38 L118.17 70.46 L121.07 71.84 L123.87 73.49 L126.53 75.43 L129.04 77.63 L131.37 80.09 L133.48 82.79 L135.36 85.71 L136.98 88.83 L138.33 92.13 L139.38 95.58 L140.11 99.16 L140.51 102.83 L140.58 106.57 L140.29 110.35 L139.66 114.12 L138.66 117.86 L137.31 121.54 L135.61 125.12 L133.56 128.56 L131.18 131.84 L128.48 134.92 L125.47 137.77 L122.18 140.35 L118.63 142.65 L114.85 144.63 L110.85 146.28 L106.68 147.56 L102.37 148.46 L97.95 148.97 L93.45 149.08 L88.92 148.76 L84.39 148.03 L79.91 146.87 L75.51 145.29 L71.23 143.30 L67.12 140.90 L63.20 138.11 L59.53 134.94 L56.12 131.41 L53.03 127.56 L50.28 123.40 L47.90 118.96 L45.92 114.29 L44.36 109.41 L43.24 104.37 L42.58 99.20 L42.40 93.95 L42.70 88.65 L43.49 83.37 L44.77 78.13 L46.54 72.99 L48.79 68.00 L51.50 63.19 L54.68 58.61 L58.28 54.31 L62.29 50.32 L66.69 46.69 L71.43 43.45 L76.50 40.63 L81.83 38.27 L87.41 36.40 L93.17 35.02 L99.08 34.18 L105.09 33.87 L111.14 34.12 L117.19 34.92 L123.19 36.28 L129.08 38.20 L134.81 40.66 L140.33 43.66 L145.60 47.17 L150.55 51.18 L155.16 55.65 L159.36 60.56 L163.12 65.87 L166.41 71.54 L169.19 77.52 L171.42 83.77 L173.09 90.25 L174.17 96.89 L174.64 103.65 L174.49 110.47 L173.72 117.29 L172.31 124.06 L170.29 130.71 L167.65 137.19 L164.41 143.45 L160.59 149.42 L156.22 155.05 L151.32 160.30 L145.93 165.10 L140.08 169.43 L133.83 173.22 L127.22 176.45 L120.31 179.08 L113.13 181.09 L105.76 182.44 L98.26 183.12 L90.68 183.11 L83.08 182.40 L75.54 181.01 L68.12 178.91 L60.87 176.14 L53.87 172.70 L47.16 168.61 L40.83 163.90 L34.91 158.60 L29.47 152.76 L24.56 146.41 L20.22 139.60 L16.50 132.39 L13.43 124.82 L11.05 116.97 L9.39 108.88 L8.46 100.64 L8.29 92.30 L8.88 83.93 L10.23 75.61 L12.35 67.40 L15.22 59.38 L18.82 51.61 L23.14 44.16";
 
-const SoccerBall = () => (
-  <svg viewBox="0 0 256 256" width="100%" height="100%">
-    <path
-      fill="currentColor"
-      d="M128 28a100 100 0 1 0 100 100A100.11 100.11 0 0 0 128 28m40.87 147.42l-11.69-16.09l13.95-40.64l18.93-6.15l29.65 22.74a91.3 91.3 0 0 1-12.9 40.14Zm-81.74 0H49.19a91.3 91.3 0 0 1-12.9-40.14l29.65-22.74l18.93 6.15l13.95 40.64ZM51.69 76.66l8.87 29.92L36 125.39a91.4 91.4 0 0 1 15.69-48.73M106.13 156l-13.36-38.92L128 92.85l35.23 24.23L149.87 156Zm89.31-49.42l8.87-29.92A91.4 91.4 0 0 1 220 125.39Zm2.87-37.84l-10.72 36.19l-19 6.16L132 85.9V66.1l32.68-22.46a92.44 92.44 0 0 1 33.63 25.1m-42.77-28.53L128 59.15l-27.54-18.94a92.2 92.2 0 0 1 55.08 0m-64.22 3.43L124 66.1v19.8l-36.64 25.19l-19-6.16l-10.67-36.19a92.44 92.44 0 0 1 33.63-25.1M54.61 183.42h31.73l11.1 31.36a92.46 92.46 0 0 1-42.83-31.36m52.3 34.14l-13.27-37.5L105.32 164h45.36l11.68 16.06l-13.27 37.5a92.4 92.4 0 0 1-42.18 0m51.65-2.78l11.1-31.36h31.73a92.46 92.46 0 0 1-42.83 31.36"
-    />
-  </svg>
-);
-
-const ChessKnight = () => (
-  <svg viewBox="0 0 24 24" width="100%" height="100%">
-    <path
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.2"
-      d="m8 16l-1.447.724a1 1 0 0 0-.553.894V20h12v-2.382a1 1 0 0 0-.553-.894L16 16zM9 3l1 3l-3.491 2.148A1 1 0 0 0 7.033 10H10l-2.073 6h7.961L16 11c0-3-1.09-5.983-4-7Q9.09 2.983 9 3"
-    />
-  </svg>
-);
-
-const PoolRack = () => (
-  <svg viewBox="0 0 24 24" width="100%" height="100%">
-    <path
-      fill="currentColor"
-      d="m20.31 16.44l-5.77-9.97a2.98 2.98 0 0 0-4.08-1.09c-.46.26-.83.62-1.1 1.09L3.6 16.44a2.953 2.953 0 0 0 1.09 4.06c.45.28.96.42 1.49.42h11.55a2.99 2.99 0 0 0 2.98-3c0-.52-.14-1.03-.4-1.48m-14.94.99l5.74-9.96c.27-.47.89-.65 1.35-.37c.16.08.29.21.38.37l5.74 9.96c.27.48.11 1.07-.37 1.36c-.15.09-.32.14-.49.14H6.21c-.55-.01-1-.46-.99-1.01c0-.17.04-.34.13-.49zm6.6-3.98c-1.1 0-1.97-.89-1.97-1.99c0-1.11.87-2 1.97-2a2 2 0 0 1 2 2c0 1.1-.9 1.99-2.02 1.99zm-2.51 4.48c-1.1 0-1.99-.89-1.99-1.99s.89-1.99 1.99-1.99s2 .89 2 1.99s-.9 1.99-2 1.99m4.98 0a2 2 0 0 1-1.99-1.99a2 2 0 0 1 1.99-1.99c1.1 0 2 .89 2 1.99s-.9 1.99-2 1.99"
-    />
-  </svg>
-);
-
-const MOTIFS: Record<Motif, { render: () => React.ReactElement; label: string }> = {
-  soccer: { render: SoccerBall, label: "Soccer" },
-  chess: { render: ChessKnight, label: "Chess" },
-  pool: { render: PoolRack, label: "Pool" },
-};
-
-/**
- * Temporary preview switcher so the motif can be picked while reviewing the
- * deployed branch - remove the dot row once a favorite is chosen.
- */
 const HeroDoodle = () => {
   const theme = useTheme();
-  const [motif, setMotif] = useState<Motif>("soccer");
-  const Icon = MOTIFS[motif].render;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 3 }}>
-      <Box
-        sx={{
-          width: { xs: "120px", md: "150px" },
-          height: { xs: "120px", md: "150px" },
-          color: theme.palette.text.secondary,
-          opacity: 0.45,
-          animation: "hero-doodle-spin 50s linear infinite",
-          "@keyframes hero-doodle-spin": {
-            from: { transform: "rotate(0deg)" },
-            to: { transform: "rotate(360deg)" },
-          },
-        }}
-      >
-        <Icon />
-      </Box>
-
-      <Box sx={{ display: "flex", gap: 1, mt: 1.5 }}>
-        {(Object.keys(MOTIFS) as Motif[]).map((key) => (
-          <Box
-            key={key}
-            component="button"
-            onClick={() => setMotif(key)}
-            title={MOTIFS[key].label}
-            sx={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              border: "none",
-              cursor: "pointer",
-              p: 0,
-              bgcolor:
-                motif === key
-                  ? theme.palette.text.secondary
-                  : alpha(theme.palette.text.secondary, 0.25),
-              transition: "background-color 0.2s ease",
-            }}
-          />
-        ))}
-      </Box>
+    <Box
+      sx={{
+        width: { xs: "130px", md: "170px" },
+        height: { xs: "130px", md: "170px" },
+        color: theme.palette.text.secondary,
+        opacity: 0.4,
+        mb: 4,
+        animation: "hero-doodle-spin 40s linear infinite",
+        "@keyframes hero-doodle-spin": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+      }}
+    >
+      <svg viewBox="0 0 200 200" width="100%" height="100%">
+        <path
+          d={SPIRAL_PATH}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+        />
+      </svg>
     </Box>
   );
 };
