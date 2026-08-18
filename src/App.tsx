@@ -10,6 +10,7 @@ const Notes = lazy(() => import("./pages/Notes"));
 const NotesDetail = lazy(() => import("./pages/NotesDetail"));
 const AnalyticsPage = lazy(() => import("./pages/Analytics"));
 const EYInternship = lazy(() => import("./pages/EYInternship"));
+const Connect = lazy(() => import("./pages/Connect"));
 
 function usePageAnalytics() {
   const location = useLocation();
@@ -139,6 +140,7 @@ function App() {
             path="/ey-internship"
             element={<EYInternship toggleColorMode={toggleColorMode} />}
           />
+          <Route path="/connect" element={<Connect />} />
         </Routes>
       </Suspense>
     </ThemeProvider>
