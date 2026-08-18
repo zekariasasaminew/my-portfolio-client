@@ -146,7 +146,8 @@ const Connect = () => {
           }}
         >
           Building agentic AI pipelines, dev tools, and campus products.
-          Ranked #1 external contributor on GitHub Desktop v3.5.4.
+          Solo-built CampusEx to 800+ users and shipped pact, a Rust
+          dev-tool orchestrator.
         </Typography>
 
         <Stack spacing={1.25} sx={{ mb: 4 }}>

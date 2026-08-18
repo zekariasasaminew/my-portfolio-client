@@ -145,7 +145,7 @@ const Home = ({ toggleColorMode }: Props) => {
           <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
             John Deere
           </Link>
-          , where he shipped a pipeline that traces production alerts back to
+          , where I shipped a pipeline that traces production alerts back to
           the responsible git commit and opens the fix as a draft PR.
         </Typography>
 
