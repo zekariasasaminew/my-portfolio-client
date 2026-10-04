@@ -4,10 +4,11 @@ export const projects: Project[] = [
   {
     name: "pact",
     description:
-      "Parallel Agent Coordination Tool. Orchestrates multiple AI coding agent CLIs (Claude Code, Copilot CLI, Codex) on one repo without them conflicting. Actively in progress.",
+      "Rust CLI that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repo at once and hands back one verified branch. A planner splits the task into file-disjoint lanes that run as Agent Client Protocol sessions in one process, coordinated over an MCP server. Benchmarked at 12.5 min vs 15.8 for Copilot's own sub-agents on a 39-file task. 28k lines, 548 tests, now parked as an experiment.",
     language: "Rust",
-    tags: ["Rust", "CLI", "AI Tools", "Git Worktrees"],
+    tags: ["Rust", "CLI", "AI Agents", "MCP", "ACP"],
     githubUrl: "https://github.com/zekariasasaminew/pact",
+    postUrl: "/blog/pact",
   },
   {
     name: "jetbrains-acp",
