@@ -82,6 +82,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
           GitHub
           <OpenInNewIcon sx={{ fontSize: "0.75rem" }} />
         </Link>
+        {project.postUrl && (
+          <Link href={project.postUrl} sx={linkSx}>
+            Write-up
+          </Link>
+        )}
         {project.liveUrl && (
           <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" sx={linkSx}>
             Live

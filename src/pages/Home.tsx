@@ -299,6 +299,10 @@ const Home = ({ toggleColorMode }: Props) => {
           <Link href="/ey-internship" sx={{ color: "inherit" }}>
             The EY Story
           </Link>
+          {" · "}
+          <Link href="/blog/pact" sx={{ color: "inherit" }}>
+            Building pact
+          </Link>
         </Typography>
       </Box>
     </Box>
