@@ -9,6 +9,7 @@ export interface Project {
   liveUrl?: string;
   npmUrl?: string;
   pluginUrl?: string;
+  postUrl?: string;
 }
 
 export interface OpenSourceContribution {
