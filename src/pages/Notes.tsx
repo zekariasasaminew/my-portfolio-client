@@ -96,7 +96,7 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
                   </Typography>
                   <Box sx={{ flex: 1 }}>
                     <Link
-                      href={`/notes/${note.id}`}
+                      href={note.href ?? `/notes/${note.id}`}
                       sx={{
                         color: "inherit",
                         textDecoration: "none",
