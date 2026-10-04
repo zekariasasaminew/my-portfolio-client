@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/blog/pact", "destination": "/blog/pact/index.html" },
     { "source": "/((?!api/).*)", "destination": "/" }
   ]
 }
