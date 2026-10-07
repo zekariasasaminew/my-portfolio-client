@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Box } from "@mui/material";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 
@@ -34,7 +35,7 @@ const TOP = 74;
 
 const LeaseSequence = () => {
   const c = usePostColors();
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [runId, setRunId] = useState(0);
@@ -47,7 +48,10 @@ const LeaseSequence = () => {
     <Figure
       label="Fig 3"
       title="Advisory leases through pact-coord (MCP)"
-      onReplay={reduce ? undefined : () => setRunId((r) => r + 1)}
+      onReplay={() => {
+        forceMotion();
+        setRunId((r) => r + 1);
+      }}
       minContentWidth={560}
       caption="Seven MCP tools are mounted into every agent. A claim is always recorded; the conflict list is a signal, not a lock. Leases live in one SQLite database in WAL mode, with a per-agent read cursor so an agent never gets its own broadcasts echoed back."
     >

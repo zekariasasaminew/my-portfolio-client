@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Box } from "@mui/material";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 
@@ -15,7 +16,7 @@ const SHELL_SHARE = 56;
 
 const LaneScaling = () => {
   const c = usePostColors();
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const show = inView || reduce;

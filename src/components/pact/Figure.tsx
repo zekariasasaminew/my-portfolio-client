@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Box, Typography, ButtonBase } from "@mui/material";
 import { motion } from "framer-motion";
 import { usePostColors } from "./usePostColors";
+import { usePactReducedMotion } from "./usePactReducedMotion";
 
 interface FigureProps {
   label: string;
@@ -14,6 +15,8 @@ interface FigureProps {
 
 const Figure = ({ label, title, caption, onReplay, minContentWidth, children }: FigureProps) => {
   const c = usePostColors();
+  const reduce = usePactReducedMotion();
+  const action = reduce ? "Play" : "Replay";
 
   return (
     <Box
@@ -55,7 +58,7 @@ const Figure = ({ label, title, caption, onReplay, minContentWidth, children }: 
         {onReplay && (
           <ButtonBase
             onClick={onReplay}
-            aria-label={`Replay: ${title}`}
+            aria-label={`${action}: ${title}`}
             sx={{
               fontFamily: "inherit",
               fontSize: "inherit",
@@ -68,7 +71,7 @@ const Figure = ({ label, title, caption, onReplay, minContentWidth, children }: 
               py: 0.25,
             }}
           >
-            ↻ replay
+            {reduce ? "▶ play" : "↻ replay"}
           </ButtonBase>
         )}
       </Box>
