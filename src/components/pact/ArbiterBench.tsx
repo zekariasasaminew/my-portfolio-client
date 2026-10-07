@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { animate, motion, useInView } from "framer-motion";
-import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
+import { usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 import type { PostColors } from "./usePostColors";
@@ -95,10 +95,7 @@ const ArbiterBench = () => {
     <Figure
       label="Fig 8"
       title={`Arbiter vs ${ARBITER_BENCH.cases} real merge conflicts`}
-      onReplay={() => {
-        forceMotion();
-        setRunId((r) => r + 1);
-      }}
+      onReplay={() => setRunId((r) => r + 1)}
       caption={
         <>
           Every tile is a real merge conflict replayed from the 2021 to 2026 history of {ARBITER_BENCH.repoList}, sorted by outcome. Arbiter saw only BASE, OURS and THEIRS plus the incoming branch's commit subjects, never the maintainers' answer. Line colors in the merged pane show which side each line came from. {ARBITER_BENCH.model}, one attempt per conflict, median {ARBITER_BENCH.secondsMedian} s. Hover a tile for its commit. Harness and raw results in{" "}
