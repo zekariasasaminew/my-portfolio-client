@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 
@@ -90,7 +91,7 @@ const Panel = ({ title, subtitle, seconds, totalSeconds, mb, totalMb, ready, sha
 };
 
 const ProcessVsSession = () => {
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [sim, setSim] = useState(reduce ? PROCESS.seconds : 0);
@@ -117,14 +118,11 @@ const ProcessVsSession = () => {
     <Figure
       label="Fig 5"
       title="Eight processes vs. eight sessions in one process"
-      onReplay={
-        reduce
-          ? undefined
-          : () => {
-              setSim(0);
-              setRunId((r) => r + 1);
-            }
-      }
+      onReplay={() => {
+        forceMotion();
+        setSim(0);
+        setRunId((r) => r + 1);
+      }}
       caption="Measured with Copilot CLI 1.0.90 on a trivial one-file task, played back at 10x. A separate process costs about 6 s and 330 MB per lane, all of it startup. A session inside a running process costs about 20 MB and no startup."
     >
       <Box ref={ref} sx={{ display: "flex", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
