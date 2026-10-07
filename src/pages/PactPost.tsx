@@ -11,6 +11,8 @@ import BenchmarkRace from "../components/pact/BenchmarkRace";
 import ProcessVsSession from "../components/pact/ProcessVsSession";
 import VerdictTable from "../components/pact/VerdictTable";
 import LaneScaling from "../components/pact/LaneScaling";
+import ArbiterBench from "../components/pact/ArbiterBench";
+import { ARBITER_BENCH } from "../data/arbiterBench";
 import { usePostColors } from "../components/pact/usePostColors";
 
 interface PactPostProps {
@@ -154,12 +156,13 @@ const PactPost = ({ toggleColorMode }: PactPostProps) => {
             The fastest isolation is the one you skip
           </Typography>
           <Typography component="p" sx={{ fontSize: { xs: "1.05rem", md: "1.2rem" }, lineHeight: 1.6, color: c.muted, maxWidth: "62ch" }}>
-            I spent twelve weeks building pact, a Rust CLI that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repository at the same time and hands back one verified branch. My first architecture was 3.4x slower than Copilot's own sub-agents. A series of measured changes later it finished the same task 21% faster, 21% cheaper, on half the memory. Then I parked it. This is the whole arc, with the numbers.
+            I spent twelve weeks building pact, a Rust CLI that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repository at the same time and hands back one verified branch. My first architecture was 3.4x slower than Copilot's own sub-agents. A series of measured changes later it finished the same task 21% faster, 21% cheaper, on half the memory. Then I parked it, and pointed its conflict resolver at 44 real merge conflicts from Click and Flask: it fully resolved 68% of them, and the tests could not tell which 32% it got wrong. This is the whole arc, with the numbers.
           </Typography>
           <Box sx={{ display: "flex", gap: 2, mt: 3, flexWrap: "wrap", fontFamily: MONO, fontSize: "0.8rem" }}>
             <ExtLink href={REPO}>github.com/zekariasasaminew/pact</ExtLink>
             <ExtLink href={`${REPO}/blob/main/DESIGN.md`}>DESIGN.md (5,400 lines)</ExtLink>
             <ExtLink href={`${REPO}/issues/308`}>benchmark data</ExtLink>
+            <ExtLink href={`${REPO}/tree/main/bench/arbiter`}>real-conflict benchmark</ExtLink>
           </Box>
         </Box>
 
@@ -342,7 +345,39 @@ agent -> pact   session/update stream  -> logs/<lane>.jsonl`}</CodeBlock>
           Meanwhile the layer pact lives in is being absorbed by the vendors. Claude has agent teams, Copilot has <Code>/fleet</Code>, Codex has sub-agents, Cursor runs parallel agents. A tool whose advantage held once, on one model, against products that ship this every month, is an experiment, not a product. So the README says exactly that at the top, v0.5.0 is the release that has <Code>pact run</Code> in it, and the open problems stay on their issues for anyone who wants them.
         </P>
 
-        <H2 id="lessons" kicker="11 · what I keep">What I am taking with me</H2>
+        <H2 id="arbiter" kicker="11 · after parking">Arbiter vs {ARBITER_BENCH.cases} real merge conflicts</H2>
+        <P>
+          Parking pact left one question open. Arbiter, the one-shot agent that resolves what the merge rules cannot, had only ever seen conflicts I wrote by hand. So I mined the real thing: every merge in the 2021 to 2026 history of Click and Flask that git could not finish on its own. Each one is replayed in a scratch worktree, and Arbiter gets exactly what it gets inside pact: BASE, OURS, THEIRS and the incoming branch's commit messages. The maintainers' own merge commit is the answer key it never sees.
+        </P>
+
+        <ArbiterBench />
+
+        <P>
+          30 of the {ARBITER_BENCH.cases} resolutions kept every change the maintainers kept, and 21 of those are exactly what the maintainers committed. The naive strategies are not close: always taking OURS gets 10 right, always taking THEIRS gets 9. Counted by lines, Arbiter carried 89% of the changes the maintainers kept, against 44% and 60% for the two sides.
+        </P>
+
+        <Callout>The tests passed every merge that lost work.</Callout>
+
+        <P>
+          The other 14 matter more. Each one silently dropped a change, usually one of two changelog entries that both branches added at the same spot, and pact would have accepted every one, because pact keeps an Arbiter resolution when the test command passes. 35 cases had a test suite that ran. It passed all 35 Arbiter resolutions, including the 12 that lost work, and it also passed 33 of 35 merges that just took OURS. Tests check behaviour, and the lines in a conflict are almost never what the tests exercise.
+        </P>
+        <P>
+          So I tried a gate that needs no answer key. List the lines each side added relative to BASE, and require every line from a hunk that either did not collide with the other side or replaced nothing, like a new changelog entry. On the same cases it flagged 10 of the 14 lossy merges and 1 of the 30 good ones. Requiring every added line catches 13 of 14 but flags 19 of 30 good merges, because where both sides rewrote the same line, keeping one version is the correct answer.
+        </P>
+        <P>What {ARBITER_BENCH.cases} cases can and cannot say:</P>
+        <Bullets
+          items={[
+            <>The share fully resolved is likely between {ARBITER_BENCH.ci95.faithful[0]}% and {ARBITER_BENCH.ci95.faithful[1]}% on conflicts like these, and the share that silently lost work between {ARBITER_BENCH.ci95.partial[0]}% and {ARBITER_BENCH.ci95.partial[1]}% (95% intervals). Wide, but even the low end of the second range is too high to merge unattended.</>,
+            <>The preservation gate's catch rate is likely between {ARBITER_BENCH.ci95.gateCaught[0]}% and {ARBITER_BENCH.ci95.gateCaught[1]}%, with false alarms between {ARBITER_BENCH.ci95.gateFalse[0]}% and {ARBITER_BENCH.ci95.gateFalse[1]}%. Promising, not proven.</>,
+            <>These are two Python projects with a merge-heavy workflow, so changelog and version-file conflicts dominate. 20 of the 44 touched source code: 15 kept every change, 5 lost one.</>,
+          ]}
+        />
+        <P>
+          The benchmark also found a bug in pact itself. Arbiter treated any file containing seven equals signs as having leftover conflict markers, and reStructuredText underlines headings with exactly that, so every RST file with a long enough heading was unresolvable. 5 of the 105 conflicts I mined would have hit it. Git's real markers always open a line with <Code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</Code> or <Code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</Code>, so the check now looks for exactly that, with regression tests, in <ExtLink href={`${REPO}/pull/381`}>PR #381</ExtLink>.
+        </P>
+        <Callout>Producing a resolution is the easy part. Knowing when to trust it is the product.</Callout>
+
+        <H2 id="lessons" kicker="12 · what I keep">What I am taking with me</H2>
         <Bullets
           items={[
             <><strong>Measure before you architect.</strong> The worktree design was correct for a problem my workload did not have. One benchmark run disproved two months of assumptions in an hour.</>,
@@ -350,11 +385,12 @@ agent -> pact   session/update stream  -> logs/<lane>.jsonl`}</CodeBlock>
             <><strong>Startup dominates.</strong> Eight processes versus eight sessions was 50.9 s against 5.6 s. Protocols that let you reuse a process beat parsers that wrap one.</>,
             <><strong>A check without a baseline is an opinion.</strong> Run it on the untouched tree first.</>,
             <><strong>Read the agent's own logs.</strong> Planner restating, lanes type-checking the world, Arbiter refusing a <Code>UU</Code> file: every big win came from a session log, not from the code.</>,
+            <><strong>A test suite is not a merge gate.</strong> It passed every resolution that silently dropped work. Check a merge against what both sides changed, not only against what the code does.</>,
             <><strong>Fake agents for CI, real agents for truth.</strong> The headline feature was unreachable for the first nine days after release, and every test was green.</>,
           ]}
         />
 
-        <Figure label="Fig 8" title="pact demo: real output, no agent calls, about five seconds">
+        <Figure label="Fig 9" title="pact demo: real output, no agent calls, about five seconds">
           <Box
             component="img"
             src="/images/pact/demo.gif"
