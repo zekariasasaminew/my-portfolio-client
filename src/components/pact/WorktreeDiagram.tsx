@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 
@@ -26,7 +27,7 @@ const MAX_DIFF = 310;
 
 const WorktreeDiagram = () => {
   const c = usePostColors();
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: "-80px" });
   const [step, setStep] = useState(reduce ? STEPS.length - 1 : 0);
@@ -41,6 +42,7 @@ const WorktreeDiagram = () => {
   }, [inView, reduce, runId]);
 
   const replay = () => {
+    forceMotion();
     setStep(0);
     setRunId((r) => r + 1);
   };
@@ -53,7 +55,7 @@ const WorktreeDiagram = () => {
     <Figure
       label="Fig 2"
       title="v1: a git worktree per agent, merge-all at the end"
-      onReplay={reduce ? undefined : replay}
+      onReplay={replay}
       minContentWidth={560}
       caption="Illustrative run with three agents. The merge order, the skip-don't-abort behaviour and the dependency-table merge are how merge-all works; the diff sizes are made up for the picture."
     >
