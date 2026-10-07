@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { usePactReducedMotion } from "./usePactReducedMotion";
 import { usePostColors } from "./usePostColors";
 import type { PostColors } from "./usePostColors";
 
@@ -74,7 +75,7 @@ const LANES = [
 
 const PipelineDiagram = () => {
   const c = usePostColors();
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
 
   const flowing = [
     { d: EDGES.taskToPlanner, begin: 0 },

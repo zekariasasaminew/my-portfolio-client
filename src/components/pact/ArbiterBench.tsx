@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
-import { animate, motion, useInView, useReducedMotion } from "framer-motion";
+import { animate, motion, useInView } from "framer-motion";
+import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 import type { PostColors } from "./usePostColors";
@@ -24,7 +25,7 @@ const originColor = (c: PostColors, origin: Origin) => (origin === "ours" ? c.bl
 
 const CountUp = ({ to, play, delay }: { to: number; play: boolean; delay: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
@@ -67,7 +68,7 @@ const Pane = ({ title, tone, lines, from, play, reduce }: { title: string; tone:
 
 const ArbiterBench = () => {
   const c = usePostColors();
-  const reduce = useReducedMotion();
+  const reduce = usePactReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -94,7 +95,10 @@ const ArbiterBench = () => {
     <Figure
       label="Fig 8"
       title={`Arbiter vs ${ARBITER_BENCH.cases} real merge conflicts`}
-      onReplay={reduce ? undefined : () => setRunId((r) => r + 1)}
+      onReplay={() => {
+        forceMotion();
+        setRunId((r) => r + 1);
+      }}
       caption={
         <>
           Every tile is a real merge conflict replayed from the 2021 to 2026 history of {ARBITER_BENCH.repoList}, sorted by outcome. Arbiter saw only BASE, OURS and THEIRS plus the incoming branch's commit subjects, never the maintainers' answer. Line colors in the merged pane show which side each line came from. {ARBITER_BENCH.model}, one attempt per conflict, median {ARBITER_BENCH.secondsMedian} s. Hover a tile for its commit. Harness and raw results in{" "}
