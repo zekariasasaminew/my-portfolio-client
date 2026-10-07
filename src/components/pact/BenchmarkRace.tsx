@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Box, ButtonBase } from "@mui/material";
 import { motion, useInView } from "framer-motion";
-import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
+import { usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 
@@ -66,10 +66,7 @@ const BenchmarkRace = () => {
     <Figure
       label="Fig 4"
       title="Same task, seven pact architectures, one baseline"
-      onReplay={() => {
-        forceMotion();
-        setRunId((r) => r + 1);
-      }}
+      onReplay={() => setRunId((r) => r + 1)}
       caption={
         <>
           39-file test-writing task on a Next.js app, claude-opus-5 for every agent, same base commit, a 12-core 14 GB Windows laptop. Each bar is a single run. The dashed line is Copilot CLI fanning out to its own in-process sub-agents on the same task. Green means better than that line. Full data in{" "}

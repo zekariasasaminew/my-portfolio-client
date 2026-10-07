@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { motion, useInView } from "framer-motion";
-import { forceMotion, usePactReducedMotion } from "./usePactReducedMotion";
+import { usePactReducedMotion } from "./usePactReducedMotion";
 import Figure from "./Figure";
 import { usePostColors } from "./usePostColors";
 
@@ -42,7 +42,6 @@ const WorktreeDiagram = () => {
   }, [inView, reduce, runId]);
 
   const replay = () => {
-    forceMotion();
     setStep(0);
     setRunId((r) => r + 1);
   };
