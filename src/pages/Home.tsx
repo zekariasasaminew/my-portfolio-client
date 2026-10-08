@@ -13,13 +13,15 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
 import AboutSection from "../components/home/AboutSection";
 import ExperienceSection from "../components/home/ExperienceSection";
 import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
+import HeroPixels from "../components/home/heroPixels/HeroPixels";
+import { HERO_EXCLUDE_ATTR } from "../components/home/heroPixels/tiles";
 import { FEATURE_FLAGS } from "../config";
 import { contact, impactStats, resumeFiles } from "../data/facts";
 import { trackClick } from "../lib/analytics";
@@ -31,6 +33,8 @@ interface Props {
 const Home = ({ toggleColorMode }: Props) => {
   const theme = useTheme();
   const [resumeAnchor, setResumeAnchor] = useState<null | HTMLElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const heroExclude = { [HERO_EXCLUDE_ATTR]: "" };
   const accent = theme.palette.mode === "dark" ? "#7fd8a6" : "#0a8f4f";
 
   useEffect(() => {
@@ -80,11 +84,14 @@ const Home = ({ toggleColorMode }: Props) => {
         zIndex: 1,
       }}
     >
-      <Navbar toggleColorMode={toggleColorMode} />
+      <Box {...heroExclude}>
+        <Navbar toggleColorMode={toggleColorMode} />
+      </Box>
 
       {/* Hero */}
       <Box
         component="section"
+        ref={heroRef}
         sx={{
           minHeight: { xs: "auto", sm: "82vh" },
           mb: { xs: 14, md: 8 },
@@ -96,172 +103,182 @@ const Home = ({ toggleColorMode }: Props) => {
           textAlign: "center",
         }}
       >
+        <HeroPixels heroRef={heroRef} />
         {/* <HeroDoodle /> */}
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{
-            fontSize: { xs: "2.1rem", md: "2.8rem" },
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-            lineHeight: 1.1,
-            mb: 1,
-          }}
-        >
-          hi, i'm zekarias
-          <Box component="span" sx={{ color: accent }}>
-            .
-          </Box>
-        </Typography>
-        <Typography
-          component="h2"
-          sx={{
-            fontSize: { xs: "1.15rem", md: "1.4rem" },
-            fontWeight: 400,
-            color: theme.palette.text.secondary,
-            mb: 2.5,
-          }}
-        >
-          i build agentic AI systems.
-        </Typography>
-
-        <Typography
-          variant="body1"
-          component="div"
-          sx={{
-            mb: 3,
-            lineHeight: 1.7,
-            fontSize: "1.05rem",
-            color: theme.palette.text.secondary,
-            maxWidth: "50ch",
-            mx: "auto",
-          }}
-        >
-          Software engineer, most recently building agents at{" "}
-          <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
-            EY
-          </Link>
-          . Before that,{" "}
-          <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
-            John Deere
-          </Link>
-          , where I shipped a pipeline that traces production alerts back to
-          the responsible git commit and opens the fix as a draft PR.
-        </Typography>
-
-        {/* Impact strip */}
         <Box
+          {...heroExclude}
           sx={{
             display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: 1,
-            mb: 3,
-          }}
-        >
-          {impactStats.map((stat) => (
-            <Box
-              key={stat}
-              component="span"
-              sx={{
-                display: "inline-block",
-                px: 1,
-                py: 0.25,
-                borderRadius: 0.75,
-                fontSize: "0.7rem",
-                letterSpacing: "0.3px",
-                fontFamily: "monospace",
-                border: `1px solid ${alpha(theme.palette.text.primary, 0.15)}`,
-                color: theme.palette.text.secondary,
-                lineHeight: 1.6,
-              }}
-            >
-              {stat}
-            </Box>
-          ))}
-        </Box>
-
-        {/* Social Links */}
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            mb: 4,
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
           }}
         >
-          <Link
-            href="https://github.com/zekariasasaminew"
-            target="_blank"
-            rel="noopener"
-            onClick={() => trackClick("github")}
-            sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontSize: { xs: "2.1rem", md: "2.8rem" },
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+              mb: 1,
+            }}
           >
-            <GitHubIcon />
-          </Link>
-          <Link
-            href="https://linkedin.com/in/zekarias-asaminew"
-            target="_blank"
-            rel="noopener"
-            onClick={() => trackClick("linkedin")}
-            sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
+            hi, i'm zekarias
+            <Box component="span" sx={{ color: accent }}>
+              .
+            </Box>
+          </Typography>
+          <Typography
+            component="h2"
+            sx={{
+              fontSize: { xs: "1.15rem", md: "1.4rem" },
+              fontWeight: 400,
+              color: theme.palette.text.secondary,
+              mb: 2.5,
+            }}
           >
-            <LinkedInIcon />
-          </Link>
-          <Link
-            href={`mailto:${contact.email}`}
-            sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
+            i build agentic AI systems.
+          </Typography>
+
+          <Typography
+            variant="body1"
+            component="div"
+            sx={{
+              mb: 3,
+              lineHeight: 1.7,
+              fontSize: "1.05rem",
+              color: theme.palette.text.secondary,
+              maxWidth: "50ch",
+              mx: "auto",
+            }}
           >
-            <EmailOutlinedIcon />
-          </Link>
-          {FEATURE_FLAGS.showResume && (
-            <>
-              <IconButton
-                onClick={(e) => setResumeAnchor(e.currentTarget)}
-                aria-label="Download resume"
+            Software engineer, most recently building agents at{" "}
+            <Link href="https://www.ey.com" target="_blank" sx={LinkStyle}>
+              EY
+            </Link>
+            . Before that,{" "}
+            <Link href="https://www.deere.com" target="_blank" sx={LinkStyle}>
+              John Deere
+            </Link>
+            , where I shipped a pipeline that traces production alerts back to
+            the responsible git commit and opens the fix as a draft PR.
+          </Typography>
+
+          {/* Impact strip */}
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: 1,
+              mb: 3,
+            }}
+          >
+            {impactStats.map((stat) => (
+              <Box
+                key={stat}
+                component="span"
                 sx={{
-                  p: 0,
-                  color: "inherit",
-                  opacity: 0.85,
-                  "&:hover": { opacity: 1, backgroundColor: "transparent" },
+                  display: "inline-block",
+                  px: 1,
+                  py: 0.25,
+                  borderRadius: 0.75,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.3px",
+                  fontFamily: "monospace",
+                  border: `1px solid ${alpha(theme.palette.text.primary, 0.15)}`,
+                  color: theme.palette.text.secondary,
+                  lineHeight: 1.6,
                 }}
               >
-                <DescriptionOutlinedIcon />
-              </IconButton>
-              <Menu
-                anchorEl={resumeAnchor}
-                open={Boolean(resumeAnchor)}
-                onClose={() => setResumeAnchor(null)}
-              >
-                <MenuItem
-                  component="a"
-                  href={resumeFiles.ai.href}
-                  download
-                  onClick={() => {
-                    trackClick("resume-ai");
-                    setResumeAnchor(null);
-                  }}
-                >
-                  Resume ({resumeFiles.ai.label})
-                </MenuItem>
-                <MenuItem
-                  component="a"
-                  href={resumeFiles.coreSwe.href}
-                  download
-                  onClick={() => {
-                    trackClick("resume-core-swe");
-                    setResumeAnchor(null);
-                  }}
-                >
-                  Resume ({resumeFiles.coreSwe.label})
-                </MenuItem>
-              </Menu>
-            </>
-          )}
-        </Box>
+                {stat}
+              </Box>
+            ))}
+          </Box>
 
-        <SpotifyNowPlaying />
+          {/* Social Links */}
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              mb: 4,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Link
+              href="https://github.com/zekariasasaminew"
+              target="_blank"
+              rel="noopener"
+              onClick={() => trackClick("github")}
+              sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
+            >
+              <GitHubIcon />
+            </Link>
+            <Link
+              href="https://linkedin.com/in/zekarias-asaminew"
+              target="_blank"
+              rel="noopener"
+              onClick={() => trackClick("linkedin")}
+              sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
+            >
+              <LinkedInIcon />
+            </Link>
+            <Link
+              href={`mailto:${contact.email}`}
+              sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
+            >
+              <EmailOutlinedIcon />
+            </Link>
+            {FEATURE_FLAGS.showResume && (
+              <>
+                <IconButton
+                  onClick={(e) => setResumeAnchor(e.currentTarget)}
+                  aria-label="Download resume"
+                  sx={{
+                    p: 0,
+                    color: "inherit",
+                    opacity: 0.85,
+                    "&:hover": { opacity: 1, backgroundColor: "transparent" },
+                  }}
+                >
+                  <DescriptionOutlinedIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={resumeAnchor}
+                  open={Boolean(resumeAnchor)}
+                  onClose={() => setResumeAnchor(null)}
+                >
+                  <MenuItem
+                    component="a"
+                    href={resumeFiles.ai.href}
+                    download
+                    onClick={() => {
+                      trackClick("resume-ai");
+                      setResumeAnchor(null);
+                    }}
+                  >
+                    Resume ({resumeFiles.ai.label})
+                  </MenuItem>
+                  <MenuItem
+                    component="a"
+                    href={resumeFiles.coreSwe.href}
+                    download
+                    onClick={() => {
+                      trackClick("resume-core-swe");
+                      setResumeAnchor(null);
+                    }}
+                  >
+                    Resume ({resumeFiles.coreSwe.label})
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+          </Box>
+
+          <SpotifyNowPlaying />
+        </Box>
       </Box>
 
       <AboutSection />
