@@ -1,7 +1,7 @@
 import { Box, useTheme } from "@mui/material";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { projects } from "../../../data/projects";
-import { HERO_EXCLUDE_ATTR } from "./tiles";
+import { projects } from "../../data/projects";
+import { PIXEL_EXCLUDE_ATTR, collectBlockers } from "./blockers";
 
 type Tone = "base" | "punc" | "accent" | 0 | 1 | 2 | 3;
 type Token = [string, Tone];
@@ -43,14 +43,17 @@ type Phase = "idle" | "run" | "fade";
 
 interface Props {
   trigger: number;
-  containerRef: React.RefObject<HTMLElement | null>;
+  /** The tile layer the card is positioned in. */
+  layerRef: React.RefObject<HTMLElement | null>;
+  /** Page content whose text the card must not overlap. */
+  contentRef: React.RefObject<HTMLElement | null>;
 }
 
 function clamp(v: number, lo: number, hi: number) {
   return Math.min(Math.max(v, lo), Math.max(lo, hi));
 }
 
-const HeroCodeCard = ({ trigger, containerRef }: Props) => {
+const CodeCard = ({ trigger, layerRef, contentRef }: Props) => {
   const theme = useTheme();
   const tones = TONES[theme.palette.mode];
   const measureRef = useRef<HTMLDivElement>(null);
@@ -60,22 +63,30 @@ const HeroCodeCard = ({ trigger, containerRef }: Props) => {
   const [spot, setSpot] = useState<{ x: number; y: number } | null>(null);
 
   useLayoutEffect(() => {
-    const container = containerRef.current;
+    const layer = layerRef.current;
+    const content = contentRef.current;
     if (
       !trigger ||
-      !container ||
+      !layer ||
+      !content ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
-    const box = container.getBoundingClientRect();
+    const box = {
+      left: 0,
+      top: 0,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
     const card = measureRef.current?.getBoundingClientRect();
     const w = card?.width ?? 200;
     const h = card?.height ?? 160;
-    const avoid = [
-      ...document.querySelectorAll(
-        `[${HERO_EXCLUDE_ATTR}]:not([data-code-card])`,
-      ),
-    ].map((el) => el.getBoundingClientRect());
+    const avoid = collectBlockers(content, layer).map((b) => ({
+      left: b.left - window.scrollX,
+      right: b.right - window.scrollX,
+      top: b.top - window.scrollY,
+      bottom: b.bottom - window.scrollY,
+    }));
     const padX = 0.06 * box.width;
     const padY = 0.06 * box.height;
     const minX = padX + w / 2;
@@ -108,8 +119,10 @@ const HeroCodeCard = ({ trigger, containerRef }: Props) => {
         x: minX + Math.random() * Math.max(0, maxX - minX),
         y: minY + Math.random() * Math.max(0, maxY - minY),
       });
-    setSpot(candidates.find((c) => isFree(c.x, c.y)) ?? null);
-  }, [trigger, containerRef]);
+    const free = candidates.find((c) => isFree(c.x, c.y));
+    const origin = layer.getBoundingClientRect();
+    setSpot(free ? { x: free.x - origin.left, y: free.y - origin.top } : null);
+  }, [trigger, layerRef, contentRef]);
 
   useEffect(() => {
     if (!trigger || !spot) return;
@@ -147,8 +160,7 @@ const HeroCodeCard = ({ trigger, containerRef }: Props) => {
 
   return (
     <Box
-      data-code-card=""
-      {...(phase !== "idle" ? { [HERO_EXCLUDE_ATTR]: "" } : {})}
+      {...(phase !== "idle" ? { [PIXEL_EXCLUDE_ATTR]: "" } : {})}
       sx={{
         position: "absolute",
         transform: "translate(-50%, -50%)",
@@ -198,4 +210,4 @@ const HeroCodeCard = ({ trigger, containerRef }: Props) => {
   );
 };
 
-export default HeroCodeCard;
+export default CodeCard;

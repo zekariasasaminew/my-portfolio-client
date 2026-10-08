@@ -1,9 +1,9 @@
 import { Box, useTheme } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import HeroCodeCard from "./HeroCodeCard";
+import CodeCard from "./CodeCard";
+import { PIXEL_EXCLUDE_ATTR, collectBlockers, type DocRect } from "./blockers";
 import {
   CELL_PX,
-  HERO_EXCLUDE_ATTR,
   PALETTES,
   buildLayout,
   growCluster,
@@ -14,14 +14,17 @@ import {
   type Tile,
 } from "./tiles";
 
+const TEXT_MARGIN_PX = 8;
+const BLOCKER_REFRESH_MS = 250;
+
 interface Timed {
   id: number;
   until: number;
 }
 
 interface Props {
-  /** The hero section; the effect covers the viewport down to where the next section starts. */
-  heroRef: React.RefObject<HTMLElement | null>;
+  /** The page content the tiles sit behind; its text, media and controls are never covered. */
+  contentRef: React.RefObject<HTMLElement | null>;
 }
 
 function createTileElement(tile: Tile): HTMLElement {
@@ -42,7 +45,8 @@ function createTileElement(tile: Tile): HTMLElement {
   return el;
 }
 
-const HeroPixels = ({ heroRef }: Props) => {
+/** Spotify Technology style tile grid that lives behind the page and stays out from under text. */
+const PixelGrid = ({ contentRef }: Props) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
   const layerRef = useRef<HTMLDivElement>(null);
@@ -57,13 +61,14 @@ const HeroPixels = ({ heroRef }: Props) => {
   useEffect(() => {
     const layer = layerRef.current;
     const tileHost = tilesRef.current;
-    const hero = heroRef.current;
-    if (!layer || !tileHost || !hero) return;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reducedMotion.matches) return;
+    const content = contentRef.current;
+    if (!layer || !tileHost || !content) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const palette = PALETTES[mode];
     let layout: Layout | null = null;
+    let blocked = new Uint8Array(0);
+    let blockers: DocRect[] = [];
     const elements = new Map<number, HTMLElement>();
     let active = new Set<number>();
     let pointer = { x: 0, y: 0, inside: false };
@@ -72,42 +77,73 @@ const HeroPixels = ({ heroRef }: Props) => {
     let ambient: Timed[] = [];
     let previousCursorIds = new Set<number>();
     let relayoutPending = false;
-    let heroVisible = true;
     let refreshTimer = 0;
     let idleTimer = 0;
     let relayoutTimer = 0;
     let blipTimer = 0;
     let ambientTimer = 0;
-    let scrollFrame = 0;
+    let blockerTimer = 0;
+    let lastBlockerRefresh = 0;
 
-    const zonesFor = (cols: number, rows: number): CellZone[] => {
-      if (cols <= 0 || rows <= 0) return [];
+    const gridSize = () => ({
+      cols: Math.floor(layer.clientWidth / CELL_PX),
+      rows: Math.floor(layer.clientHeight / CELL_PX),
+    });
+
+    const layerOrigin = () => {
+      const r = layer.getBoundingClientRect();
+      return { left: r.left + window.scrollX, top: r.top + window.scrollY };
+    };
+
+    const maskFor = (cols: number, rows: number) => {
+      const mask = new Uint8Array(cols > 0 && rows > 0 ? cols * rows : 0);
+      const origin = layerOrigin();
+      for (const b of blockers) {
+        const c0 = Math.max(
+          0,
+          Math.floor((b.left - TEXT_MARGIN_PX - origin.left) / CELL_PX),
+        );
+        const r0 = Math.max(
+          0,
+          Math.floor((b.top - TEXT_MARGIN_PX - origin.top) / CELL_PX),
+        );
+        const c1 = Math.min(
+          cols - 1,
+          Math.floor((b.right + TEXT_MARGIN_PX - origin.left) / CELL_PX),
+        );
+        const r1 = Math.min(
+          rows - 1,
+          Math.floor((b.bottom + TEXT_MARGIN_PX - origin.top) / CELL_PX),
+        );
+        for (let r = r0; r <= r1; r += 1)
+          for (let c = c0; c <= c1; c += 1) mask[r * cols + c] = 1;
+      }
+      return mask;
+    };
+
+    const liveZones = (): CellZone[] => {
+      if (!layout) return [];
       const base = layer.getBoundingClientRect();
       const zones: CellZone[] = [];
-      document.querySelectorAll(`[${HERO_EXCLUDE_ATTR}]`).forEach((el) => {
+      layer.querySelectorAll(`[${PIXEL_EXCLUDE_ATTR}]`).forEach((el) => {
         const r = el.getBoundingClientRect();
-        if (!r.width || !r.height) return;
-        const c0 = Math.floor((r.left - base.left) / CELL_PX) - 1;
-        const r0 = Math.floor((r.top - base.top) / CELL_PX) - 1;
-        const c1 = Math.floor((r.right - base.left) / CELL_PX) + 1;
-        const r1 = Math.floor((r.bottom - base.top) / CELL_PX) + 1;
-        if (c1 < 0 || r1 < 0 || c0 >= cols || r0 >= rows) return;
+        if (!r.width || !r.height || !layout) return;
         zones.push({
-          c0: Math.max(0, c0),
-          r0: Math.max(0, r0),
-          c1: Math.min(cols - 1, c1),
-          r1: Math.min(rows - 1, r1),
+          c0: Math.floor((r.left - base.left) / CELL_PX) - 1,
+          r0: Math.floor((r.top - base.top) / CELL_PX) - 1,
+          c1: Math.floor((r.right - base.left) / CELL_PX) + 1,
+          r1: Math.floor((r.bottom - base.top) / CELL_PX) + 1,
         });
       });
       return zones;
     };
 
-    const currentZones = () =>
-      layout ? zonesFor(layout.cols, layout.rows) : [];
-
     const isClear = (id: number, zones: CellZone[]) => {
       const t = layout?.tiles[id];
-      if (!t) return false;
+      if (!t || !layout) return false;
+      for (let r = 0; r < t.size; r += 1)
+        for (let c = 0; c < t.size; c += 1)
+          if (blocked[(t.row + r) * layout.cols + t.col + c]) return false;
       return zones.every(
         (z) =>
           t.col > z.c1 ||
@@ -115,6 +151,11 @@ const HeroPixels = ({ heroRef }: Props) => {
           t.row > z.r1 ||
           t.row + t.size - 1 < z.r0,
       );
+    };
+
+    const isOnScreen = (t: Tile) => {
+      const top = layer.getBoundingClientRect().top + t.row * CELL_PX;
+      return top + t.size * CELL_PX > 0 && top < window.innerHeight;
     };
 
     const setActive = (ids: Set<number>) => {
@@ -148,7 +189,7 @@ const HeroPixels = ({ heroRef }: Props) => {
           cursorIds = tilesAround(layout, col, row);
         }
       }
-      const zones = currentZones();
+      const zones = liveZones();
       cursorIds = cursorIds.filter((id) => isClear(id, zones));
       const cursorSet = new Set(cursorIds);
 
@@ -182,9 +223,9 @@ const HeroPixels = ({ heroRef }: Props) => {
     };
 
     const relayout = () => {
-      const cols = Math.floor(layer.clientWidth / CELL_PX);
-      const rows = Math.floor(layer.clientHeight / CELL_PX);
-      layout = buildLayout(cols, rows, zonesFor(cols, rows), palette);
+      const { cols, rows } = gridSize();
+      blocked = maskFor(cols, rows);
+      layout = buildLayout(cols, rows, blocked, palette);
       lingering = [];
       ambient = [];
       previousCursorIds = new Set();
@@ -194,7 +235,31 @@ const HeroPixels = ({ heroRef }: Props) => {
       update();
     };
 
-    const canRunAmbient = () => heroVisible && !document.hidden;
+    const refreshBlockers = () => {
+      window.clearTimeout(blockerTimer);
+      blockerTimer = 0;
+      lastBlockerRefresh = performance.now();
+      blockers = collectBlockers(content, layer);
+      const { cols, rows } = gridSize();
+      if (!layout || layout.cols !== cols || layout.rows !== rows)
+        return relayout();
+      blocked = maskFor(cols, rows);
+      update();
+    };
+
+    const scheduleBlockerRefresh = () => {
+      if (blockerTimer) return;
+      const wait = Math.max(
+        0,
+        BLOCKER_REFRESH_MS - (performance.now() - lastBlockerRefresh),
+      );
+      blockerTimer = window.setTimeout(() => {
+        blockerTimer = 0;
+        refreshBlockers();
+      }, wait);
+    };
+
+    const canRunAmbient = () => !document.hidden;
 
     const scheduleAmbient = () => {
       window.clearTimeout(ambientTimer);
@@ -203,9 +268,9 @@ const HeroPixels = ({ heroRef }: Props) => {
         () => {
           if (!canRunAmbient()) return;
           if (!relayoutPending && layout && layout.tiles.length > 0) {
-            const zones = currentZones();
+            const zones = liveZones();
             const candidates = layout.tiles.filter(
-              (t) => !active.has(t.id) && isClear(t.id, zones),
+              (t) => !active.has(t.id) && isOnScreen(t) && isClear(t.id, zones),
             );
             let picked: number[] = [];
             if (candidates.length > 0 && Math.random() < 0.35) {
@@ -259,7 +324,7 @@ const HeroPixels = ({ heroRef }: Props) => {
       for (const t of ambient) delay = Math.max(delay, t.until - now + 50);
       relayoutTimer = window.setTimeout(() => {
         relayout();
-        if (resumeBlips && heroVisible) scheduleBlip();
+        if (resumeBlips) scheduleBlip();
         syncAmbient();
       }, delay);
     };
@@ -286,17 +351,10 @@ const HeroPixels = ({ heroRef }: Props) => {
       scheduleRelayout(resumeBlips);
     };
 
-    const isOverLayer = (x: number, y: number) => {
-      const base = layer.getBoundingClientRect();
-      return (
-        x >= base.left && x < base.right && y >= base.top && y < base.bottom
-      );
-    };
-
-    let pointerOverHero = false;
-    const leaveHero = () => {
-      if (!pointerOverHero) return;
-      pointerOverHero = false;
+    let pointerOnPage = false;
+    const leavePage = () => {
+      if (!pointerOnPage) return;
+      pointerOnPage = false;
       window.clearTimeout(idleTimer);
       window.clearTimeout(blipTimer);
       pointerExit(false);
@@ -304,14 +362,12 @@ const HeroPixels = ({ heroRef }: Props) => {
 
     const onPointerMove = (e: PointerEvent) => {
       if (e.pointerType === "touch") return;
-      if (!heroVisible || !isOverLayer(e.clientX, e.clientY))
-        return leaveHero();
       if (
         Math.abs(e.clientX - lastPointer.x) < 1 &&
         Math.abs(e.clientY - lastPointer.y) < 1
       )
         return;
-      pointerOverHero = true;
+      pointerOnPage = true;
       lastPointer = { x: e.clientX, y: e.clientY };
       pointer = { ...lastPointer, inside: true };
       window.clearTimeout(relayoutTimer);
@@ -323,82 +379,56 @@ const HeroPixels = ({ heroRef }: Props) => {
     };
 
     const onWindowMouseOut = (e: MouseEvent) => {
-      if (!e.relatedTarget) leaveHero();
+      if (!e.relatedTarget) leavePage();
     };
 
-    const sizeLayer = () => {
-      const edge = (hero.nextElementSibling ?? hero).getBoundingClientRect();
-      const stageBottom =
-        (hero.nextElementSibling ? edge.top : edge.bottom) + window.scrollY;
-      layer.style.height = `${Math.min(window.innerHeight, Math.max(0, stageBottom))}px`;
-    };
-
-    const applyScroll = () => {
-      scrollFrame = 0;
-      const span = 0.45 * window.innerHeight;
-      const fade = span <= 0 ? 1 : Math.max(0, 1 - window.scrollY / span);
-      layer.style.opacity = String(fade);
-      const visible = fade > 0.01;
-      if (visible === heroVisible) return;
-      heroVisible = visible;
-      if (!visible) leaveHero();
-      syncAmbient();
-    };
-
-    const onScroll = () => {
-      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(applyScroll);
-    };
-
-    const onResize = () => {
-      sizeLayer();
-      onScroll();
-    };
-
-    const resizeObserver = new ResizeObserver(() => {
-      const cols = Math.floor(layer.clientWidth / CELL_PX);
-      const rows = Math.floor(layer.clientHeight / CELL_PX);
-      if (!layout || layout.cols !== cols || layout.rows !== rows) relayout();
+    const sizeObserver = new ResizeObserver(scheduleBlockerRefresh);
+    const mutationObserver = new MutationObserver((records) => {
+      if (records.some((r) => !layer.contains(r.target)))
+        scheduleBlockerRefresh();
     });
 
-    const pageObserver = new ResizeObserver(sizeLayer);
-
-    sizeLayer();
-    applyScroll();
-    resizeObserver.observe(layer);
-    pageObserver.observe(document.body);
+    refreshBlockers();
+    sizeObserver.observe(layer);
+    sizeObserver.observe(content);
+    mutationObserver.observe(content, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("mouseout", onWindowMouseOut);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", syncAmbient);
+    document.fonts?.ready.then(scheduleBlockerRefresh);
     syncAmbient();
 
     return () => {
-      [refreshTimer, idleTimer, relayoutTimer, blipTimer, ambientTimer].forEach(
-        (t) => window.clearTimeout(t),
-      );
-      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
-      resizeObserver.disconnect();
-      pageObserver.disconnect();
+      [
+        refreshTimer,
+        idleTimer,
+        relayoutTimer,
+        blipTimer,
+        ambientTimer,
+        blockerTimer,
+      ].forEach((t) => window.clearTimeout(t));
+      sizeObserver.disconnect();
+      mutationObserver.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("mouseout", onWindowMouseOut);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", syncAmbient);
       elements.forEach((el) => el.remove());
     };
-  }, [heroRef, mode]);
+  }, [contentRef, mode]);
 
   return (
     <Box
       ref={layerRef}
       aria-hidden
       sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100vh",
+        position: "absolute",
+        inset: 0,
         overflow: "hidden",
         pointerEvents: "none",
         zIndex: -1,
@@ -406,9 +436,13 @@ const HeroPixels = ({ heroRef }: Props) => {
       }}
     >
       <Box ref={tilesRef} sx={{ position: "absolute", inset: 0 }} />
-      <HeroCodeCard trigger={cardTrigger} containerRef={layerRef} />
+      <CodeCard
+        trigger={cardTrigger}
+        layerRef={layerRef}
+        contentRef={contentRef}
+      />
     </Box>
   );
 };
 
-export default HeroPixels;
+export default PixelGrid;
