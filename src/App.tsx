@@ -1,10 +1,15 @@
-import { useState, useMemo, useEffect, lazy, Suspense } from "react";
+import { useState, useMemo, useEffect, useRef, lazy, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
+import PixelGrid from "./components/pixelGrid/PixelGrid";
 import { Analytics } from "@vercel/analytics/react";
-import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
+import {
+  trackPageview,
+  trackSessionEnd,
+  markPageEntered,
+} from "./lib/analytics";
 
 const Notes = lazy(() => import("./pages/Notes"));
 const NotesDetail = lazy(() => import("./pages/NotesDetail"));
@@ -57,6 +62,9 @@ const BackgroundPattern = () => (
 
 function App() {
   usePageAnalytics();
+  const location = useLocation();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const showPixelGrid = !location.pathname.startsWith("/analytics");
 
   const [mode, setMode] = useState<"light" | "dark">(() => {
     // Versioned key: bumping this ignores any "themeMode" saved by
@@ -106,7 +114,7 @@ function App() {
           },
         },
       }),
-    [mode]
+    [mode],
   );
 
   const toggleColorMode = () => {
@@ -122,32 +130,40 @@ function App() {
       <CssBaseline />
       <BackgroundPattern />
       <Analytics />
-      <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<Home toggleColorMode={toggleColorMode} />} />
-          <Route
-            path="/notes"
-            element={<Notes toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/notes/:id"
-            element={<NotesDetail toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/analytics"
-            element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/ey-internship"
-            element={<EYInternship toggleColorMode={toggleColorMode} />}
-          />
-          <Route
-            path="/blog/pact"
-            element={<PactPost toggleColorMode={toggleColorMode} />}
-          />
-          <Route path="/connect" element={<Connect />} />
-        </Routes>
-      </Suspense>
+      <div style={{ position: "relative", zIndex: 0 }}>
+        {showPixelGrid && <PixelGrid contentRef={contentRef} />}
+        <div ref={contentRef}>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route
+                path="/"
+                element={<Home toggleColorMode={toggleColorMode} />}
+              />
+              <Route
+                path="/notes"
+                element={<Notes toggleColorMode={toggleColorMode} />}
+              />
+              <Route
+                path="/notes/:id"
+                element={<NotesDetail toggleColorMode={toggleColorMode} />}
+              />
+              <Route
+                path="/analytics"
+                element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
+              />
+              <Route
+                path="/ey-internship"
+                element={<EYInternship toggleColorMode={toggleColorMode} />}
+              />
+              <Route
+                path="/blog/pact"
+                element={<PactPost toggleColorMode={toggleColorMode} />}
+              />
+              <Route path="/connect" element={<Connect />} />
+            </Routes>
+          </Suspense>
+        </div>
+      </div>
     </ThemeProvider>
   );
 }
