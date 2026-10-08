@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import CodeCard from "./CodeCard";
+import CodeCard, { type CardTrigger } from "./CodeCard";
 import { PIXEL_EXCLUDE_ATTR, collectBlockers, type DocRect } from "./blockers";
 import {
   CELL_PX,
@@ -16,6 +16,10 @@ import {
 
 const TEXT_MARGIN_PX = 8;
 const BLOCKER_REFRESH_MS = 250;
+const CARD_EVERY_MS = 15000;
+const CARD_EVERY_JITTER_MS = 10000;
+const CARD_COOLDOWN_MS = 9000;
+const CARD_ON_MOVE_CHANCE = 0.3;
 
 interface Timed {
   id: number;
@@ -51,10 +55,10 @@ const PixelGrid = ({ contentRef }: Props) => {
   const mode = theme.palette.mode;
   const layerRef = useRef<HTMLDivElement>(null);
   const tilesRef = useRef<HTMLDivElement>(null);
-  const [cardTrigger, setCardTrigger] = useState(0);
+  const [cardTrigger, setCardTrigger] = useState<CardTrigger>({ count: 0 });
 
   useEffect(() => {
-    const id = window.setTimeout(() => setCardTrigger(1), 900);
+    const id = window.setTimeout(() => setCardTrigger({ count: 1 }), 900);
     return () => window.clearTimeout(id);
   }, []);
 
@@ -83,6 +87,9 @@ const PixelGrid = ({ contentRef }: Props) => {
     let blipTimer = 0;
     let ambientTimer = 0;
     let blockerTimer = 0;
+    let cardTimer = 0;
+    let lastCardAt = performance.now();
+    let pointerResting = true;
     let lastBlockerRefresh = 0;
 
     const gridSize = () => ({
@@ -351,8 +358,23 @@ const PixelGrid = ({ contentRef }: Props) => {
       scheduleRelayout(resumeBlips);
     };
 
+    const scheduleCard = () => {
+      window.clearTimeout(cardTimer);
+      cardTimer = window.setTimeout(
+        () => (document.hidden ? scheduleCard() : showCard()),
+        CARD_EVERY_MS + CARD_EVERY_JITTER_MS * Math.random(),
+      );
+    };
+
+    const showCard = (near?: { x: number; y: number }) => {
+      lastCardAt = performance.now();
+      setCardTrigger((t) => ({ count: t.count + 1, near }));
+      scheduleCard();
+    };
+
     let pointerOnPage = false;
     const leavePage = () => {
+      pointerResting = true;
       if (!pointerOnPage) return;
       pointerOnPage = false;
       window.clearTimeout(idleTimer);
@@ -368,6 +390,14 @@ const PixelGrid = ({ contentRef }: Props) => {
       )
         return;
       pointerOnPage = true;
+      if (pointerResting) {
+        pointerResting = false;
+        if (
+          performance.now() - lastCardAt >= CARD_COOLDOWN_MS &&
+          Math.random() < CARD_ON_MOVE_CHANCE
+        )
+          showCard({ x: e.clientX, y: e.clientY });
+      }
       lastPointer = { x: e.clientX, y: e.clientY };
       pointer = { ...lastPointer, inside: true };
       window.clearTimeout(relayoutTimer);
@@ -375,7 +405,10 @@ const PixelGrid = ({ contentRef }: Props) => {
       window.clearTimeout(blipTimer);
       update();
       window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(() => pointerExit(true), 600);
+      idleTimer = window.setTimeout(() => {
+        pointerResting = true;
+        pointerExit(true);
+      }, 600);
     };
 
     const onWindowMouseOut = (e: MouseEvent) => {
@@ -403,6 +436,7 @@ const PixelGrid = ({ contentRef }: Props) => {
     document.addEventListener("visibilitychange", syncAmbient);
     document.fonts?.ready.then(scheduleBlockerRefresh);
     syncAmbient();
+    scheduleCard();
 
     return () => {
       [
@@ -412,6 +446,7 @@ const PixelGrid = ({ contentRef }: Props) => {
         blipTimer,
         ambientTimer,
         blockerTimer,
+        cardTimer,
       ].forEach((t) => window.clearTimeout(t));
       sizeObserver.disconnect();
       mutationObserver.disconnect();
