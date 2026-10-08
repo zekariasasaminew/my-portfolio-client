@@ -1,8 +1,5 @@
 export const CELL_PX = 16;
 
-/** Elements marked with this attribute keep tiles from appearing underneath them. */
-export const HERO_EXCLUDE_ATTR = "data-hero-exclude";
-
 export type TileSize = 1 | 3 | 6;
 type Category = "brand" | "colour" | "glyph" | "pattern" | "grey";
 
@@ -284,18 +281,16 @@ function fits(
   return true;
 }
 
-/** Fills the grid with a random hidden mosaic of tiles; cells inside `zones` stay empty. */
+/** Fills the grid with a random hidden mosaic of tiles; cells set in `blocked` stay empty. */
 export function buildLayout(
   cols: number,
   rows: number,
-  zones: CellZone[],
+  blocked: Uint8Array,
   palette: Palette,
 ): Layout {
   const cellCount = cols > 0 && rows > 0 ? cols * rows : 0;
-  const occupied = new Uint8Array(cellCount);
-  for (const z of zones)
-    for (let r = z.r0; r <= z.r1; r += 1)
-      for (let c = z.c0; c <= z.c1; c += 1) occupied[r * cols + c] = 1;
+  const occupied =
+    blocked.length === cellCount ? blocked.slice() : new Uint8Array(cellCount);
 
   const cellToTile = new Int32Array(cellCount).fill(-1);
   const tiles: Tile[] = [];
