@@ -5,7 +5,7 @@ export const notes: Note[] = [
     id: 8,
     title: "The fastest isolation is the one you skip: building pact",
     content: [
-      "Twelve weeks building a Rust orchestrator that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repo at once. My first design was 3.4x slower than Copilot's own sub-agents; measured changes took it to 21% faster. Animated diagrams, every benchmark number, and why I parked it.",
+      "Twelve weeks building a Rust orchestrator that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repo at once. My first design was 3.4x slower than Copilot's own sub-agents; measured changes took it to 21% faster. Animated diagrams, every benchmark number, and what one good run does not prove.",
     ],
     createdAt: "2026-10-04",
     updatedAt: "2026-10-04",

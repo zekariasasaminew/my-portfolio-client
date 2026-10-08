@@ -17,7 +17,7 @@ const ROUTE_META: RouteMeta[] = [
     path: '/blog/pact',
     title: 'The fastest isolation is the one you skip: building pact',
     description:
-      "Twelve weeks building a Rust orchestrator for parallel AI coding agents. My first design was 3.4x slower than Copilot's own sub-agents; measured changes took it to 21% faster. Animated diagrams, every benchmark number, and why I parked it.",
+      "Twelve weeks building a Rust orchestrator for parallel AI coding agents. My first design was 3.4x slower than Copilot's own sub-agents; measured changes took it to 21% faster. Animated diagrams, every benchmark number, and what one good run does not prove.",
     image: '/images/pact/og.png',
   },
 ]
