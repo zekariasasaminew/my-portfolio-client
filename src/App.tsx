@@ -5,11 +5,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import PixelGrid from "./components/pixelGrid/PixelGrid";
 import { Analytics } from "@vercel/analytics/react";
-import {
-  trackPageview,
-  trackSessionEnd,
-  markPageEntered,
-} from "./lib/analytics";
+import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
 
 const Notes = lazy(() => import("./pages/Notes"));
 const NotesDetail = lazy(() => import("./pages/NotesDetail"));
@@ -114,7 +110,7 @@ function App() {
           },
         },
       }),
-    [mode],
+    [mode]
   );
 
   const toggleColorMode = () => {
