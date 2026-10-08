@@ -156,7 +156,7 @@ const PactPost = ({ toggleColorMode }: PactPostProps) => {
             The fastest isolation is the one you skip
           </Typography>
           <Typography component="p" sx={{ fontSize: { xs: "1.05rem", md: "1.2rem" }, lineHeight: 1.6, color: c.muted, maxWidth: "62ch" }}>
-            I spent twelve weeks building pact, a Rust CLI that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repository at the same time and hands back one verified branch. My first architecture was 3.4x slower than Copilot's own sub-agents. A series of measured changes later it finished the same task 21% faster, 21% cheaper, on half the memory. Then I parked it, and pointed its conflict resolver at 44 real merge conflicts from Click and Flask: it fully resolved 68% of them, and the tests could not tell which 32% it got wrong. This is the whole arc, with the numbers.
+            I spent twelve weeks building pact, a Rust CLI that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repository at the same time and hands back one verified branch. My first architecture was 3.4x slower than Copilot's own sub-agents. A series of measured changes later it finished the same task 21% faster, 21% cheaper, on half the memory. Then I pointed its conflict resolver at 44 real merge conflicts from Click and Flask: it fully resolved 68% of them, and the tests could not tell which 32% it got wrong. This is the whole arc, with the numbers.
           </Typography>
           <Box sx={{ display: "flex", gap: 2, mt: 3, flexWrap: "wrap", fontFamily: MONO, fontSize: "0.8rem" }}>
             <ExtLink href={REPO}>github.com/zekariasasaminew/pact</ExtLink>
@@ -337,17 +337,17 @@ agent -> pact   session/update stream  -> logs/<lane>.jsonl`}</CodeBlock>
           Finer splitting multiplied the whole-project checks and bought nothing, because the model-bound part of a lane was never the bottleneck. The fix is a division of labour: workers check only their own files, and pact runs the project-wide checks once, on the combined result. A regressed or failed verdict starts one repair lane in the same tree, with only the real failures, their output, and the files the run touched.
         </P>
 
-        <H2 id="parked" kicker="10 · the honest part">Why I parked it</H2>
+        <H2 id="limits" kicker="10 · the honest part">What one good run does not prove</H2>
         <P>
           On the 1st of October pact beat the tool it was compared against: 12.5 minutes against 15.8, $12.79 against $16.20, half the mean memory, nobody writing a brief. The next day I ran a back-to-back pair on a weaker model, and it went the other way: Copilot's sub-agents 51.3 minutes, <Code>pact run</Code> 70.8, and neither finished cleanly. Every row in that chart is a single run on one laptop.
         </P>
         <P>
-          Meanwhile the layer pact lives in is being absorbed by the vendors. Claude has agent teams, Copilot has <Code>/fleet</Code>, Codex has sub-agents, Cursor runs parallel agents. A tool whose advantage held once, on one model, against products that ship this every month, is an experiment, not a product. So the README says exactly that at the top, v0.5.0 is the release that has <Code>pact run</Code> in it, and the open problems stay on their issues for anyone who wants them.
+          So the result is a direction, not a verdict. The vendors are shipping their own fan-out too: Claude has agent teams, Copilot has <Code>/fleet</Code>, Codex has sub-agents, Cursor runs parallel agents. What pact has to show is that owning the split, the shared runtime and the baseline beats them on more than one model and more than one task. The open problems are on GitHub: units that depend on each other and need waves (<ExtLink href={`${REPO}/issues/282`}>#282</ExtLink>), Ctrl-C leaving agent processes behind (<ExtLink href={`${REPO}/issues/366`}>#366</ExtLink>), workers shipping code a shared incremental check would have caught (<ExtLink href={`${REPO}/issues/371`}>#371</ExtLink>), repairs that should run in parallel (<ExtLink href={`${REPO}/issues/372`}>#372</ExtLink>), and Copilot silently swapping the model under every lane (<ExtLink href={`${REPO}/issues/374`}>#374</ExtLink>). The benchmark itself needs repeated runs, not single ones.
         </P>
 
-        <H2 id="arbiter" kicker="11 · after parking">Arbiter vs {ARBITER_BENCH.cases} real merge conflicts</H2>
+        <H2 id="arbiter" kicker="11 · real conflicts">Arbiter vs {ARBITER_BENCH.cases} real merge conflicts</H2>
         <P>
-          Parking pact left one question open. Arbiter, the one-shot agent that resolves what the merge rules cannot, had only ever seen conflicts I wrote by hand. So I mined the real thing: every merge in the 2021 to 2026 history of Click and Flask that git could not finish on its own. Each one is replayed in a scratch worktree, and Arbiter gets exactly what it gets inside pact: BASE, OURS, THEIRS and the incoming branch's commit messages. The maintainers' own merge commit is the answer key it never sees.
+          One question was still open. Arbiter, the one-shot agent that resolves what the merge rules cannot, had only ever seen conflicts I wrote by hand. So I mined the real thing: every merge in the 2021 to 2026 history of Click and Flask that git could not finish on its own. Each one is replayed in a scratch worktree, and Arbiter gets exactly what it gets inside pact: BASE, OURS, THEIRS and the incoming branch's commit messages. The maintainers' own merge commit is the answer key it never sees.
         </P>
 
         <ArbiterBench />
@@ -406,7 +406,7 @@ pact demo
 pact run --agent copilot --dry-run "Add tests for every module under lib/"`}</CodeBlock>
 
         <P>
-          The code, the 5,400-line design log with every measurement behind every decision, and the raw benchmark data are all public. If you are building in this space, the most useful thing in the repo is probably <ExtLink href={`${REPO}/blob/main/DESIGN.md`}>DESIGN.md</ExtLink>: it records what I tried, what the numbers said, and what I changed because of them.
+          The code, the 5,400-line design log with every measurement behind every decision, and the raw benchmark data are all public. If you are building in this space, the most useful thing in the repo is probably <ExtLink href={`${REPO}/blob/main/DESIGN.md`}>DESIGN.md</ExtLink>: it records what I tried, what the numbers said, and what I changed because of them. pact is still moving, and the next round of work comes from the issues above and from whoever tries it: if it breaks on your repo, <ExtLink href={`${REPO}/issues`}>open an issue</ExtLink>.
         </P>
 
         <Divider sx={{ my: 5, borderColor: c.line }} />
