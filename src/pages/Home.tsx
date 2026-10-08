@@ -122,7 +122,7 @@ const Home = ({ toggleColorMode }: Props) => {
             mb: 2.5,
           }}
         >
-          i build agentic AI systems.
+          i build agentic ai systems.
         </Typography>
 
         <Typography
