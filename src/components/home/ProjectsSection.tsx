@@ -78,10 +78,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
       </Box>
 
       <Box sx={{ display: "flex", gap: 2, mt: 0.5 }}>
-        <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" sx={linkSx}>
-          GitHub
-          <OpenInNewIcon sx={{ fontSize: "0.75rem" }} />
-        </Link>
+        {project.githubUrl && (
+          <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" sx={linkSx}>
+            GitHub
+            <OpenInNewIcon sx={{ fontSize: "0.75rem" }} />
+          </Link>
+        )}
         {project.postUrl && (
           <Link href={project.postUrl} sx={linkSx}>
             Write-up
