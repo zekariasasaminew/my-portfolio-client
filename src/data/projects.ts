@@ -11,6 +11,14 @@ export const projects: Project[] = [
     postUrl: "/blog/pact",
   },
   {
+    name: "The Margin",
+    description:
+      "Messi vs Ronaldo told in charts instead of paragraphs: every one of 2,517 senior matches, synced daily from messivsronaldo.app's own page data. A scroll-driven canvas story morphs 2,599 goals and assists through six data layouts at 60fps, alongside career race lines, Sankey flows, ridgelines, goal-zone heat maps and time spirals. Fully static, auto-refreshed by a GitHub Action that builds and merges its own data PRs.",
+    language: "TypeScript",
+    tags: ["TypeScript", "Next.js", "Canvas", "D3", "Data Viz"],
+    liveUrl: "https://the-margin-iota.vercel.app",
+  },
+  {
     name: "jetbrains-acp",
     description:
       "Universal ACP client plugin for all JetBrains IDEs. Works with IntelliJ, WebStorm, PyCharm, and more.",
