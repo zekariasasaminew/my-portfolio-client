@@ -5,7 +5,7 @@ export interface Project {
   tags: string[];
   stars?: number;
   forks?: number;
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
   npmUrl?: string;
   pluginUrl?: string;
