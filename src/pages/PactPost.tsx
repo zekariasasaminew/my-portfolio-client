@@ -156,7 +156,7 @@ const PactPost = ({ toggleColorMode }: PactPostProps) => {
             The fastest isolation is the one you skip
           </Typography>
           <Typography component="p" sx={{ fontSize: { xs: "1.05rem", md: "1.2rem" }, lineHeight: 1.6, color: c.muted, maxWidth: "62ch" }}>
-            I spent twelve weeks building pact, a Rust CLI that runs Claude Code, Copilot CLI, Codex, Gemini CLI and Antigravity on one repository at the same time and hands back one verified branch. My first architecture was 3.4x slower than Copilot's own sub-agents. A series of measured changes later it finished the same task 21% faster, 21% cheaper, on half the memory. Then I pointed its conflict resolver at 44 real merge conflicts from Click and Flask: it fully resolved 68% of them, and the tests could not tell which 32% it got wrong. This is the whole arc, with the numbers.
+            I spent twelve weeks building pact, a Rust CLI that runs multiple coding agents in parallel on one repository and hands back one verified branch. My first architecture was 3.4x slower than Copilot's own sub-agents. A series of measured changes later it finished the same task 21% faster, 21% cheaper, on half the memory. Then I pointed its conflict resolver at 44 real merge conflicts from Click and Flask: it fully resolved 68% of them, and the tests could not tell which 32% it got wrong. This is the whole arc, with the numbers.
           </Typography>
           <Box sx={{ display: "flex", gap: 2, mt: 3, flexWrap: "wrap", fontFamily: MONO, fontSize: "0.8rem" }}>
             <ExtLink href={REPO}>github.com/zekariasasaminew/pact</ExtLink>
