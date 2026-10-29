@@ -1,15 +1,27 @@
 {
   "headers": [
     {
-      "source": "/zekarias-asaminew.vcf",
+      "source": "/zekarias-asaminew.pkpass",
       "headers": [
-        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
-        { "key": "Content-Disposition", "value": "inline; filename=\"Zekarias-Asaminew.vcf\"" }
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.apple.pkpass"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Zekarias-Asaminew.pkpass\""
+        }
       ]
     }
   ],
   "rewrites": [
-    { "source": "/blog/pact", "destination": "/blog/pact/index.html" },
-    { "source": "/((?!api/).*)", "destination": "/" }
+    {
+      "source": "/blog/pact",
+      "destination": "/blog/pact/index.html"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/"
+    }
   ]
 }
