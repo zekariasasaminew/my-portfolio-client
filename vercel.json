@@ -1,4 +1,13 @@
 {
+  "headers": [
+    {
+      "source": "/zekarias-asaminew.vcf",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
+        { "key": "Content-Disposition", "value": "inline; filename=\"Zekarias-Asaminew.vcf\"" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/blog/pact", "destination": "/blog/pact/index.html" },
     { "source": "/((?!api/).*)", "destination": "/" }
