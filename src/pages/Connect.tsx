@@ -10,6 +10,7 @@ import { contact, walletPass } from "../data/facts";
 import { trackClick } from "../lib/analytics";
 
 const RESUME_HREF = "/resume-2026.pdf";
+const PHOTO_SRC = "/images/headshot-portrait.jpg";
 const LINKEDIN_BLUE = "#0A66C2";
 
 const EVENT_LABELS: Record<string, string> = {
@@ -247,6 +248,7 @@ const Connect = () => {
                   sx={{
                     flex: "1 1 auto",
                     minHeight: 0,
+                    position: "relative",
                     borderRadius: "3.5cqw",
                     overflow: "hidden",
                     background: "linear-gradient(135deg, #2a3350, #3b2440)",
@@ -254,20 +256,47 @@ const Connect = () => {
                   }}
                 >
                   {!photoFailed && (
-                    <Box
-                      component="img"
-                      src="/images/headshot.jpg"
-                      alt="Zekarias Asaminew"
-                      draggable={false}
-                      onError={() => setPhotoFailed(true)}
-                      sx={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%" }}
-                    />
+                    <>
+                      <Box
+                        component="img"
+                        src={PHOTO_SRC}
+                        alt=""
+                        aria-hidden
+                        draggable={false}
+                        sx={{
+                          position: "absolute",
+                          inset: "-10%",
+                          width: "120%",
+                          height: "120%",
+                          objectFit: "cover",
+                          filter: "blur(14px) brightness(0.55)",
+                        }}
+                      />
+                      <Box
+                        component="img"
+                        src={PHOTO_SRC}
+                        alt="Zekarias Asaminew"
+                        draggable={false}
+                        onError={() => setPhotoFailed(true)}
+                        sx={{
+                          position: "relative",
+                          display: "block",
+                          height: "100%",
+                          width: "auto",
+                          maxWidth: "100%",
+                          mx: "auto",
+                          objectFit: "contain",
+                          maskImage: "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent)",
+                          WebkitMaskImage: "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent)",
+                        }}
+                      />
+                    </>
                   )}
                 </Box>
 
                 <Typography
                   component="h1"
-                  sx={{ mt: "4cqw", fontSize: "9.6cqw", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 }}
+                  sx={{ mt: "4cqw", fontSize: "8.6cqw", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1, whiteSpace: "nowrap" }}
                 >
                   Zekarias Asaminew
                 </Typography>
@@ -334,9 +363,6 @@ const Connect = () => {
                 <Box sx={{ borderTop: "1px solid rgba(255,255,255,0.12)", pt: "3.5cqw" }}>
                   <Typography sx={{ fontSize: "4.4cqw", color: "rgba(244,244,246,0.75)" }}>
                     Augustana College · CS & Bioinformatics
-                  </Typography>
-                  <Typography sx={{ mt: "1cqw", fontSize: "4.4cqw", color: "#7fd8a6", fontWeight: 600 }}>
-                    Open to full-time SWE roles
                   </Typography>
                 </Box>
               </CardFace>
