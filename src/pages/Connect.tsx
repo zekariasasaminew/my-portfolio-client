@@ -25,10 +25,10 @@ const STATS = [
 ];
 
 const TALKING_POINTS = [
-  "An agent at John Deere that traces production alerts to the commit that caused them and opens a draft fix PR",
-  "pact: a Rust tool that runs multiple coding agents in parallel",
-  "CampusEx: 720+ users in 3 weeks, all word of mouth",
-  "Top external contributor in GitHub Desktop v3.5.4",
+  "John Deere agent that traces prod alerts to the bad commit and opens a fix PR",
+  "pact: Rust tool that runs coding agents in parallel",
+  "CampusEx: 720+ users in 3 weeks",
+  "Top external contributor to GitHub Desktop",
 ];
 
 const sheen = keyframes`
@@ -185,8 +185,8 @@ const Connect = () => {
 
       <Box
         sx={{
-          width: "min(320px, 82vw, calc((100dvh - 270px) * 0.7))",
-          aspectRatio: "5 / 7",
+          width: "min(360px, 90vw, calc((100dvh - 270px) * 0.75))",
+          aspectRatio: "3 / 4",
           perspective: "1200px",
           containerType: "inline-size",
           flexShrink: 0,
@@ -222,16 +222,8 @@ const Connect = () => {
               style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}
             >
               <CardFace>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                  <Typography sx={{ ...eyebrowSx, fontSize: "3.4cqw", color: "#ffd36e" }}>
-                    ★ {eventLabel ?? "First"} edition
-                  </Typography>
-                  <Typography sx={{ ...eyebrowSx, fontSize: "3.4cqw", opacity: 0.55 }}>#001</Typography>
-                </Box>
-
                 <Box
                   sx={{
-                    mt: "4cqw",
                     flex: "1 1 auto",
                     minHeight: 0,
                     borderRadius: "3.5cqw",
@@ -254,11 +246,11 @@ const Connect = () => {
 
                 <Typography
                   component="h1"
-                  sx={{ mt: "4cqw", fontSize: "7.6cqw", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 }}
+                  sx={{ mt: "4cqw", fontSize: "9.6cqw", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 }}
                 >
                   Zekarias Asaminew
                 </Typography>
-                <Typography sx={{ mt: "1cqw", fontSize: "max(12px, 4.1cqw)", color: "rgba(244,244,246,0.68)" }}>
+                <Typography sx={{ mt: "1cqw", fontSize: "max(15px, 5.4cqw)", color: "rgba(244,244,246,0.75)" }}>
                   Software Engineer · John Deere
                 </Typography>
 
@@ -273,11 +265,11 @@ const Connect = () => {
                 >
                   {STATS.map((stat) => (
                     <Box key={stat.label} sx={{ textAlign: "center", px: "1cqw" }}>
-                      <Typography sx={{ fontSize: "5.6cqw", fontWeight: 700, color: "#7fd8a6", lineHeight: 1.1 }}>
+                      <Typography sx={{ fontSize: "8cqw", fontWeight: 700, color: "#7fd8a6", lineHeight: 1.1 }}>
                         {stat.value}
                       </Typography>
                       <Typography
-                        sx={{ mt: "1cqw", fontSize: "max(10px, 2.9cqw)", lineHeight: 1.25, color: "rgba(244,244,246,0.6)" }}
+                        sx={{ mt: "1cqw", fontSize: "max(12px, 3.9cqw)", lineHeight: 1.25, color: "rgba(244,244,246,0.7)" }}
                       >
                         {stat.label}
                       </Typography>
@@ -286,17 +278,14 @@ const Connect = () => {
                 </Box>
 
                 <Typography
-                  sx={{ ...eyebrowSx, mt: "3.5cqw", fontSize: "max(9px, 2.8cqw)", textAlign: "center", opacity: 0.5 }}
+                  sx={{ ...eyebrowSx, mt: "3.5cqw", fontSize: "max(11px, 3.4cqw)", textAlign: "center", opacity: 0.6 }}
                 >
                   tap card to flip ↻
                 </Typography>
               </CardFace>
 
               <CardFace back>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                  <Typography sx={{ ...eyebrowSx, fontSize: "3.4cqw", color: "#ffd36e" }}>Ask me about</Typography>
-                  <Typography sx={{ ...eyebrowSx, fontSize: "3.4cqw", opacity: 0.55 }}>#001</Typography>
-                </Box>
+                <Typography sx={{ ...eyebrowSx, fontSize: "4.6cqw", color: "#ffd36e" }}>Ask me about</Typography>
 
                 <Box
                   component="ol"
@@ -313,20 +302,20 @@ const Connect = () => {
                 >
                   {TALKING_POINTS.map((point, index) => (
                     <Box component="li" key={point} sx={{ display: "flex", gap: "3cqw" }}>
-                      <Typography sx={{ ...eyebrowSx, fontSize: "3.6cqw", color: "#7fd8a6", pt: "0.6cqw" }}>
+                      <Typography sx={{ ...eyebrowSx, fontSize: "4.4cqw", color: "#7fd8a6", pt: "0.9cqw" }}>
                         0{index + 1}
                       </Typography>
-                      <Typography sx={{ fontSize: "4.3cqw", lineHeight: 1.4 }}>{point}</Typography>
+                      <Typography sx={{ fontSize: "5.6cqw", lineHeight: 1.35 }}>{point}</Typography>
                     </Box>
                   ))}
                 </Box>
 
                 <Box sx={{ borderTop: "1px solid rgba(255,255,255,0.12)", pt: "3.5cqw" }}>
-                  <Typography sx={{ fontSize: "3.6cqw", color: "rgba(244,244,246,0.7)" }}>
+                  <Typography sx={{ fontSize: "4.4cqw", color: "rgba(244,244,246,0.75)" }}>
                     Augustana College · CS & Bioinformatics
                   </Typography>
-                  <Typography sx={{ mt: "1cqw", fontSize: "3.6cqw", color: "#7fd8a6", fontWeight: 600 }}>
-                    Open to full-time software engineering roles
+                  <Typography sx={{ mt: "1cqw", fontSize: "4.4cqw", color: "#7fd8a6", fontWeight: 600 }}>
+                    Open to full-time SWE roles
                   </Typography>
                 </Box>
               </CardFace>
