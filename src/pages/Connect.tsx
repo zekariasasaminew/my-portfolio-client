@@ -1,4 +1,3 @@
-import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { keyframes } from "@emotion/react";
@@ -7,11 +6,10 @@ import { alpha } from "@mui/material/styles";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router-dom";
-import { contact } from "../data/facts";
+import { contact, walletPass } from "../data/facts";
 import { trackClick } from "../lib/analytics";
 
 const RESUME_HREF = "/resume-2026.pdf";
-const VCARD_HREF = "/zekarias-asaminew.vcf";
 const LINKEDIN_BLUE = "#0A66C2";
 
 const EVENT_LABELS: Record<string, string> = {
@@ -109,6 +107,29 @@ const CardFace = ({ back, children }: { back?: boolean; children: ReactNode }) =
     </Box>
   </Box>
 );
+
+const isAndroid = () => /android/i.test(navigator.userAgent);
+
+const WalletBadge = () => {
+  const android = isAndroid();
+  return (
+    <Box
+      component="a"
+      href={android ? walletPass.google : walletPass.apple}
+      target={android ? "_blank" : undefined}
+      rel={android ? "noopener" : undefined}
+      onClick={() => trackClick(android ? "connect-google-wallet" : "connect-apple-wallet")}
+      sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: 48 }}
+    >
+      <Box
+        component="img"
+        src={android ? "/images/wallet/add-to-google-wallet.svg" : "/images/wallet/add-to-apple-wallet.svg"}
+        alt={android ? "Add to Google Wallet" : "Add to Apple Wallet"}
+        sx={{ height: 44, width: "auto", maxWidth: "100%", display: "block" }}
+      />
+    </Box>
+  );
+};
 
 const Connect = () => {
   const theme = useTheme();
@@ -360,16 +381,7 @@ const Connect = () => {
         >
           <GitHubLogo size={36} color={theme.palette.text.primary} />
         </Button>
-        <Button
-          variant="outlined"
-          component="a"
-          href={VCARD_HREF}
-          onClick={() => trackClick("connect-save-contact")}
-          startIcon={<ContactPageOutlinedIcon />}
-          sx={{ ...tileSx, height: 48 }}
-        >
-          Save contact
-        </Button>
+        <WalletBadge />
         <Button
           variant="outlined"
           component="a"
