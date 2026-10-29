@@ -1,26 +1,18 @@
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { keyframes } from "@emotion/react";
 import { Box, Button, Link, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router-dom";
 import { contact } from "../data/facts";
 import { trackClick } from "../lib/analytics";
 
 const RESUME_HREF = "/resume-2026.pdf";
-const MAX_TILT_DEG = 14;
-const TAP_SLOP_PX = 8;
+const VCARD_HREF = "/zekarias-asaminew.vcf";
+const LINKEDIN_BLUE = "#0A66C2";
 
 const EVENT_LABELS: Record<string, string> = {
   shpe2026: "SHPE 2026",
@@ -39,20 +31,29 @@ const TALKING_POINTS = [
   "Top external contributor in GitHub Desktop v3.5.4",
 ];
 
-const buildVCard = () =>
-  [
-    "BEGIN:VCARD",
-    "VERSION:3.0",
-    "N:Asaminew;Zekarias;;;",
-    "FN:Zekarias Asaminew",
-    "ORG:John Deere",
-    "TITLE:Software Engineer",
-    `EMAIL;TYPE=INTERNET:${contact.email}`,
-    `URL:${contact.website}`,
-    `URL:${contact.linkedin}`,
-    `URL:${contact.github}`,
-    "END:VCARD",
-  ].join("\r\n");
+const sheen = keyframes`
+  0%, 55% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%) skewX(-18deg); }
+`;
+
+const LinkedInLogo = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
+    <rect x="2" y="2" width="20" height="20" rx="2" fill="#fff" />
+    <path
+      fill={LINKEDIN_BLUE}
+      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+    />
+  </svg>
+);
+
+const GitHubLogo = ({ size, color }: { size: number; color: string }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" aria-hidden>
+    <path
+      fill={color}
+      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+    />
+  </svg>
+);
 
 const useLockPageScroll = () => {
   useEffect(() => {
@@ -91,6 +92,17 @@ const CardFace = ({ back, children }: { back?: boolean; children: ReactNode }) =
         display: "flex",
         flexDirection: "column",
         padding: "6cqw",
+        textAlign: "left",
+        "&::after": {
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          width: "40%",
+          pointerEvents: "none",
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)",
+          animation: `${sheen} 5s ease-in-out infinite`,
+          "@media (prefers-reduced-motion: reduce)": { animation: "none", opacity: 0 },
+        },
       }}
     >
       {children}
@@ -114,79 +126,19 @@ const Connect = () => {
     if (source) trackClick(`connect-src:${source}`);
   }, [source]);
 
-  const pointerX = useMotionValue(0.5);
-  const pointerY = useMotionValue(0.5);
-  const springConfig = { stiffness: 180, damping: 18 };
-  const tiltX = useSpring(useTransform(pointerY, [0, 1], [MAX_TILT_DEG, -MAX_TILT_DEG]), springConfig);
-  const tiltY = useSpring(useTransform(pointerX, [0, 1], [-MAX_TILT_DEG, MAX_TILT_DEG]), springConfig);
-  const glareX = useTransform(pointerX, [0, 1], [0, 100]);
-  const glareY = useTransform(pointerY, [0, 1], [0, 100]);
-  const glare = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.35), rgba(255,255,255,0) 55%)`;
-  const foilShift = useMotionTemplate`${glareX}% ${glareY}%`;
-
-  const pressStart = useRef<{ x: number; y: number } | null>(null);
-  const movedSincePress = useRef(false);
-
-  const updateTilt = (event: PointerEvent<HTMLElement>) => {
-    if (reduceMotion) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    pointerX.set(Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)));
-    pointerY.set(Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height)));
-  };
-
-  const resetTilt = () => {
-    pointerX.set(0.5);
-    pointerY.set(0.5);
-  };
-
-  const handlePointerDown = (event: PointerEvent<HTMLElement>) => {
-    pressStart.current = { x: event.clientX, y: event.clientY };
-    movedSincePress.current = false;
-    updateTilt(event);
-  };
-
-  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
-    const start = pressStart.current;
-    if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > TAP_SLOP_PX) {
-      movedSincePress.current = true;
-    }
-    if (event.pointerType === "mouse" || start) updateTilt(event);
-  };
-
-  const handlePointerUp = (event: PointerEvent<HTMLElement>) => {
-    pressStart.current = null;
-    if (event.pointerType !== "mouse") resetTilt();
-  };
-
   const handleFlip = () => {
-    if (movedSincePress.current) return;
     setFlipped((value) => {
       if (!value) trackClick("connect-card-flip");
       return !value;
     });
   };
 
-  const handleSaveContact = () => {
-    trackClick("connect-save-contact");
-    const blob = new Blob([buildVCard()], { type: "text/vcard;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "Zekarias-Asaminew.vcf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
-
-  const buttonSx = {
-    justifyContent: "center",
+  const tileSx = {
+    minWidth: 0,
     textTransform: "none",
     fontWeight: 600,
-    fontSize: "0.92rem",
-    py: 1.1,
-    px: 1.5,
-    borderRadius: "10px",
+    fontSize: "0.95rem",
+    borderRadius: "14px",
     borderColor: alpha(theme.palette.text.primary, 0.15),
     color: theme.palette.text.primary,
     backgroundColor: alpha(theme.palette.background.default, 0.7),
@@ -233,7 +185,7 @@ const Connect = () => {
 
       <Box
         sx={{
-          width: "min(320px, 82vw, calc((100dvh - 230px) * 0.7))",
+          width: "min(320px, 82vw, calc((100dvh - 270px) * 0.7))",
           aspectRatio: "5 / 7",
           perspective: "1200px",
           containerType: "inline-size",
@@ -246,39 +198,27 @@ const Connect = () => {
           transition={{ type: "spring", stiffness: 70, damping: 14, mass: 1 }}
           style={{ width: "100%", height: "100%", transformStyle: "preserve-3d" }}
         >
-          <motion.div
-            role="button"
-            tabIndex={0}
+          <Box
+            component="button"
+            type="button"
+            onClick={handleFlip}
             aria-pressed={flipped}
             aria-label={flipped ? "Flip card to the front" : "Flip card to see what to ask me about"}
-            onClick={handleFlip}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                movedSincePress.current = false;
-                handleFlip();
-              }
-            }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            onPointerLeave={resetTilt}
-            style={{
+            sx={{
+              all: "unset",
+              boxSizing: "border-box",
+              display: "block",
               width: "100%",
               height: "100%",
-              rotateX: tiltX,
-              rotateY: tiltY,
-              transformStyle: "preserve-3d",
               cursor: "pointer",
-              touchAction: "none",
-              userSelect: "none",
-              outline: "none",
+              WebkitTapHighlightColor: "transparent",
+              transformStyle: "preserve-3d",
+              "&:focus-visible": { outline: `2px solid ${accent}`, outlineOffset: "4px", borderRadius: "6cqw" },
             }}
           >
             <motion.div
               animate={{ rotateY: flipped ? 180 : 0 }}
-              transition={{ type: "spring", stiffness: 120, damping: 16 }}
+              transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 120, damping: 16 }}
               style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}
             >
               <CardFace>
@@ -296,7 +236,6 @@ const Connect = () => {
                     minHeight: 0,
                     borderRadius: "3.5cqw",
                     overflow: "hidden",
-                    position: "relative",
                     background: "linear-gradient(135deg, #2a3350, #3b2440)",
                     border: "1px solid rgba(255,255,255,0.12)",
                   }}
@@ -337,7 +276,9 @@ const Connect = () => {
                       <Typography sx={{ fontSize: "5.6cqw", fontWeight: 700, color: "#7fd8a6", lineHeight: 1.1 }}>
                         {stat.value}
                       </Typography>
-                      <Typography sx={{ mt: "1cqw", fontSize: "max(10px, 2.9cqw)", lineHeight: 1.25, color: "rgba(244,244,246,0.6)" }}>
+                      <Typography
+                        sx={{ mt: "1cqw", fontSize: "max(10px, 2.9cqw)", lineHeight: 1.25, color: "rgba(244,244,246,0.6)" }}
+                      >
                         {stat.label}
                       </Typography>
                     </Box>
@@ -345,9 +286,9 @@ const Connect = () => {
                 </Box>
 
                 <Typography
-                  sx={{ ...eyebrowSx, mt: "3.5cqw", fontSize: "max(9px, 2.8cqw)", textAlign: "center", opacity: 0.45 }}
+                  sx={{ ...eyebrowSx, mt: "3.5cqw", fontSize: "max(9px, 2.8cqw)", textAlign: "center", opacity: 0.5 }}
                 >
-                  tap to flip · drag to tilt
+                  tap card to flip ↻
                 </Typography>
               </CardFace>
 
@@ -390,36 +331,7 @@ const Connect = () => {
                 </Box>
               </CardFace>
             </motion.div>
-
-            <motion.div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                borderRadius: "6cqw",
-                pointerEvents: "none",
-                background: glare,
-                mixBlendMode: "overlay",
-                transform: "translateZ(1px)",
-              }}
-            />
-            <motion.div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                borderRadius: "6cqw",
-                pointerEvents: "none",
-                opacity: 0.18,
-                mixBlendMode: "color-dodge",
-                backgroundImage:
-                  "repeating-linear-gradient(115deg, #ff7eb3 0%, #7a8cff 8%, #5ee7df 16%, #b6ff8a 24%, #ffd36e 32%, #ff7eb3 40%)",
-                backgroundSize: "300% 300%",
-                backgroundPosition: foilShift,
-                transform: "translateZ(1px)",
-              }}
-            />
-          </motion.div>
+          </Box>
         </motion.div>
       </Box>
 
@@ -435,31 +347,17 @@ const Connect = () => {
           gap: 1,
         }}
       >
-        <Button variant="outlined" startIcon={<ContactPageOutlinedIcon />} onClick={handleSaveContact} sx={buttonSx}>
-          Save contact
-        </Button>
-        <Button
-          variant="outlined"
-          component="a"
-          href={RESUME_HREF}
-          download="Zekarias-Asaminew-Resume.pdf"
-          onClick={() => trackClick("connect-resume")}
-          startIcon={<DescriptionOutlinedIcon />}
-          sx={buttonSx}
-        >
-          Resume
-        </Button>
         <Button
           variant="outlined"
           component="a"
           href={contact.linkedin}
           target="_blank"
           rel="noopener"
+          aria-label="LinkedIn"
           onClick={() => trackClick("connect-linkedin")}
-          startIcon={<LinkedInIcon />}
-          sx={buttonSx}
+          sx={{ ...tileSx, height: 64 }}
         >
-          LinkedIn
+          <LinkedInLogo size={38} />
         </Button>
         <Button
           variant="outlined"
@@ -467,11 +365,33 @@ const Connect = () => {
           href={contact.github}
           target="_blank"
           rel="noopener"
+          aria-label="GitHub"
           onClick={() => trackClick("connect-github")}
-          startIcon={<GitHubIcon />}
-          sx={buttonSx}
+          sx={{ ...tileSx, height: 64 }}
         >
-          GitHub
+          <GitHubLogo size={36} color={theme.palette.text.primary} />
+        </Button>
+        <Button
+          variant="outlined"
+          component="a"
+          href={VCARD_HREF}
+          onClick={() => trackClick("connect-save-contact")}
+          startIcon={<ContactPageOutlinedIcon />}
+          sx={{ ...tileSx, height: 48 }}
+        >
+          Save contact
+        </Button>
+        <Button
+          variant="outlined"
+          component="a"
+          href={RESUME_HREF}
+          target="_blank"
+          rel="noopener"
+          onClick={() => trackClick("connect-resume")}
+          startIcon={<DescriptionOutlinedIcon />}
+          sx={{ ...tileSx, height: 48 }}
+        >
+          Resume
         </Button>
       </Box>
 
