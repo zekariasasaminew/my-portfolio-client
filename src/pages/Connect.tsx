@@ -1,4 +1,3 @@
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { keyframes } from "@emotion/react";
 import { Box, Button, Link, Typography, useTheme } from "@mui/material";
@@ -9,7 +8,6 @@ import { useSearchParams } from "react-router-dom";
 import { contact, walletPass } from "../data/facts";
 import { trackClick } from "../lib/analytics";
 
-const RESUME_HREF = "/resume-2026.pdf";
 const PHOTO_SRC = "/images/headshot-portrait.jpg";
 const LINKEDIN_BLUE = "#0A66C2";
 
@@ -120,7 +118,7 @@ const WalletBadge = () => {
       target={android ? "_blank" : undefined}
       rel={android ? "noopener" : undefined}
       onClick={() => trackClick(android ? "connect-google-wallet" : "connect-apple-wallet")}
-      sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: 48 }}
+      sx={{ gridColumn: "1 / -1", display: "flex", alignItems: "center", justifyContent: "center", height: 48 }}
     >
       <Box
         component="img"
@@ -408,18 +406,6 @@ const Connect = () => {
           <GitHubLogo size={36} color={theme.palette.text.primary} />
         </Button>
         <WalletBadge />
-        <Button
-          variant="outlined"
-          component="a"
-          href={RESUME_HREF}
-          target="_blank"
-          rel="noopener"
-          onClick={() => trackClick("connect-resume")}
-          startIcon={<DescriptionOutlinedIcon />}
-          sx={{ ...tileSx, height: 48 }}
-        >
-          Resume
-        </Button>
       </Box>
 
       <Link
