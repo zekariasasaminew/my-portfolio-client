@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Box, Typography, Link, Stack } from "@mui/material";
 import { ENDPOINTS } from "../config";
 
+const POLL_MS = 3000;
+
 interface SpotifyTrack {
   name: string;
   artist: string;
@@ -16,10 +18,13 @@ interface SpotifyTrack {
 export default function SpotifyNowPlaying() {
   const [track, setTrack] = useState<SpotifyTrack | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchLastPlayed = async () => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let cancelled = false;
+
+    const fetchTrack = async () => {
+      clearTimeout(timer);
       try {
         const response = await fetch(`${ENDPOINTS.LAST_PLAYED}?t=${Date.now()}`, {
           method: "GET",
@@ -32,19 +37,35 @@ export default function SpotifyNowPlaying() {
         if (!response.ok) {
           throw new Error("Failed to fetch track data");
         }
-        const data = await response.json();
-        setTrack(data);
+        const data: SpotifyTrack = await response.json();
+        if (!cancelled) setTrack(data);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch track data"
-        );
+        // Keep showing the last good track; a failed poll only hides the card
+        // when nothing has loaded yet.
         console.error("Error fetching track:", err);
       } finally {
-        setIsLoading(false);
+        if (!cancelled) {
+          setIsLoading(false);
+          clearTimeout(timer);
+          if (document.visibilityState === "visible") {
+            timer = setTimeout(fetchTrack, POLL_MS);
+          }
+        }
       }
     };
 
-    fetchLastPlayed();
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") fetchTrack();
+      else clearTimeout(timer);
+    };
+
+    fetchTrack();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, []);
 
   if (isLoading) {
@@ -81,7 +102,7 @@ export default function SpotifyNowPlaying() {
     );
   }
 
-  if (error || !track) {
+  if (!track) {
     return null;
   }
 
