@@ -4,7 +4,6 @@ export interface Experience {
   location: string;
   startDate: string;
   endDate: string;
-  points: string[];
   techTags?: string[];
   companyUrl?: string;
   detailLink?: string;

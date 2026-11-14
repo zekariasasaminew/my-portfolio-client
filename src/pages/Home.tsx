@@ -1,35 +1,25 @@
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import {
   Box,
-  IconButton,
   Link,
-  Menu,
-  MenuItem,
   Typography,
   useTheme,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
 import AboutSection from "../components/home/AboutSection";
 import ExperienceSection from "../components/home/ExperienceSection";
 import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
-import { FEATURE_FLAGS } from "../config";
-import { contact, impactStats, resumeFiles } from "../data/facts";
+import { contact, impactStats } from "../data/facts";
 
-interface Props {
-  toggleColorMode: () => void;
-}
-
-const Home = ({ toggleColorMode }: Props) => {
+const Home = () => {
   const theme = useTheme();
-  const [resumeAnchor, setResumeAnchor] = useState<null | HTMLElement>(null);
   const accent = theme.palette.mode === "dark" ? "#7fd8a6" : "#0a8f4f";
 
   useEffect(() => {
@@ -79,7 +69,7 @@ const Home = ({ toggleColorMode }: Props) => {
         zIndex: 1,
       }}
     >
-      <Navbar toggleColorMode={toggleColorMode} />
+      <Navbar />
 
       {/* Hero */}
       <Box
@@ -95,7 +85,6 @@ const Home = ({ toggleColorMode }: Props) => {
           textAlign: "center",
         }}
       >
-        {/* <HeroDoodle /> */}
         <Typography
           component="h1"
           variant="h4"
@@ -212,48 +201,6 @@ const Home = ({ toggleColorMode }: Props) => {
           >
             <EmailOutlinedIcon />
           </Link>
-          {FEATURE_FLAGS.showResume && (
-            <>
-              <IconButton
-                onClick={(e) => setResumeAnchor(e.currentTarget)}
-                aria-label="Download resume"
-                sx={{
-                  p: 0,
-                  color: "inherit",
-                  opacity: 0.85,
-                  "&:hover": { opacity: 1, backgroundColor: "transparent" },
-                }}
-              >
-                <DescriptionOutlinedIcon />
-              </IconButton>
-              <Menu
-                anchorEl={resumeAnchor}
-                open={Boolean(resumeAnchor)}
-                onClose={() => setResumeAnchor(null)}
-              >
-                <MenuItem
-                  component="a"
-                  href={resumeFiles.ai.href}
-                  download
-                  onClick={() => {
-                    setResumeAnchor(null);
-                  }}
-                >
-                  Resume ({resumeFiles.ai.label})
-                </MenuItem>
-                <MenuItem
-                  component="a"
-                  href={resumeFiles.coreSwe.href}
-                  download
-                  onClick={() => {
-                    setResumeAnchor(null);
-                  }}
-                >
-                  Resume ({resumeFiles.coreSwe.label})
-                </MenuItem>
-              </Menu>
-            </>
-          )}
         </Box>
 
         <SpotifyNowPlaying />
