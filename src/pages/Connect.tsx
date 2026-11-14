@@ -169,6 +169,7 @@ const Connect = () => {
 
   return (
     <Box
+      component="main"
       sx={{
         height: "100dvh",
         overflow: "hidden",

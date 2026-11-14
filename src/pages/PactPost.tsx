@@ -127,7 +127,7 @@ const PactPost = () => {
 
   return (
     <Box
-      component={motion.div}
+      component={motion.main}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}

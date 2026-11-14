@@ -36,6 +36,7 @@ const NotesDetail = () => {
 
   return (
     <Box
+      component="main"
       sx={{
         minHeight: "100vh",
         maxWidth: "1200px",

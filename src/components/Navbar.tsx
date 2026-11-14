@@ -26,6 +26,7 @@ const Navbar = () => {
 
   return (
     <Box
+      component="header"
       sx={{
         display: "flex",
         justifyContent: "space-between",
@@ -54,8 +55,9 @@ const Navbar = () => {
         </Link>
       </Box>
 
-      {/* Desktop nav */}
       <Box
+        component="nav"
+        aria-label="Main"
         sx={{
           display: { xs: "none", sm: "flex" },
           alignItems: "center",
@@ -91,8 +93,9 @@ const Navbar = () => {
         ))}
       </Box>
 
-      {/* Mobile nav */}
       <Box
+        component="nav"
+        aria-label="Main"
         sx={{
           display: { xs: "flex", sm: "none" },
           alignItems: "center",
