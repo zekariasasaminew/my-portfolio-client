@@ -164,6 +164,15 @@ const NotesDetail = () => {
                   fontWeight: 600,
                   color: theme.palette.text.primary,
                 },
+                "& a": {
+                  color: theme.palette.mode === "dark" ? ACCENT : "#0a8f4f",
+                  fontWeight: 500,
+                  textDecoration: "underline",
+                  textDecorationColor: "currentColor",
+                  textUnderlineOffset: "3px",
+                  "&:hover": { textDecorationThickness: "2px" },
+                },
+                "& a strong": { color: "inherit" },
                 "& em": {
                   fontStyle: "italic",
                   color: theme.palette.text.secondary,
