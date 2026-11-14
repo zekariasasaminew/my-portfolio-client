@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Link, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import StarIcon from "@mui/icons-material/Star";
-import ForkRightIcon from "@mui/icons-material/ForkRight";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { motion } from "framer-motion";
 import { projects, openSourceContributions } from "../../data/projects";
@@ -49,22 +47,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
         <Typography variant="body1" sx={{ fontWeight: 600, fontFamily: "monospace", letterSpacing: "-0.3px" }}>
           {project.name}
         </Typography>
-        {(project.stars !== undefined || project.forks !== undefined) && (
-          <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
-            {project.stars !== undefined && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: 0.4, color: "text.secondary" }}>
-                <StarIcon sx={{ fontSize: "0.85rem" }} />
-                <Typography variant="caption">{project.stars}</Typography>
-              </Box>
-            )}
-            {project.forks !== undefined && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: 0.4, color: "text.secondary" }}>
-                <ForkRightIcon sx={{ fontSize: "0.85rem" }} />
-                <Typography variant="caption">{project.forks}</Typography>
-              </Box>
-            )}
-          </Box>
-        )}
       </Box>
 
       <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6, flex: 1 }}>
