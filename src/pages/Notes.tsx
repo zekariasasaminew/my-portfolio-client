@@ -5,11 +5,7 @@ import Navbar from "../components/Navbar";
 import { notes } from "../data/notes";
 import ReactMarkdown from "react-markdown";
 
-interface NotesProps {
-  toggleColorMode: () => void;
-}
-
-const Notes = ({ toggleColorMode }: NotesProps) => {
+const Notes = () => {
   const theme = useTheme();
 
   return (
@@ -30,7 +26,7 @@ const Notes = ({ toggleColorMode }: NotesProps) => {
         zIndex: 2,
       }}
     >
-      <Navbar toggleColorMode={toggleColorMode} />
+      <Navbar />
 
       {/* Notes Content */}
       <Box sx={{ flex: 1 }}>

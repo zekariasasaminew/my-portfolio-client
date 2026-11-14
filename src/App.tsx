@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, lazy, Suspense } from "react";
+import { useRef, lazy, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Routes, Route } from "react-router-dom";
@@ -30,67 +30,34 @@ const BackgroundPattern = () => (
   />
 );
 
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    background: {
+      default: "#161616",
+      paper: "#1e1e1e",
+    },
+    text: {
+      primary: "rgba(255, 255, 255, 0.87)",
+      secondary: "rgba(255, 255, 255, 0.6)",
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", sans-serif',
+    h6: {
+      fontSize: "1.1rem",
+    },
+    body1: {
+      fontSize: "0.95rem",
+    },
+    body2: {
+      fontSize: "0.85rem",
+    },
+  },
+});
+
 function App() {
   const contentRef = useRef<HTMLDivElement>(null);
-
-  const [mode, setMode] = useState<"light" | "dark">(() => {
-    // Versioned key: bumping this ignores any "themeMode" saved by
-    // visitors from before dark became the default, so they land on
-    // dark like everyone else instead of keeping a stale preference.
-    const savedMode = localStorage.getItem("themeMode_v2");
-    return savedMode === "light" || savedMode === "dark" ? savedMode : "dark";
-  });
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          ...(mode === "dark"
-            ? {
-                background: {
-                  default: "#161616",
-                  paper: "#1e1e1e",
-                },
-                text: {
-                  primary: "rgba(255, 255, 255, 0.87)",
-                  secondary: "rgba(255, 255, 255, 0.6)",
-                },
-              }
-            : {
-                background: {
-                  default: "#FAF3E7",
-                  paper: "#F3EBDA",
-                },
-                text: {
-                  primary: "#241F1A",
-                  secondary: "rgba(36, 31, 26, 0.62)",
-                },
-              }),
-        },
-        typography: {
-          fontFamily: '"Inter", sans-serif',
-          h6: {
-            fontSize: "1.1rem",
-          },
-          body1: {
-            fontSize: "0.95rem",
-          },
-          body2: {
-            fontSize: "0.85rem",
-          },
-        },
-      }),
-    [mode]
-  );
-
-  const toggleColorMode = () => {
-    setMode((prevMode) => {
-      const newMode = prevMode === "light" ? "dark" : "light";
-      localStorage.setItem("themeMode_v2", newMode);
-      return newMode;
-    });
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -101,26 +68,11 @@ function App() {
         <div ref={contentRef}>
           <Suspense fallback={null}>
             <Routes>
-              <Route
-                path="/"
-                element={<Home toggleColorMode={toggleColorMode} />}
-              />
-              <Route
-                path="/notes"
-                element={<Notes toggleColorMode={toggleColorMode} />}
-              />
-              <Route
-                path="/notes/:id"
-                element={<NotesDetail toggleColorMode={toggleColorMode} />}
-              />
-              <Route
-                path="/ey-internship"
-                element={<EYInternship toggleColorMode={toggleColorMode} />}
-              />
-              <Route
-                path="/blog/pact"
-                element={<PactPost toggleColorMode={toggleColorMode} />}
-              />
+              <Route path="/" element={<Home />} />
+              <Route path="/notes" element={<Notes />} />
+              <Route path="/notes/:id" element={<NotesDetail />} />
+              <Route path="/ey-internship" element={<EYInternship />} />
+              <Route path="/blog/pact" element={<PactPost />} />
               <Route path="/connect" element={<Connect />} />
             </Routes>
           </Suspense>

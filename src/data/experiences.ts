@@ -14,13 +14,6 @@ export const experiences: Experience[] = [
       dark: "#4CAF50",
       light: "#2E7D32",
     },
-    points: [
-      "Delivered features across **4 enterprise** `React`/`Next.js` apps, contributing to **$3.7M+** in projected annual savings",
-      "Built an agentic pipeline correlating `New Relic` alerts with git commits to auto-diagnose failures & open draft PR fixes",
-      "Automated review, testing, and merging of Dependabot/Mend PRs, auto-fixing failing tests",
-      "Introduced `GitHub Copilot CLI`, automating **90%+** of documentation & reducing **API latency 40%** via `Redis`",
-      "Cut **deployment time 85%** via automated `Kubernetes` CI/CD",
-    ],
     techTags: ["React", "Next.js", "Kubernetes", "Redis", "GitHub Actions"],
   },
     {
@@ -38,12 +31,6 @@ export const experiences: Experience[] = [
       dark: "#FFE600",
       light: "#9B7F00",
     },
-    points: [
-      "Designed & built an **AI agent** for product-taxonomy classification in EY's internal agent studio",
-      "Authored the architecture doc for a custom agent to close platform capability gaps",
-      "Built an automated certificate pipeline handling **70,000+** certificates during a **4-day** production cutover",
-      "Normalized a **50-state** taxability matrix into structured, machine-readable logic for `SAP S/4HANA` e-invoicing",
-    ],
     techTags: ["AI Agents", "JavaScript", "SAP S/4HANA"],
   },
   {
@@ -58,11 +45,6 @@ export const experiences: Experience[] = [
       dark: "#00D9FF",
       light: "#0891B2",
     },
-    points: [
-      "Ranked **#1 external contributor** in [**GitHub Desktop**](https://github.com/desktop/desktop) v3.5.4 with **3 merged PRs**; contributed a compiler fix to [**React**](https://github.com/react/react) with **100% test coverage**",
-      "Improved GitHub Desktop's cross-platform build reliability, tightening setup consistency & release stability",
-      "Built `jetbrains-acp`, a universal ACP client unifying GitHub Copilot CLI, Claude Code, & Gemini CLI across JetBrains IDEs",
-    ],
     techTags: ["TypeScript", "Kotlin", "React", "Electron"],
   },
   {
@@ -78,11 +60,6 @@ export const experiences: Experience[] = [
       dark: "#AA00FF",
       light: "#4A148C",
     },
-    points: [
-      "Built a `React Native` app with `OAuth2` + `PostgreSQL` for **450 students** to join clubs and check in via QR codes",
-      "Automated RSVP and attendance tracking, cutting manual work from **8 hrs to 30 mins**, boosting efficiency by **85%**",
-      "Engineered `AWS Lambda` functions for dashboards, reducing reporting errors by **30%** across **65 student clubs**",
-    ],
     techTags: ["React Native", "AWS Lambda", "PostgreSQL", "OAuth2"],
   },
 ];

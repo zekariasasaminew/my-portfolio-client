@@ -15,10 +15,6 @@ import ArbiterBench from "../components/pact/ArbiterBench";
 import { ARBITER_BENCH } from "../data/arbiterBench";
 import { usePostColors } from "../components/pact/usePostColors";
 
-interface PactPostProps {
-  toggleColorMode: () => void;
-}
-
 const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 const REPO = "https://github.com/zekariasasaminew/pact";
 const PAGE_TITLE = "The fastest isolation is the one you skip | Zekarias Asaminew";
@@ -118,7 +114,7 @@ const ExtLink = ({ href, children }: { href: string; children: ReactNode }) => {
   );
 };
 
-const PactPost = ({ toggleColorMode }: PactPostProps) => {
+const PactPost = () => {
   const c = usePostColors();
 
   useEffect(() => {
@@ -145,7 +141,7 @@ const PactPost = ({ toggleColorMode }: PactPostProps) => {
         zIndex: 1,
       }}
     >
-      <Navbar toggleColorMode={toggleColorMode} />
+      <Navbar />
 
       <Box component="article" sx={{ maxWidth: "800px", mx: "auto" }}>
         <Box component="header" sx={{ mb: 4 }}>

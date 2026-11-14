@@ -7,11 +7,7 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 
-interface NotesDetailProps {
-  toggleColorMode: () => void;
-}
-
-const NotesDetail = ({ toggleColorMode }: NotesDetailProps) => {
+const NotesDetail = () => {
   const theme = useTheme();
   const { id } = useParams();
   const note = notes.find((n) => n.id === Number(id));
@@ -49,7 +45,7 @@ const NotesDetail = ({ toggleColorMode }: NotesDetailProps) => {
         position: "relative",
       }}
     >
-      <Navbar toggleColorMode={toggleColorMode} />
+      <Navbar />
       <Box sx={{ pl: "2.25rem", mt: 6 }}>
         <Typography variant="body1" sx={{ mb: 0.5 }}>
           {note.title}

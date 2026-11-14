@@ -2,10 +2,6 @@ import { Box, Typography, Divider, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 
-interface EYInternshipProps {
-  toggleColorMode: () => void;
-}
-
 const engagements: string[] = [
   "Wrote a JavaScript automation for a certificate-processing workflow. It carried a real chunk of the 70,000+ certificates processed during a 4-day cutover",
   "Designed a product-taxonomy classification agent in EY's internal agent studio, then wrote the architecture doc for a custom agent when it hit a ceiling",
@@ -21,7 +17,7 @@ const reflectionParagraphs: string[] = [
   "Explaining my logic to a reviewer, walking someone through a design doc, even just writing a clear Teams message, mattered just as much as the work behind it. I got better at saying what I meant the first time around, mostly because I learned the alternative was always a longer, more annoying conversation later.",
 ];
 
-const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
+const EYInternship = () => {
   const theme = useTheme();
   const accent = theme.palette.mode === "dark" ? "#E8B93B" : "#9B7F1F";
 
@@ -106,7 +102,7 @@ const EYInternship = ({ toggleColorMode }: EYInternshipProps) => {
         zIndex: 1,
       }}
     >
-      <Navbar toggleColorMode={toggleColorMode} />
+      <Navbar />
 
       <Box sx={{ maxWidth: "800px", mx: "auto" }}>
       {/* Hero */}
