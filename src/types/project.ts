@@ -3,8 +3,6 @@ export interface Project {
   description: string;
   language: string;
   tags: string[];
-  stars?: number;
-  forks?: number;
   githubUrl?: string;
   liveUrl?: string;
   npmUrl?: string;

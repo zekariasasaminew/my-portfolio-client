@@ -24,8 +24,6 @@ export const projects: Project[] = [
       "Universal ACP client plugin for all JetBrains IDEs. Works with IntelliJ, WebStorm, PyCharm, and more.",
     language: "Kotlin",
     tags: ["Kotlin", "JetBrains", "Plugin", "IDE"],
-    stars: 11,
-    forks: 4,
     githubUrl: "https://github.com/zekariasasaminew/jetbrains-acp",
     pluginUrl: "https://plugins.jetbrains.com/plugin/30472-agentport",
   },
@@ -35,7 +33,6 @@ export const projects: Project[] = [
       "CLI published on npm for sharing and syncing AI coding instructions across repos. Auto-detects Cursor, Claude, Windsurf, and Copilot with a community registry.",
     language: "TypeScript",
     tags: ["TypeScript", "CLI", "npm", "AI Tools"],
-    stars: 2,
     githubUrl: "https://github.com/zekariasasaminew/instruct-sync",
     npmUrl: "https://www.npmjs.com/package/instruct-sync",
   },
@@ -51,10 +48,9 @@ export const projects: Project[] = [
   {
     name: "CampusEx",
     description:
-      "A production P2P campus marketplace with an 11-table PostgreSQL schema, row-level security, and GPT-4o vision moderation scoring listings across 9 safety categories via a Deno Edge Function. Born from watching dumpsters fill with perfectly good furniture every move-out. Grew to 720+ active users and 200+ listings in 3 weeks, entirely through word of mouth, under $20/mo in infra costs.",
+      "A production P2P campus marketplace with an 11-table PostgreSQL schema, row-level security, and GPT-4o vision moderation scoring listings across 9 safety categories via a Deno Edge Function. Born from watching dumpsters fill with perfectly good furniture every move-out. Hit 200+ listings in its first 3 weeks and has grown to 1,000+ active users, entirely through word of mouth, under $20/mo in infra costs.",
     language: "TypeScript",
     tags: ["TypeScript", "Next.js", "Supabase", "Marketplace"],
-    githubUrl: "https://github.com/zekariasasaminew/campusEx",
     liveUrl: "https://www.campus-ex.com",
   },
   {
