@@ -93,7 +93,7 @@ const NotesDetail = () => {
             >
               →
             </Typography>
-            <Box sx={{ flex: 1 }}>
+            <Box sx={{ flex: 1, minWidth: 0 }}>
               {note.content.map((paragraph: string, idx: number) => (
                 <Box
                   key={idx}
