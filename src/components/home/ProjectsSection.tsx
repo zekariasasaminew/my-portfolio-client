@@ -116,7 +116,7 @@ const OSSRow = ({ contrib, recentPRs }: { contrib: OpenSourceContribution; recen
             <Typography variant="body1" sx={{ fontWeight: 600 }}>
               {contrib.name}
             </Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ fontFamily: "monospace", opacity: 0.6 }}>
+            <Typography variant="caption" color="text.secondary" sx={{ fontFamily: "monospace", opacity: 0.85 }}>
               {contrib.repo}
             </Typography>
           </Box>
@@ -141,7 +141,7 @@ const OSSRow = ({ contrib, recentPRs }: { contrib: OpenSourceContribution; recen
                 href={pr.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ color: "text.secondary", textDecoration: "none", fontSize: "0.78rem", opacity: 0.75, "&:hover": { opacity: 1, textDecoration: "underline" } }}
+                sx={{ color: "text.secondary", textDecoration: "none", fontSize: "0.78rem", opacity: 0.85, "&:hover": { opacity: 1, textDecoration: "underline" } }}
               >
                 · {pr.title}
               </Link>

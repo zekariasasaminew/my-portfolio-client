@@ -38,15 +38,15 @@
     },
     {
       "source": "/notes",
-      "destination": "/index.html"
+      "destination": "/notes/index.html"
     },
     {
       "source": "/notes/:id",
-      "destination": "/index.html"
+      "destination": "/notes/:id/index.html"
     },
     {
       "source": "/ey-internship",
-      "destination": "/index.html"
+      "destination": "/ey-internship/index.html"
     }
   ],
   "trailingSlash": false

@@ -175,7 +175,7 @@ const ExperienceSection = () => {
             borderRadius: 1.5,
           }}
         >
-          <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.5 }}>
+          <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 0.5 }}>
             {experience.title}
           </Typography>
           <Typography

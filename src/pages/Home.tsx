@@ -181,6 +181,7 @@ const Home = () => {
         >
           <Link
             href="https://github.com/zekariasasaminew"
+            aria-label="GitHub"
             target="_blank"
             rel="noopener"
             sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
@@ -189,6 +190,7 @@ const Home = () => {
           </Link>
           <Link
             href="https://linkedin.com/in/zekarias-asaminew"
+            aria-label="LinkedIn"
             target="_blank"
             rel="noopener"
             sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
@@ -197,6 +199,7 @@ const Home = () => {
           </Link>
           <Link
             href={`mailto:${contact.email}`}
+            aria-label="Email"
             sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
           >
             <EmailOutlinedIcon />
@@ -225,13 +228,13 @@ const Home = () => {
       >
         <Typography
           variant="body2"
-          sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
+          sx={{ color: theme.palette.text.secondary, opacity: 0.85 }}
         >
           © {new Date().getFullYear()} Zekarias Asaminew
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
+          sx={{ color: theme.palette.text.secondary, opacity: 0.85 }}
         >
           More:{" "}
           <Link href="/notes" sx={{ color: "inherit" }}>
