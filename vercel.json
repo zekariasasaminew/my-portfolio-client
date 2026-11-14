@@ -20,6 +20,10 @@
       "destination": "/blog/pact/index.html"
     },
     {
+      "source": "/r/:token",
+      "destination": "/api/r/:token"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/"
     }
