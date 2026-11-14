@@ -70,4 +70,17 @@ function routeMetaPages(): Plugin {
 
 export default defineConfig({
   plugins: [react(), routeMetaPages()],
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            { name: 'react', test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/ },
+            { name: 'mui', test: /node_modules[\\/](@mui|@emotion)[\\/]/ },
+            { name: 'motion', test: /node_modules[\\/](framer-motion|motion-dom|motion-utils)[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
 })
