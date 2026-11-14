@@ -5,7 +5,7 @@ import { alpha } from "@mui/material/styles";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router-dom";
-import { contact, walletPass } from "../data/facts";
+import { contact } from "../data/facts";
 
 const PHOTO_SRC = "/images/headshot-portrait.jpg";
 const LINKEDIN_BLUE = "#0A66C2";
@@ -105,28 +105,6 @@ const CardFace = ({ back, children }: { back?: boolean; children: ReactNode }) =
     </Box>
   </Box>
 );
-
-const isAndroid = () => /android/i.test(navigator.userAgent);
-
-const WalletBadge = () => {
-  const android = isAndroid();
-  return (
-    <Box
-      component="a"
-      href={android ? walletPass.google : walletPass.apple}
-      target={android ? "_blank" : undefined}
-      rel={android ? "noopener" : undefined}
-      sx={{ gridColumn: "1 / -1", display: "flex", alignItems: "center", justifyContent: "center", height: 48 }}
-    >
-      <Box
-        component="img"
-        src={android ? "/images/wallet/add-to-google-wallet.svg" : "/images/wallet/add-to-apple-wallet.svg"}
-        alt={android ? "Add to Google Wallet" : "Add to Apple Wallet"}
-        sx={{ height: 44, width: "auto", maxWidth: "100%", display: "block" }}
-      />
-    </Box>
-  );
-};
 
 const Connect = () => {
   const theme = useTheme();
@@ -395,7 +373,6 @@ const Connect = () => {
         >
           <GitHubLogo size={36} color={theme.palette.text.primary} />
         </Button>
-        <WalletBadge />
       </Box>
 
       <Link
