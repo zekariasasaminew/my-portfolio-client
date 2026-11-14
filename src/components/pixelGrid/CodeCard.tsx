@@ -47,7 +47,7 @@ const SNIPPETS: Snippet[] = [
   snippet(
     "zekarias",
     "stack",
-    ["typescript", "python", "react", "langgraph"],
+    ["rust", "typescript", "mcp", "nextjs"],
     "run",
   ),
 ];

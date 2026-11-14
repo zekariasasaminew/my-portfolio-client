@@ -14,6 +14,7 @@ export const skillGroups: SkillGroup[] = [
   {
     label: "Languages",
     items: [
+      { name: "Rust", iconSlug: "logos/rust", monochrome: true },
       { name: "TypeScript", iconSlug: "logos/typescript-icon" },
       { name: "JavaScript", iconSlug: "logos/javascript" },
       { name: "Python", iconSlug: "logos/python" },
@@ -24,8 +25,7 @@ export const skillGroups: SkillGroup[] = [
   {
     label: "AI & Agentic Tooling",
     items: [
-      { name: "LangChain", iconSlug: "simple-icons/langchain", monochrome: true },
-      { name: "LangGraph" },
+      { name: "MCP", iconSlug: "simple-icons/modelcontextprotocol", monochrome: true },
       { name: "OpenAI API", iconSlug: "logos/openai-icon", monochrome: true },
       { name: "RAG Pipelines" },
       { name: "GitHub Copilot CLI", iconSlug: "logos/github-copilot", monochrome: true },
@@ -39,7 +39,6 @@ export const skillGroups: SkillGroup[] = [
       { name: "Next.js", iconSlug: "logos/nextjs-icon" },
       { name: "React Native", iconSlug: "logos/react" },
       { name: "Node.js", iconSlug: "logos/nodejs-icon" },
-      { name: "FastAPI", iconSlug: "logos/fastapi-icon" },
     ],
   },
   {
@@ -49,7 +48,6 @@ export const skillGroups: SkillGroup[] = [
       { name: "Docker", iconSlug: "logos/docker-icon" },
       { name: "Kubernetes", iconSlug: "logos/kubernetes" },
       { name: "PostgreSQL", iconSlug: "logos/postgresql" },
-      { name: "MongoDB", iconSlug: "logos/mongodb-icon" },
       { name: "Redis", iconSlug: "logos/redis" },
       { name: "Supabase", iconSlug: "logos/supabase-icon" },
       { name: "GitHub Actions", iconSlug: "logos/github-actions" },

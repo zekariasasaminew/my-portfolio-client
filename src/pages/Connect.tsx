@@ -16,14 +16,14 @@ const EVENT_LABELS: Record<string, string> = {
 
 const STATS = [
   { value: "$3.7M+", label: "saved at John Deere" },
-  { value: "720+", label: "CampusEx users" },
+  { value: "1,000+", label: "CampusEx users" },
   { value: "Top", label: "GitHub Desktop contributor" },
 ];
 
 const TALKING_POINTS = [
   "John Deere agent that traces prod alerts to the bad commit and opens a fix PR",
   "pact: Rust tool that runs coding agents in parallel",
-  "CampusEx: 720+ users in 3 weeks",
+  "CampusEx: 1,000+ users",
   "Top external contributor to GitHub Desktop",
 ];
 

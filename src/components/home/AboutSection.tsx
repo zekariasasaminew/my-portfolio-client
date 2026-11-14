@@ -3,12 +3,12 @@ import { Box, Typography, Link, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
 const currentlyUsing = [
-  "LangChain",
-  "LangGraph",
-  "OpenAI API",
-  "Next.js",
+  "Rust",
   "TypeScript",
+  "MCP",
+  "Next.js",
   "PostgreSQL",
+  "Redis",
 ];
 
 const AboutSection = () => {
