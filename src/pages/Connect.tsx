@@ -6,7 +6,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 import { useSearchParams } from "react-router-dom";
 import { contact, walletPass } from "../data/facts";
-import { trackClick } from "../lib/analytics";
 
 const PHOTO_SRC = "/images/headshot-portrait.jpg";
 const LINKEDIN_BLUE = "#0A66C2";
@@ -117,7 +116,6 @@ const WalletBadge = () => {
       href={android ? walletPass.google : walletPass.apple}
       target={android ? "_blank" : undefined}
       rel={android ? "noopener" : undefined}
-      onClick={() => trackClick(android ? "connect-google-wallet" : "connect-apple-wallet")}
       sx={{ gridColumn: "1 / -1", display: "flex", alignItems: "center", justifyContent: "center", height: 48 }}
     >
       <Box
@@ -142,15 +140,8 @@ const Connect = () => {
 
   useLockPageScroll();
 
-  useEffect(() => {
-    if (source) trackClick(`connect-src:${source}`);
-  }, [source]);
-
   const handleFlip = () => {
-    setFlipped((value) => {
-      if (!value) trackClick("connect-card-flip");
-      return !value;
-    });
+    setFlipped((value) => !value);
   };
 
   const tileSx = {
@@ -388,7 +379,6 @@ const Connect = () => {
           target="_blank"
           rel="noopener"
           aria-label="LinkedIn"
-          onClick={() => trackClick("connect-linkedin")}
           sx={{ ...tileSx, height: 64 }}
         >
           <LinkedInLogo size={38} />
@@ -400,7 +390,6 @@ const Connect = () => {
           target="_blank"
           rel="noopener"
           aria-label="GitHub"
-          onClick={() => trackClick("connect-github")}
           sx={{ ...tileSx, height: 64 }}
         >
           <GitHubLogo size={36} color={theme.palette.text.primary} />
@@ -410,7 +399,6 @@ const Connect = () => {
 
       <Link
         href="/"
-        onClick={() => trackClick("connect-full-portfolio")}
         sx={{
           display: "inline-flex",
           alignItems: "center",
