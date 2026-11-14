@@ -10,6 +10,7 @@ const NotesDetail = lazy(() => import("./pages/NotesDetail"));
 const EYInternship = lazy(() => import("./pages/EYInternship"));
 const Connect = lazy(() => import("./pages/Connect"));
 const PactPost = lazy(() => import("./pages/PactPost"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const BackgroundPattern = () => (
   <div
@@ -74,6 +75,7 @@ function App() {
               <Route path="/ey-internship" element={<EYInternship />} />
               <Route path="/blog/pact" element={<PactPost />} />
               <Route path="/connect" element={<Connect />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </div>
