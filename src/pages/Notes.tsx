@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
@@ -7,6 +8,7 @@ import { newestFirst, readingMinutes } from "../data/notes";
 import type { Note } from "../types/note";
 
 const ACCENT = "#7fd8a6";
+const VISIBLE_TAGS = 10;
 
 const tagLabel = (tag: string) => tag.replace(/^#/, "");
 
@@ -131,16 +133,20 @@ const Notes = () => {
   const active = requested && ALL_TAGS.includes(requested) ? requested : null;
   const shown = active ? newestFirst.filter((n) => n.tags.some((t) => tagLabel(t) === active)) : newestFirst;
   const [featured, ...rest] = shown;
+  const [showAllTags, setShowAllTags] = useState(false);
+  const visibleTags =
+    showAllTags || ALL_TAGS.indexOf(active ?? "") >= VISIBLE_TAGS ? ALL_TAGS : ALL_TAGS.slice(0, VISIBLE_TAGS);
+  const hiddenCount = ALL_TAGS.length - visibleTags.length;
 
-  const chip = (tag: string | null, label: string) => {
-    const selected = tag === active;
+  const chip = (tag: string | null, label: string, onClick?: () => void) => {
+    const selected = !onClick && tag === active;
     return (
       <Box
         key={label}
         component="button"
         type="button"
-        aria-pressed={selected}
-        onClick={() => setParams(tag ? { tag } : {}, { replace: true })}
+        aria-pressed={onClick ? undefined : selected}
+        onClick={onClick ?? (() => setParams(tag ? { tag } : {}, { replace: true }))}
         sx={{
           all: "unset",
           cursor: "pointer",
@@ -198,7 +204,8 @@ const Notes = () => {
         sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: { xs: 3, md: 4 } }}
       >
         {chip(null, "all")}
-        {ALL_TAGS.map((tag) => chip(tag, `#${tag}`))}
+        {visibleTags.map((tag) => chip(tag, `#${tag}`))}
+        {hiddenCount > 0 && chip(null, `+${hiddenCount} more`, () => setShowAllTags(true))}
       </Box>
 
       {featured && (
