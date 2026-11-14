@@ -44,6 +44,7 @@ const Navbar = () => {
         >
           <Typography
             variant="h6"
+            component="p"
             sx={{
               fontWeight: 700,
               color: "inherit",
