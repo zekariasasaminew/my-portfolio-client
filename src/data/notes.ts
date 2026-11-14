@@ -14,6 +14,22 @@ export const notes: Note[] = [
     readMinutes: 15,
   },
   {
+    id: 10,
+    title: "I didn't want to upgrade my IDE, so I wrote an ACP plugin in a weekend",
+    hook: "JetBrains shipped agent support for 2025.3.2 and up. I was on 2024.2. One weekend of Kotlin later, I wasn't stuck anymore.",
+    content: [
+      "Quick background. **ACP** is the Agent Client Protocol: a standard way for an editor to talk to an AI coding agent like Claude Code, Gemini CLI, Codex, or Copilot CLI. The editor speaks ACP, the agent speaks ACP, and you get a chat panel that can read your files and propose edits without each editor writing a custom integration per agent.\n\nJetBrains added official ACP support, which is great, except it needs **IDE 2025.3.2 or newer**. My IntelliJ was on 2024.2 and I didn't feel like upgrading everything that weekend. So I built my own client instead. That's **jetbrains-acp** (the plugin calls itself AgentPort), and it's open source on [GitHub](https://github.com/zekariasasaminew/jetbrains-acp).",
+      "## What it does\n\n- Finds ACP agents already on your PATH: Claude Code, Gemini CLI, Copilot CLI, Codex, OpenCode, Goose, Aider, and more.\n- Has a registry browser for 20+ agents from the official ACP registry. Agents published to npm launch through `npx`, so you don't even have to install them first.\n- Streams the reply as it arrives, and shows the agent's thoughts and tool calls while it works.\n- Lets you switch models mid-session when the agent supports it.\n- Shows proposed edits in IntelliJ's own diff viewer, and asks for permissions in a native IntelliJ dialog.\n- Works on **2024.2 and up**, which was the whole point.\n\nIt's about 1,350 lines of Kotlin, tests included. No Electron, no embedded browser. Plain Swing, so it looks like it shipped with the IDE.",
+      "## How the weekend went\n\nSaturday evening: scaffold, agent detection, the ACP client, a chat panel, the diff viewer, the permission dialog, a settings page, and CI. I kept every piece in its own small PR, which made it way easier to find what broke later.\n\nSunday: making it feel good. Message bubbles, markdown rendering, Enter to send, a thinking indicator, the model picker, and the registry browser.\n\nThen the bugs showed up, and they were the fun part.",
+      "## Bug 1: it wouldn't even install\n\nI had set the minimum supported build to `243`, which is 2024.3, one version newer than the IDE I was running. Very funny for a plugin whose entire reason to exist is supporting older IDEs. Lowering `sinceBuild` to `242` (2024.2) fixed it.",
+      "## Bug 2: Windows couldn't find any agent\n\nEvery agent showed up as detected, then failed to start. On Windows, tools installed through npm are really `.cmd` files, and Java's `ProcessBuilder` doesn't resolve those by bare name the way your terminal does. The fix: if the command is a bare name on Windows, run it through `cmd /c`.\n\n```kotlin\nval actualCommand = if (isWindows && !command.first().contains(File.separatorChar)) {\n    listOf(\"cmd\", \"/c\") + command\n} else {\n    command\n}\n```",
+      "## Bug 3: CSS crashed the chat\n\nThe chat panel renders HTML through Swing's built-in HTML support, which understands a pretty old subset of CSS. I had written `line-height` and `border-radius` like any normal web developer, and the Swing parser threw a `NullPointerException` instead of ignoring them. Deleting those two properties fixed it. Lesson: Swing's HTML is closer to 1999 than to a browser.",
+      "## What I took from it\n\nYou don't have to wait for the official version. A protocol with a clear spec means a small client is a weekend project, not a quarter. And the bugs that eat your time are almost never in the protocol. They're in the platform around it: build versions, how Windows launches processes, what a 20-year-old HTML renderer is willing to parse.\n\nIf you're on an older JetBrains IDE and want agents in it, grab the zip from the releases page, or clone it and run `./gradlew runIde`.",
+    ],
+    createdAt: "2026-11-14",
+    tags: ["#kotlin", "#jetbrains", "#ai-agents", "#open-source", "#acp"],
+  },
+  {
     id: 7,
     title: "Auto merge Dependabot patch PRs with GitHub Actions",
     hook: "Dependabot kept asking me to merge green patch PRs, so I taught GitHub to do it for me.",
