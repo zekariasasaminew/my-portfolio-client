@@ -3,11 +3,13 @@ import path from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { notes } from './src/data/notes'
+import type { Note } from './src/types/note'
 
 const SITE = 'https://www.zekariasasaminew.com'
 
 interface RouteMeta {
   path: string
+  canonical?: string
   title: string
   description: string
   image: string
@@ -31,7 +33,38 @@ const ROUTE_META: RouteMeta[] = [
     image: '/images/og.png',
     type: 'website',
   },
+  {
+    path: '/notes',
+    title: 'Notes | Zekarias Asaminew',
+    description: 'Short write-ups on things I built, broke and fixed: AI agents, dev tooling, GitHub automation and side projects.',
+    image: '/images/og.png',
+    type: 'website',
+  },
+  {
+    path: '/ey-internship',
+    title: 'Eight Weeks at EY | Zekarias Asaminew',
+    description: 'My summer as a Tax Technology & Transformation intern at EY in Chicago.',
+    image: '/images/og.png',
+    type: 'article',
+  },
+  ...notes.map(noteMeta),
 ]
+
+function noteMeta(note: Note): RouteMeta {
+  const plain = note.content[0]
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/[#*_`>[\]]|\(https?:[^)]*\)/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return {
+    path: `/notes/${note.id}`,
+    canonical: note.href,
+    title: `${note.title} | Zekarias Asaminew`,
+    description: plain.length > 160 ? `${plain.slice(0, 157).trimEnd()}...` : plain,
+    image: '/images/og.png',
+    type: 'article',
+  }
+}
 
 const SITEMAP_PATHS = ['/', '/notes', ...notes.map((n) => `/notes/${n.id}`), '/blog/pact', '/ey-internship']
 
@@ -41,7 +74,7 @@ const setAttr = (html: string, selector: string, attr: string, value: string) =>
   html.replace(new RegExp(`(${selector} ${attr}=")[^"]*(")`), (_m, start: string, end: string) => start + value + end)
 
 function withRouteMeta(html: string, meta: RouteMeta): string {
-  const url = `${SITE}${meta.path}`
+  const url = `${SITE}${meta.canonical ?? meta.path}`
   const title = escapeAttr(meta.title)
   const description = escapeAttr(meta.description)
   const image = `${SITE}${meta.image}`

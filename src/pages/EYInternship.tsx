@@ -312,7 +312,7 @@ const EYInternship = () => {
         <Typography
           component="p"
           variant="body2"
-          sx={{ color: theme.palette.text.secondary, opacity: 0.7 }}
+          sx={{ color: theme.palette.text.secondary, opacity: 0.85 }}
         >
           About this page: written in the first person after my last day.
           Every client is anonymized: no logos, no forms, no screenshots,

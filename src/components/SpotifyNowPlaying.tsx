@@ -113,7 +113,7 @@ export default function SpotifyNowPlaying() {
       direction={{ xs: "column", sm: "row" }}
       alignItems="flex-start"
       spacing={2}
-      sx={{ textAlign: "left" }}
+      sx={{ textAlign: "left", maxWidth: "100%", minWidth: 0 }}
     >
       <Box
         component={motion.div}
@@ -186,6 +186,7 @@ export default function SpotifyNowPlaying() {
               </Box>
               <Typography
                 variant="h6"
+                component="p"
                 sx={{
                   overflow: "hidden",
                   textOverflow: "ellipsis",

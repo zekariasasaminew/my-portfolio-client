@@ -22,6 +22,7 @@ const SkillsSection = () => {
           <Box key={group.label}>
             <Typography
               variant="subtitle2"
+              component="h3"
               sx={{
                 fontWeight: 700,
                 mb: 1.5,
