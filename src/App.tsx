@@ -1,41 +1,15 @@
-import { useState, useMemo, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useMemo, useRef, lazy, Suspense } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import PixelGrid from "./components/pixelGrid/PixelGrid";
-import { Analytics } from "@vercel/analytics/react";
-import { trackPageview, trackSessionEnd, markPageEntered } from "./lib/analytics";
 
 const Notes = lazy(() => import("./pages/Notes"));
 const NotesDetail = lazy(() => import("./pages/NotesDetail"));
-const AnalyticsPage = lazy(() => import("./pages/Analytics"));
 const EYInternship = lazy(() => import("./pages/EYInternship"));
 const Connect = lazy(() => import("./pages/Connect"));
 const PactPost = lazy(() => import("./pages/PactPost"));
-
-function usePageAnalytics() {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.pathname.startsWith("/analytics")) return;
-
-    trackPageview(location.pathname);
-    markPageEntered();
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) trackSessionEnd(location.pathname);
-    };
-    const handleUnload = () => trackSessionEnd(location.pathname);
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("beforeunload", handleUnload);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("beforeunload", handleUnload);
-    };
-  }, [location.pathname]);
-}
 
 const BackgroundPattern = () => (
   <div
@@ -57,10 +31,7 @@ const BackgroundPattern = () => (
 );
 
 function App() {
-  usePageAnalytics();
-  const location = useLocation();
   const contentRef = useRef<HTMLDivElement>(null);
-  const showPixelGrid = !location.pathname.startsWith("/analytics");
 
   const [mode, setMode] = useState<"light" | "dark">(() => {
     // Versioned key: bumping this ignores any "themeMode" saved by
@@ -125,9 +96,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BackgroundPattern />
-      <Analytics />
       <div style={{ position: "relative", zIndex: 0 }}>
-        {showPixelGrid && <PixelGrid contentRef={contentRef} />}
+        <PixelGrid contentRef={contentRef} />
         <div ref={contentRef}>
           <Suspense fallback={null}>
             <Routes>
@@ -142,10 +112,6 @@ function App() {
               <Route
                 path="/notes/:id"
                 element={<NotesDetail toggleColorMode={toggleColorMode} />}
-              />
-              <Route
-                path="/analytics"
-                element={<AnalyticsPage toggleColorMode={toggleColorMode} />}
               />
               <Route
                 path="/ey-internship"

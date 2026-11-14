@@ -22,7 +22,6 @@ import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
 import { FEATURE_FLAGS } from "../config";
 import { contact, impactStats, resumeFiles } from "../data/facts";
-import { trackClick } from "../lib/analytics";
 
 interface Props {
   toggleColorMode: () => void;
@@ -195,7 +194,6 @@ const Home = ({ toggleColorMode }: Props) => {
             href="https://github.com/zekariasasaminew"
             target="_blank"
             rel="noopener"
-            onClick={() => trackClick("github")}
             sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
           >
             <GitHubIcon />
@@ -204,7 +202,6 @@ const Home = ({ toggleColorMode }: Props) => {
             href="https://linkedin.com/in/zekarias-asaminew"
             target="_blank"
             rel="noopener"
-            onClick={() => trackClick("linkedin")}
             sx={{ ...LinkStyle, display: "flex", alignItems: "center" }}
           >
             <LinkedInIcon />
@@ -239,7 +236,6 @@ const Home = ({ toggleColorMode }: Props) => {
                   href={resumeFiles.ai.href}
                   download
                   onClick={() => {
-                    trackClick("resume-ai");
                     setResumeAnchor(null);
                   }}
                 >
@@ -250,7 +246,6 @@ const Home = ({ toggleColorMode }: Props) => {
                   href={resumeFiles.coreSwe.href}
                   download
                   onClick={() => {
-                    trackClick("resume-core-swe");
                     setResumeAnchor(null);
                   }}
                 >
