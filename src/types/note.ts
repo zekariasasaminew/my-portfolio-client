@@ -1,9 +1,10 @@
 export interface Note {
     id: number;
     title: string;
+    hook: string;
     content: string[];
     createdAt: string;
-    updatedAt: string;
     tags: string[];
     href?: string;
+    readMinutes?: number;
 }
