@@ -7,6 +7,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -16,7 +17,7 @@ const NAV_LINKS = [
   { href: "/#experience", label: "Experience" },
   { href: "/#projects", label: "Projects" },
   { href: "/#skills", label: "Skills" },
-  { href: "/notes", label: "Notes" },
+  { href: "/notes", label: "Notes", page: true },
 ];
 
 const Navbar = () => {
@@ -77,21 +78,45 @@ const Navbar = () => {
           },
         }}
       >
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            sx={{
-              ...(location.pathname === link.href && {
-                borderBottom: `2px solid ${theme.palette.text.primary}`,
-                paddingBottom: "2px",
-                opacity: "1 !important",
-              }),
-            }}
-          >
-            {link.label.toLowerCase()}
-          </Link>
-        ))}
+        {NAV_LINKS.map((link) =>
+          link.page ? (
+            <Box key={link.href} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box aria-hidden sx={{ width: "1px", height: "1.1rem", bgcolor: "text.secondary", opacity: 0.4, mx: 0.5 }} />
+              <Link
+                href={link.href}
+                aria-current={location.pathname === link.href ? "page" : undefined}
+                sx={{
+                  px: 1.25,
+                  py: 0.25,
+                  borderRadius: 999,
+                  border: `1px solid ${theme.palette.text.primary}`,
+                  opacity: "1 !important",
+                  "&:hover": { textDecoration: "none !important", bgcolor: theme.palette.text.primary, color: theme.palette.background.default },
+                  ...(location.pathname === link.href && {
+                    bgcolor: theme.palette.text.primary,
+                    color: `${theme.palette.background.default} !important`,
+                  }),
+                }}
+              >
+                {link.label.toLowerCase()} →
+              </Link>
+            </Box>
+          ) : (
+            <Link
+              key={link.href}
+              href={link.href}
+              sx={{
+                ...(location.pathname === link.href && {
+                  borderBottom: `2px solid ${theme.palette.text.primary}`,
+                  paddingBottom: "2px",
+                  opacity: "1 !important",
+                }),
+              }}
+            >
+              {link.label.toLowerCase()}
+            </Link>
+          ),
+        )}
       </Box>
 
       <Box
@@ -116,7 +141,8 @@ const Navbar = () => {
           open={Boolean(menuAnchor)}
           onClose={() => setMenuAnchor(null)}
         >
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.flatMap((link) => [
+            ...(link.page ? [<Divider key={`${link.href}-divider`} />] : []),
             <MenuItem
               key={link.href}
               component="a"
@@ -124,9 +150,9 @@ const Navbar = () => {
               selected={location.pathname === link.href}
               onClick={() => setMenuAnchor(null)}
             >
-              {link.label}
-            </MenuItem>
-          ))}
+              {link.page ? `${link.label} →` : link.label}
+            </MenuItem>,
+          ])}
         </Menu>
       </Box>
     </Box>
