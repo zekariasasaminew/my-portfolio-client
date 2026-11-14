@@ -31,8 +31,7 @@ const TagList = ({ tags, active }: { tags: string[]; active: string | null }) =>
         sx={{
           fontFamily: "monospace",
           fontSize: "0.72rem",
-          color: tagLabel(tag) === active ? ACCENT : "text.secondary",
-        }}
+          color: tagLabel(tag) === active ? ACCENT : "text.secondary",        }}
       >
         #{tagLabel(tag)}
       </Box>
@@ -67,8 +66,13 @@ const NoteCard = ({ note, featured, active }: { note: Note; featured?: boolean; 
           borderColor: alpha(ACCENT, 0.6),
           boxShadow: `0 10px 30px ${alpha("#000", 0.35)}`,
         },
+        cursor: "pointer",
         "&:focus-visible": { outline: `2px solid ${ACCENT}`, outlineOffset: 3 },
-        "&:hover .note-arrow": { transform: "translateX(4px)", opacity: 1 },
+        "&:hover .note-title, &:focus-visible .note-title": { color: ACCENT },
+        "&:hover .note-cta-arrow, &:focus-visible .note-cta-arrow": { transform: "translateX(4px)" },
+        "&:hover .note-cta, &:focus-visible .note-cta": featured
+          ? { bgcolor: ACCENT, color: "#0f1a14" }
+          : { color: ACCENT },
       }}
     >
       <Box
@@ -90,7 +94,9 @@ const NoteCard = ({ note, featured, active }: { note: Note; featured?: boolean; 
       </Box>
       <Typography
         component={featured ? "h2" : "h3"}
+        className="note-title"
         sx={{
+          transition: "color 0.2s ease",
           fontWeight: 650,
           letterSpacing: "-0.01em",
           lineHeight: 1.25,
@@ -111,14 +117,28 @@ const NoteCard = ({ note, featured, active }: { note: Note; featured?: boolean; 
       >
         {note.hook}
       </Typography>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 2 }}>
-        <TagList tags={note.tags} active={active} />
-        <Box
-          component="span"
-          aria-hidden
-          className="note-arrow"
-          sx={{ color: ACCENT, opacity: 0.7, transition: "transform 0.2s ease, opacity 0.2s ease", flexShrink: 0 }}
-        >
+      <TagList tags={note.tags} active={active} />
+      <Box
+        component="span"
+        aria-hidden
+        className="note-cta"
+        sx={{
+          alignSelf: "flex-start",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 0.75,
+          mt: 0.5,
+          fontFamily: "monospace",
+          fontSize: "0.82rem",
+          fontWeight: 600,
+          transition: "background-color 0.2s ease, color 0.2s ease",
+          ...(featured
+            ? { px: 2, py: 1, borderRadius: 999, border: `1px solid ${ACCENT}`, color: ACCENT }
+            : { color: "text.primary" }),
+        }}
+      >
+        read note
+        <Box component="span" className="note-cta-arrow" sx={{ transition: "transform 0.2s ease" }}>
           →
         </Box>
       </Box>
