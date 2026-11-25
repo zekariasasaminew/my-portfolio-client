@@ -20,10 +20,11 @@ const CARD_EVERY_MS = 15000;
 const CARD_EVERY_JITTER_MS = 10000;
 const CARD_COOLDOWN_MS = 9000;
 const CARD_ON_MOVE_CHANCE = 0.3;
-const AMBIENT_EVERY_MS = 1600;
-const AMBIENT_JITTER_MS = 2000;
-const BLIP_EVERY_MS = 1400;
-const BLIP_JITTER_MS = 1400;
+const AMBIENT_EVERY_MS = 2400;
+const AMBIENT_JITTER_MS = 2400;
+const BLIP_EVERY_MS = 2200;
+const BLIP_JITTER_MS = 2000;
+const TRAIL_MS = 300;
 
 interface Timed {
   id: number;
@@ -209,7 +210,7 @@ const PixelGrid = ({ contentRef }: Props) => {
       );
       for (const id of previousCursorIds)
         if (!cursorSet.has(id) && isClear(id, zones))
-          lingering.push({ id, until: now + 420 });
+          lingering.push({ id, until: now + TRAIL_MS });
       previousCursorIds = cursorSet;
 
       const ids = [...cursorIds];
