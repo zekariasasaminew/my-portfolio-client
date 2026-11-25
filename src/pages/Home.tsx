@@ -19,12 +19,7 @@ import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
 import { contact, impactStats } from "../data/facts";
 
-interface HomeProps {
-  /** Renders the GitHub activity section; set by the /preview/github route. */
-  showActivity?: boolean;
-}
-
-const Home = ({ showActivity = false }: HomeProps) => {
+const Home = () => {
   const theme = useTheme();
   const accent = theme.palette.mode === "dark" ? "#7fd8a6" : "#0a8f4f";
 
@@ -215,10 +210,10 @@ const Home = ({ showActivity = false }: HomeProps) => {
         <SpotifyNowPlaying />
       </Box>
 
+      <ContributionsSection />
       <AboutSection />
       <ExperienceSection />
       <ProjectsSection />
-      {showActivity && <ContributionsSection />}
       <SkillsSection />
 
       {/* Footer */}

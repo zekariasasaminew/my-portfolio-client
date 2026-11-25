@@ -70,7 +70,6 @@ function App() {
           <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/preview/github" element={<Home showActivity />} />
               <Route path="/notes" element={<Notes />} />
               <Route path="/notes/:id" element={<NotesDetail />} />
               <Route path="/ey-internship" element={<EYInternship />} />

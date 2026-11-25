@@ -9,7 +9,6 @@ import {
   layoutDays,
   monthLabels,
   placeholderCalendar,
-  summarize,
   type ContributionCalendar,
   type Day,
 } from "./contributions";
@@ -23,6 +22,15 @@ const MIN_PITCH_PX = { xs: 13, sm: 10 };
 const LEVEL_FILLS = ["#1d4a32", "#2e734f", "#48a474", "#7fd8a6"];
 const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 const PLACEHOLDER = placeholderCalendar();
+const SR_ONLY = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  margin: "-1px",
+  overflow: "hidden",
+  clip: "rect(0 0 0 0)",
+  whiteSpace: "nowrap",
+} as const;
 
 /** Same entrance as the background PixelGrid tiles. */
 const pop = keyframes`
@@ -41,43 +49,6 @@ const countLabel = (count: number) =>
   count === 0
     ? "No contributions"
     : `${count.toLocaleString("en-US")} contribution${count === 1 ? "" : "s"}`;
-
-const Stat = ({
-  value,
-  unit,
-  label,
-  ready,
-}: {
-  value: number;
-  unit?: string;
-  label: string;
-  ready: boolean;
-}) => (
-  <Box>
-    <Box
-      sx={{
-        fontFamily: MONO,
-        fontSize: { xs: "1.35rem", md: "1.75rem" },
-        fontWeight: 600,
-        lineHeight: 1.15,
-        letterSpacing: "-0.02em",
-        fontVariantNumeric: "tabular-nums",
-        opacity: ready ? 1 : 0,
-        transition: "opacity 200ms ease-out",
-      }}
-    >
-      {value.toLocaleString("en-US")}
-      {unit && (
-        <Box component="span" sx={{ fontSize: "0.55em", color: "text.secondary", letterSpacing: 0 }}>
-          {` ${unit}`}
-        </Box>
-      )}
-    </Box>
-    <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>
-      {label}
-    </Typography>
-  </Box>
-);
 
 const ContributionsSection = () => {
   const [calendar, setCalendar] = useState<ContributionCalendar | null>(null);
@@ -123,7 +94,6 @@ const ContributionsSection = () => {
   const shown = calendar ?? PLACEHOLDER;
   const { days, weeks } = useMemo(() => layoutDays(shown), [shown]);
   const labels = useMemo(() => monthLabels(days), [days]);
-  const stats = useMemo(() => summarize(shown.counts), [shown]);
   const width = weeks * PITCH - (PITCH - CELL);
   const height = 7 * PITCH - (PITCH - CELL);
   const ready = calendar !== null;
@@ -223,24 +193,28 @@ const ContributionsSection = () => {
   const last = days[days.length - 1];
 
   return (
-    <Box component="section" id="activity" sx={{ scrollMarginTop: "5rem", mb: { xs: 8, md: 10 } }}>
+    <Box component="section" id="github" sx={{ scrollMarginTop: "5rem", mb: { xs: 8, md: 10 } }}>
       <Typography component="h2" variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
-        github activity
+        github
       </Typography>
 
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "repeat(2, minmax(0, 1fr))", sm: "repeat(4, max-content)" },
-          columnGap: { xs: 2, sm: 5, md: 8 },
-          rowGap: 2.5,
+          fontFamily: MONO,
+          fontSize: { xs: "1.35rem", md: "1.75rem" },
+          fontWeight: 600,
+          lineHeight: 1.15,
+          letterSpacing: "-0.02em",
+          fontVariantNumeric: "tabular-nums",
           mb: { xs: 3, md: 4 },
+          opacity: ready ? 1 : 0,
+          transition: "opacity 200ms ease-out",
         }}
       >
-        <Stat value={shown.total} label="contributions in the last year" ready={ready} />
-        <Stat value={stats.activeDays} label="active days" ready={ready} />
-        <Stat value={stats.longestStreak} unit="days" label="longest streak" ready={ready} />
-        <Stat value={stats.bestDay} label="best day" ready={ready} />
+        {shown.total.toLocaleString("en-US")}
+        <Box component="span" sx={SR_ONLY}>
+          {" "}contributions in the last year
+        </Box>
       </Box>
 
       <Box
@@ -322,44 +296,7 @@ const ContributionsSection = () => {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          flexWrap: "wrap",
-          gap: 1.5,
-          mt: 2,
-        }}
-      >
-        <Box
-          component="ul"
-          aria-label="Contributions per year"
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            columnGap: 2.5,
-            rowGap: 0.5,
-            minHeight: "1.25rem",
-            listStyle: "none",
-            m: 0,
-            p: 0,
-            fontFamily: MONO,
-            fontSize: "0.8rem",
-            fontVariantNumeric: "tabular-nums",
-            opacity: ready ? 1 : 0,
-            transition: "opacity 200ms ease-out",
-          }}
-        >
-          {[...shown.years].reverse().map(({ year, total }) => (
-            <Box component="li" key={year}>
-              <Box component="span" sx={{ color: "text.secondary" }}>
-                {year}
-              </Box>{" "}
-              {total.toLocaleString("en-US")}
-            </Box>
-          ))}
-        </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
         <Link
           href={contact.github}
           target="_blank"

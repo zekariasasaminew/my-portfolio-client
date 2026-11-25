@@ -2,7 +2,6 @@ export interface ContributionCalendar {
   start: string;
   counts: number[];
   total: number;
-  years: { year: number; total: number }[];
 }
 
 export type Level = 0 | 1 | 2 | 3 | 4;
@@ -33,7 +32,7 @@ export function placeholderCalendar(now = new Date()): ContributionCalendar {
   const yearAgo = Date.UTC(now.getUTCFullYear() - 1, now.getUTCMonth(), now.getUTCDate());
   const first = yearAgo - new Date(yearAgo).getUTCDay() * DAY_MS;
   const length = Math.round((today - first) / DAY_MS) + 1;
-  return { start: toIso(first), counts: new Array(length).fill(0), total: 0, years: [] };
+  return { start: toIso(first), counts: new Array(length).fill(0), total: 0 };
 }
 
 /**
@@ -80,24 +79,6 @@ export function monthLabels(days: Day[]): { week: number; label: string }[] {
     });
   }
   return labels.filter((label, i) => i === labels.length - 1 || labels[i + 1].week - label.week >= 3);
-}
-
-export function summarize(counts: number[]) {
-  let activeDays = 0;
-  let longestStreak = 0;
-  let bestDay = 0;
-  let run = 0;
-  for (const count of counts) {
-    if (count > 0) {
-      activeDays += 1;
-      run += 1;
-      longestStreak = Math.max(longestStreak, run);
-      bestDay = Math.max(bestDay, count);
-    } else {
-      run = 0;
-    }
-  }
-  return { activeDays, longestStreak, bestDay };
 }
 
 export const formatDay = (ms: number) =>
