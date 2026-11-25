@@ -20,6 +20,10 @@ const CARD_EVERY_MS = 15000;
 const CARD_EVERY_JITTER_MS = 10000;
 const CARD_COOLDOWN_MS = 9000;
 const CARD_ON_MOVE_CHANCE = 0.3;
+const AMBIENT_EVERY_MS = 1600;
+const AMBIENT_JITTER_MS = 2000;
+const BLIP_EVERY_MS = 1400;
+const BLIP_JITTER_MS = 1400;
 
 interface Timed {
   id: number;
@@ -311,7 +315,7 @@ const PixelGrid = ({ contentRef }: Props) => {
           }
           scheduleAmbient();
         },
-        1000 + 1500 * Math.random(),
+        AMBIENT_EVERY_MS + AMBIENT_JITTER_MS * Math.random(),
       );
     };
 
@@ -320,7 +324,10 @@ const PixelGrid = ({ contentRef }: Props) => {
 
     const scheduleBlip = () => {
       window.clearTimeout(blipTimer);
-      blipTimer = window.setTimeout(blip, 800 + 1000 * Math.random());
+      blipTimer = window.setTimeout(
+        blip,
+        BLIP_EVERY_MS + BLIP_JITTER_MS * Math.random(),
+      );
     };
 
     const scheduleRelayout = (resumeBlips: boolean) => {
