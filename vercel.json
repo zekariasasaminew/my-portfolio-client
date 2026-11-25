@@ -34,6 +34,10 @@
     {
       "source": "/ey-internship",
       "destination": "/ey-internship/index.html"
+    },
+    {
+      "source": "/preview/github",
+      "destination": "/index.html"
     }
   ],
   "trailingSlash": false

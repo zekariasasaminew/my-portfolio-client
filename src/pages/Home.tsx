@@ -13,12 +13,18 @@ import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
 import AboutSection from "../components/home/AboutSection";
+import ContributionsSection from "../components/home/ContributionsSection";
 import ExperienceSection from "../components/home/ExperienceSection";
 import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
 import { contact, impactStats } from "../data/facts";
 
-const Home = () => {
+interface HomeProps {
+  /** Renders the GitHub activity section; set by the /preview/github route. */
+  showActivity?: boolean;
+}
+
+const Home = ({ showActivity = false }: HomeProps) => {
   const theme = useTheme();
   const accent = theme.palette.mode === "dark" ? "#7fd8a6" : "#0a8f4f";
 
@@ -212,6 +218,7 @@ const Home = () => {
       <AboutSection />
       <ExperienceSection />
       <ProjectsSection />
+      {showActivity && <ContributionsSection />}
       <SkillsSection />
 
       {/* Footer */}
