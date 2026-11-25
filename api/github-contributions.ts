@@ -9,7 +9,7 @@ export default async function handler(
     const calendar = await fetchContributionCalendar("zekariasasaminew");
     res.setHeader(
       "Cache-Control",
-      "s-maxage=3600, stale-while-revalidate=86400"
+      "s-maxage=300, stale-while-revalidate=300"
     );
     res.status(200).json(calendar);
   } catch {
