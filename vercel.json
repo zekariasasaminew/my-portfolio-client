@@ -34,10 +34,6 @@
     {
       "source": "/ey-internship",
       "destination": "/ey-internship/index.html"
-    },
-    {
-      "source": "/preview/contributions",
-      "destination": "/preview/contributions/index.html"
     }
   ],
   "trailingSlash": false
