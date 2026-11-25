@@ -1,6 +1,6 @@
 export const CELL_PX = 16;
 /** Cells from the cursor to the edge of the tile blob it reveals. */
-const REVEAL_RADIUS = 5;
+const REVEAL_RADIUS = 4;
 
 export type TileSize = 1 | 3 | 6;
 type Category = "brand" | "colour" | "glyph" | "pattern" | "grey";
