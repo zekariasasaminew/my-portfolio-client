@@ -4,6 +4,7 @@ import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { notes } from './src/data/notes'
 import type { Note } from './src/types/note'
+import { fetchGithubContributions } from './api/_lib/contributions'
 
 const SITE = 'https://www.zekariasasaminew.com'
 
@@ -14,6 +15,7 @@ interface RouteMeta {
   description: string
   image: string
   type: 'website' | 'article'
+  noindex?: boolean
 }
 
 const ROUTE_META: RouteMeta[] = [
@@ -46,6 +48,14 @@ const ROUTE_META: RouteMeta[] = [
     description: 'My summer as a Tax Technology & Transformation intern at EY in Chicago.',
     image: '/images/og.png',
     type: 'article',
+  },
+  {
+    path: '/preview/contributions',
+    title: 'GitHub Contributions Preview | Zekarias Asaminew',
+    description: 'Preview of the GitHub contribution graph integrated into the portfolio.',
+    image: '/images/og.png',
+    type: 'website',
+    noindex: true,
   },
   ...notes.map(noteMeta),
 ]
@@ -89,6 +99,9 @@ function withRouteMeta(html: string, meta: RouteMeta): string {
   out = setAttr(out, '<meta name="twitter:description"', 'content', description)
   out = setAttr(out, '<meta name="twitter:image"', 'content', image)
   out = setAttr(out, '<link rel="canonical"', 'href', url)
+  if (meta.noindex) {
+    out = out.replace('</head>', '  <meta name="robots" content="noindex" />\n  </head>')
+  }
   return stripPersonJsonLd(out)
 }
 
@@ -139,8 +152,32 @@ function routeMetaPages(): Plugin {
   }
 }
 
+function devContributionsApi(): Plugin {
+  return {
+    name: 'dev-github-contributions-api',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use('/api/github-contributions', async (req, res) => {
+        try {
+          const url = new URL(req.url ?? '/', 'http://localhost')
+          const range = url.searchParams.get('range')
+          const data = await fetchGithubContributions('zekariasasaminew', range)
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/json')
+          res.setHeader('Cache-Control', 'no-cache')
+          res.end(JSON.stringify(data))
+        } catch {
+          res.statusCode = 502
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify({ error: 'Unable to load GitHub contributions' }))
+        }
+      })
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [react(), routeMetaPages()],
+  plugins: [react(), devContributionsApi(), routeMetaPages()],
   build: {
     rolldownOptions: {
       output: {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Box, Typography, Link, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -153,7 +153,7 @@ const OSSRow = ({ contrib, recentPRs }: { contrib: OpenSourceContribution; recen
   );
 };
 
-const ProjectsSection = () => {
+const ProjectsSection = ({ headerSlot }: { headerSlot?: ReactNode } = {}) => {
   const [livePRsByRepo, setLivePRsByRepo] = useState<Record<string, MergedPR[]>>({});
 
   useEffect(() => {
@@ -181,6 +181,8 @@ const ProjectsSection = () => {
       <Typography component="h2" variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
         projects
       </Typography>
+
+      {headerSlot}
 
       <Box sx={{ mb: 5 }}>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5, textTransform: "uppercase", letterSpacing: "1px", fontSize: "0.7rem" }}>
