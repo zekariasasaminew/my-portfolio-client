@@ -1,4 +1,6 @@
 export const CELL_PX = 16;
+/** Cells from the cursor to the edge of the tile blob it reveals. */
+const REVEAL_RADIUS = 5;
 
 export type TileSize = 1 | 3 | 6;
 type Category = "brand" | "colour" | "glyph" | "pattern" | "grey";
@@ -368,7 +370,7 @@ export function tilesAround(
       const dy = tile.row + (tile.size - 1) / 2 - row;
       const angle = Math.atan2(dy, dx);
       const radius =
-        6 +
+        REVEAL_RADIUS +
         0.55 * Math.sin(3 * angle) +
         0.32 * Math.cos(5 * angle + 0.6) +
         0.28 * cellNoise(tile.col, tile.row) -

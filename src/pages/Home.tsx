@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SpotifyNowPlaying from "../components/SpotifyNowPlaying";
 import AboutSection from "../components/home/AboutSection";
+import ContributionsSection from "../components/home/ContributionsSection";
 import ExperienceSection from "../components/home/ExperienceSection";
 import ProjectsSection from "../components/home/ProjectsSection";
 import SkillsSection from "../components/home/SkillsSection";
@@ -209,6 +210,7 @@ const Home = () => {
         <SpotifyNowPlaying />
       </Box>
 
+      <ContributionsSection />
       <AboutSection />
       <ExperienceSection />
       <ProjectsSection />
